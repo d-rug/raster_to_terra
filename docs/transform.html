@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="the-basics.html"/>
-<link rel="next" href="combine.html"/>
+<link rel="next" href="calculate.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -157,11 +157,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.2</b> Writing data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>3</b> Transform</a></li>
-<li class="chapter" data-level="4" data-path="combine.html"><a href="combine.html"><i class="fa fa-check"></i><b>4</b> Combine</a>
+<li class="chapter" data-level="4" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>4</b> Calculate</a></li>
+<li class="chapter" data-level="5" data-path="combine.html"><a href="combine.html"><i class="fa fa-check"></i><b>5</b> Combine</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="combine.html"><a href="combine.html#querying"><i class="fa fa-check"></i><b>4.1</b> Querying</a></li>
+<li class="chapter" data-level="5.1" data-path="combine.html"><a href="combine.html#querying"><i class="fa fa-check"></i><b>5.1</b> Querying</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>5</b> Calculate</a></li>
 <li class="chapter" data-level="6" data-path="extents.html"><a href="extents.html"><i class="fa fa-check"></i><b>6</b> Extents</a></li>
 <li class="chapter" data-level="7" data-path="what-about-sf-and-stars.html"><a href="what-about-sf-and-stars.html"><i class="fa fa-check"></i><b>7</b> What about sf (and stars)?</a></li>
 <li class="divider"></li>
@@ -188,6 +188,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="transform" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">3</span> Transform<a href="transform.html#transform" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Operation
+</th>
+<th style="text-align:left;">
+Data Type
+</th>
+<th style="text-align:left;">
+Old Functions
+</th>
+<th style="text-align:left;">
+New Functions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+add projection
+</td>
+<td style="text-align:left;">
+all
+</td>
+<td style="text-align:left;">
+crs(x) &lt;-
+</td>
+<td style="text-align:left;">
+crs(x) &lt;-
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+change projection
+</td>
+<td style="text-align:left;">
+raster
+</td>
+<td style="text-align:left;">
+projectRaster
+</td>
+<td style="text-align:left;">
+project
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+change projection
+</td>
+<td style="text-align:left;">
+vector
+</td>
+<td style="text-align:left;">
+sp::spTransform
+</td>
+<td style="text-align:left;">
+project
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+change resolution
+</td>
+<td style="text-align:left;">
+raster
+</td>
+<td style="text-align:left;">
+resample, aggregate, disaggregate
+</td>
+<td style="text-align:left;">
+resample, aggregate, disagg
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+spatial subset
+</td>
+<td style="text-align:left;">
+all
+</td>
+<td style="text-align:left;">
+crop, intersect, mask
+</td>
+<td style="text-align:left;">
+crop, intersect, mask
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+spatial subset
+</td>
+<td style="text-align:left;">
+vector
+</td>
+<td style="text-align:left;">
+crop, intersect, rgeos::gIntersection,
+</td>
+<td style="text-align:left;">
+crop, intersect
+</td>
+</tr>
+</tbody>
+</table>
 <p>Most of the methods for transforming spatial data remain the same from raster.
 The exception to that is <code>raster::projectRaster()</code>, which now becomes
 <code>terra::project()</code> and now works for both rasters and vectors.</p>
@@ -199,11 +303,11 @@ The exception to that is <code>raster::projectRaster()</code>, which now becomes
 <span id="cb9-6"><a href="transform.html#cb9-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                              expr      min       lq     mean
-##                 terra::project(elev, &quot;epsg:3310&quot;) 42.47698 44.87852 48.63222
-##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 50.81626 54.40495 76.83586
-##    median        uq      max neval
-##  45.04941  45.28376  77.3996    10
-##  55.98021 108.83372 155.2551    10</code></pre>
+##                 terra::project(elev, &quot;epsg:3310&quot;) 42.23816 44.71567 48.28620
+##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 54.45587 54.85124 82.17683
+##    median        uq       max neval
+##  45.06173  46.05243  73.05708    10
+##  58.14643 119.56801 167.90968    10</code></pre>
 </div>
             </section>
 
@@ -211,7 +315,7 @@ The exception to that is <code>raster::projectRaster()</code>, which now becomes
         </div>
       </div>
 <a href="the-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="combine.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="calculate.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

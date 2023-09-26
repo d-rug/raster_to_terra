@@ -157,11 +157,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.2</b> Writing data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>3</b> Transform</a></li>
-<li class="chapter" data-level="4" data-path="combine.html"><a href="combine.html"><i class="fa fa-check"></i><b>4</b> Combine</a>
+<li class="chapter" data-level="4" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>4</b> Calculate</a></li>
+<li class="chapter" data-level="5" data-path="combine.html"><a href="combine.html"><i class="fa fa-check"></i><b>5</b> Combine</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="combine.html"><a href="combine.html#querying"><i class="fa fa-check"></i><b>4.1</b> Querying</a></li>
+<li class="chapter" data-level="5.1" data-path="combine.html"><a href="combine.html#querying"><i class="fa fa-check"></i><b>5.1</b> Querying</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>5</b> Calculate</a></li>
 <li class="chapter" data-level="6" data-path="extents.html"><a href="extents.html"><i class="fa fa-check"></i><b>6</b> Extents</a></li>
 <li class="chapter" data-level="7" data-path="what-about-sf-and-stars.html"><a href="what-about-sf-and-stars.html"><i class="fa fa-check"></i><b>7</b> What about sf (and stars)?</a></li>
 <li class="divider"></li>
@@ -196,26 +196,26 @@ the flexibility in your choice of file type that GDAL provides.</p>
 <thead>
 <tr>
 <th style="text-align:left;">
-DataType
-</th>
-<th style="text-align:left;">
 Operation
 </th>
 <th style="text-align:left;">
-old
+Data Type
 </th>
 <th style="text-align:left;">
-terra
+Old Functions
+</th>
+<th style="text-align:left;">
+New Functions
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-raster
+read data
 </td>
 <td style="text-align:left;">
-read data
+raster
 </td>
 <td style="text-align:left;">
 raster, stack, brick
@@ -226,10 +226,10 @@ rast
 </tr>
 <tr>
 <td style="text-align:left;">
-vector
+read data
 </td>
 <td style="text-align:left;">
-read data
+vector
 </td>
 <td style="text-align:left;">
 shapefile, rgdal::readOGR
@@ -240,10 +240,10 @@ vect
 </tr>
 <tr>
 <td style="text-align:left;">
-raster
+write data
 </td>
 <td style="text-align:left;">
-write data
+raster
 </td>
 <td style="text-align:left;">
 writeRaster
@@ -254,10 +254,10 @@ writeRaster
 </tr>
 <tr>
 <td style="text-align:left;">
-vector
+write data
 </td>
 <td style="text-align:left;">
-write data
+vector
 </td>
 <td style="text-align:left;">
 shapefile, rgdal::writeOGR
@@ -277,9 +277,9 @@ writeVector
 <span id="cb2-7"><a href="the-basics.html#cb2-7" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
 <span id="cb2-8"><a href="the-basics.html#cb2-8" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##             expr      min        lq      mean    median       uq       max
-##    rast(elev_fn)  636.771  660.8995  733.0566  698.1685  715.819  4547.679
-##  raster(elev_fn) 6466.192 6560.4100 6965.5248 6608.6260 6715.083 21746.564
+##             expr      min        lq      mean   median        uq       max
+##    rast(elev_fn)  625.414  667.1725  699.0242  698.271  721.5385   803.026
+##  raster(elev_fn) 6487.717 6600.7745 7071.6681 6667.502 6768.8335 22434.298
 ##  neval
 ##    100
 ##    100</code></pre>
@@ -315,29 +315,27 @@ just specify <code>filetype</code> from the get-go.</p>
 ##                                                                                                     expr
 ##   terra::writeRaster(elev, filename = &quot;data/elevation.GTiff&quot;, filetype = &quot;GTiff&quot;,      overwrite = TRUE)
 ##  raster::writeRaster(r_elev, filename = &quot;data/elevation.GTiff&quot;,      format = &quot;GTiff&quot;, overwrite = TRUE)
-##        min        lq      mean   median        uq       max neval
-##   2.276853  2.354056  2.690137  2.46166  2.534497  8.796632   100
-##  24.249286 24.731692 27.614151 25.11330 29.040628 60.784345   100</code></pre>
+##        min        lq     mean    median        uq       max neval
+##   2.271072  2.365044  2.70066  2.473489  2.574718  7.805949   100
+##  24.201234 24.661008 27.39977 24.869104 28.523147 55.865001   100</code></pre>
 <p>With <code>spatVectors</code> we get <code>writeVector()</code>, which largely mirrors <code>writeRaster()</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="the-basics.html#cb7-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
 <span id="cb7-2"><a href="the-basics.html#cb7-2" tabindex="-1"></a>  <span class="fu">writeVector</span>(lux, </span>
 <span id="cb7-3"><a href="the-basics.html#cb7-3" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
-<span id="cb7-4"><a href="the-basics.html#cb7-4" tabindex="-1"></a>            <span class="at">filetype=</span><span class="st">&#39;ESRI Shapefile&#39;</span>,</span>
-<span id="cb7-5"><a href="the-basics.html#cb7-5" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
-<span id="cb7-6"><a href="the-basics.html#cb7-6" tabindex="-1"></a>  <span class="fu">shapefile</span>(sp_lux, </span>
-<span id="cb7-7"><a href="the-basics.html#cb7-7" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
-<span id="cb7-8"><a href="the-basics.html#cb7-8" tabindex="-1"></a>            <span class="at">filetype=</span><span class="st">&#39;ESRI Shapefile&#39;</span>,</span>
-<span id="cb7-9"><a href="the-basics.html#cb7-9" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
-<span id="cb7-10"><a href="the-basics.html#cb7-10" tabindex="-1"></a>  </span>
-<span id="cb7-11"><a href="the-basics.html#cb7-11" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
-<span id="cb7-12"><a href="the-basics.html#cb7-12" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb7-4"><a href="the-basics.html#cb7-4" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb7-5"><a href="the-basics.html#cb7-5" tabindex="-1"></a>  <span class="fu">shapefile</span>(sp_lux, </span>
+<span id="cb7-6"><a href="the-basics.html#cb7-6" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
+<span id="cb7-7"><a href="the-basics.html#cb7-7" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb7-8"><a href="the-basics.html#cb7-8" tabindex="-1"></a>  </span>
+<span id="cb7-9"><a href="the-basics.html#cb7-9" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
+<span id="cb7-10"><a href="the-basics.html#cb7-10" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##                                                                                              expr
-##   writeVector(lux, filename = &quot;data/lux.shp&quot;, filetype = &quot;ESRI Shapefile&quot;,      overwrite = TRUE)
-##  shapefile(sp_lux, filename = &quot;data/lux.shp&quot;, filetype = &quot;ESRI Shapefile&quot;,      overwrite = TRUE)
-##       min       lq      mean    median        uq      max neval
-##   841.525  892.406  961.7493  921.4955  987.4235  1323.07   100
-##  3127.152 3333.833 3785.8100 3480.7155 3661.4025 17811.96   100</code></pre>
+##                                                            expr      min
+##   writeVector(lux, filename = &quot;data/lux.shp&quot;, overwrite = TRUE)  884.165
+##  shapefile(sp_lux, filename = &quot;data/lux.shp&quot;, overwrite = TRUE) 3307.552
+##        lq     mean    median       uq       max neval
+##   939.187 1073.070  969.3835 1040.539  7741.169   100
+##  3520.404 3882.125 3611.1570 3777.269 11118.708   100</code></pre>
 </div>
 </div>
             </section>

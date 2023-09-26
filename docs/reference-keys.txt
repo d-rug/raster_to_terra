@@ -6,8 +6,8 @@ the-basics
 reading-in-data
 writing-data
 transform
+calculate
 combine
 querying
-calculate
 extents
 what-about-sf-and-stars
