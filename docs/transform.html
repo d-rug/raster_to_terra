@@ -191,19 +191,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Most of the methods for transforming spatial data remain the same from raster.
 The exception to that is <code>raster::projectRaster()</code>, which now becomes
 <code>terra::project()</code> and now works for both rasters and vectors.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="transform.html#cb25-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb25-2"><a href="transform.html#cb25-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">project</span>(elev, <span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb25-3"><a href="transform.html#cb25-3" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">projectRaster</span>(r_elev, <span class="at">crs=</span><span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb25-4"><a href="transform.html#cb25-4" tabindex="-1"></a>  </span>
-<span id="cb25-5"><a href="transform.html#cb25-5" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">10</span></span>
-<span id="cb25-6"><a href="transform.html#cb25-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="transform.html#cb9-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb9-2"><a href="transform.html#cb9-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">project</span>(elev, <span class="st">&quot;epsg:3310&quot;</span>),</span>
+<span id="cb9-3"><a href="transform.html#cb9-3" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">projectRaster</span>(r_elev, <span class="at">crs=</span><span class="st">&quot;epsg:3310&quot;</span>),</span>
+<span id="cb9-4"><a href="transform.html#cb9-4" tabindex="-1"></a>  </span>
+<span id="cb9-5"><a href="transform.html#cb9-5" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">10</span></span>
+<span id="cb9-6"><a href="transform.html#cb9-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                              expr      min       lq     mean
-##                 terra::project(elev, &quot;epsg:3310&quot;) 40.77634 41.26367 45.29217
-##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 49.67679 51.46267 66.56279
-##    median       uq       max neval
-##  41.89909 43.59829  66.89052    10
-##  54.25626 56.03519 125.79259    10</code></pre>
+##                 terra::project(elev, &quot;epsg:3310&quot;) 42.47698 44.87852 48.63222
+##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 50.81626 54.40495 76.83586
+##    median        uq      max neval
+##  45.04941  45.28376  77.3996    10
+##  55.98021 108.83372 155.2551    10</code></pre>
 </div>
             </section>
 

@@ -201,66 +201,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="terra-a-birds-eye-view.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(microbenchmark) <span class="co"># for speed testing</span></span>
 <span id="cb1-2"><a href="terra-a-birds-eye-view.html#cb1-2" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="terra-a-birds-eye-view.html#cb1-3" tabindex="-1"></a><span class="co">#new packages</span></span>
-<span id="cb1-4"><a href="terra-a-birds-eye-view.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(terra) </span></code></pre></div>
-<pre><code>## terra 1.7.49</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="terra-a-birds-eye-view.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(geodata)</span>
-<span id="cb3-2"><a href="terra-a-birds-eye-view.html#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="terra-a-birds-eye-view.html#cb3-3" tabindex="-1"></a><span class="co">#old packages</span></span>
-<span id="cb3-4"><a href="terra-a-birds-eye-view.html#cb3-4" tabindex="-1"></a><span class="fu">library</span>(raster)</span></code></pre></div>
-<pre><code>## Loading required package: sp</code></pre>
-<pre><code>## The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,
-## which was just loaded, will retire in October 2023.
-## Please refer to R-spatial evolution reports for details, especially
-## https://r-spatial.org/r/2023/05/15/evolution4.html.
-## It may be desirable to make the sf package available;
-## package maintainers should consider adding sf to Suggests:.
-## The sp package is now running under evolution status 2
-##      (status 2 uses the sf package in place of rgdal)</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="terra-a-birds-eye-view.html#cb6-1" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span></code></pre></div>
-<pre><code>## Please note that rgdal will be retired during October 2023,
-## plan transition to sf/stars/terra functions using GDAL and PROJ
-## at your earliest convenience.
-## See https://r-spatial.org/r/2023/05/15/evolution4.html and https://github.com/r-spatial/evolution
-## rgdal: version: 1.6-7, (SVN revision 1203)
-## Geospatial Data Abstraction Library extensions to R successfully loaded
-## Loaded GDAL runtime: GDAL 3.5.3, released 2022/10/21
-## Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/rgdal/gdal
-##  GDAL does not use iconv for recoding strings.
-## GDAL binary built with GEOS: TRUE 
-## Loaded PROJ runtime: Rel. 9.1.0, September 1st, 2022, [PJ_VERSION: 910]
-## Path to PROJ shared files: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/rgdal/proj
-## PROJ CDN enabled: FALSE
-## Linking to sp version:1.6-1
-## To mute warnings of possible GDAL/OSR exportToProj4() degradation,
-## use options(&quot;rgdal_show_exportToProj4_warnings&quot;=&quot;none&quot;) before loading sp or rgdal.</code></pre>
-<pre><code>## 
-## Attaching package: &#39;rgdal&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:terra&#39;:
-## 
-##     project</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="terra-a-birds-eye-view.html#cb10-1" tabindex="-1"></a><span class="co">#table formatting</span></span>
-<span id="cb10-2"><a href="terra-a-birds-eye-view.html#cb10-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;data.table&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:raster&#39;:
-## 
-##     shift</code></pre>
-<pre><code>## The following object is masked from &#39;package:terra&#39;:
-## 
-##     shift</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="terra-a-birds-eye-view.html#cb14-1" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb14-2"><a href="terra-a-birds-eye-view.html#cb14-2" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="terra-a-birds-eye-view.html#cb14-3" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb14-4"><a href="terra-a-birds-eye-view.html#cb14-4" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="terra-a-birds-eye-view.html#cb14-5" tabindex="-1"></a>funs <span class="ot">=</span> <span class="fu">fread</span>(<span class="st">&#39;data/raster_to_terra_funs.csv&#39;</span>)</span>
-<span id="cb14-6"><a href="terra-a-birds-eye-view.html#cb14-6" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="terra-a-birds-eye-view.html#cb14-7" tabindex="-1"></a>vars <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;DataType&#39;</span>, <span class="st">&#39;Operation&#39;</span>, <span class="st">&#39;old&#39;</span>, <span class="st">&#39;terra&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="terra-a-birds-eye-view.html#cb15-1" tabindex="-1"></a><span class="co"># from geodata package</span></span>
-<span id="cb15-2"><a href="terra-a-birds-eye-view.html#cb15-2" tabindex="-1"></a>bio <span class="ot">=</span> <span class="fu">worldclim_tile</span>(<span class="st">&#39;bio&#39;</span>, <span class="at">lon=</span><span class="sc">-</span><span class="dv">119</span>, <span class="at">lat=</span><span class="dv">38</span>, <span class="at">res=</span><span class="fl">2.5</span>, <span class="at">path=</span><span class="st">&#39;data&#39;</span>)</span>
-<span id="cb15-3"><a href="terra-a-birds-eye-view.html#cb15-3" tabindex="-1"></a>usa <span class="ot">=</span> <span class="fu">gadm</span>(<span class="st">&#39;USA&#39;</span>, <span class="at">path=</span><span class="st">&#39;data&#39;</span>)</span>
-<span id="cb15-4"><a href="terra-a-birds-eye-view.html#cb15-4" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="terra-a-birds-eye-view.html#cb15-5" tabindex="-1"></a><span class="fu">writeVector</span>(usa, <span class="st">&#39;data/usa.geojson&#39;</span>, <span class="at">filetype=</span><span class="st">&#39;GeoJSON&#39;</span>)</span>
-<span id="cb15-6"><a href="terra-a-birds-eye-view.html#cb15-6" tabindex="-1"></a><span class="fu">writeVector</span>(usa, <span class="st">&#39;data/USA/usa.shp&#39;</span>, <span class="at">filetype=</span><span class="st">&#39;ESRI Shapefile&#39;</span>)</span></code></pre></div>
+<span id="cb1-4"><a href="terra-a-birds-eye-view.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(terra) </span>
+<span id="cb1-5"><a href="terra-a-birds-eye-view.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(geodata)</span>
+<span id="cb1-6"><a href="terra-a-birds-eye-view.html#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="terra-a-birds-eye-view.html#cb1-7" tabindex="-1"></a><span class="co">#old packages</span></span>
+<span id="cb1-8"><a href="terra-a-birds-eye-view.html#cb1-8" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb1-9"><a href="terra-a-birds-eye-view.html#cb1-9" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
+<span id="cb1-10"><a href="terra-a-birds-eye-view.html#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="terra-a-birds-eye-view.html#cb1-11" tabindex="-1"></a><span class="co">#table formatting</span></span>
+<span id="cb1-12"><a href="terra-a-birds-eye-view.html#cb1-12" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-13"><a href="terra-a-birds-eye-view.html#cb1-13" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-14"><a href="terra-a-birds-eye-view.html#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="terra-a-birds-eye-view.html#cb1-15" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb1-16"><a href="terra-a-birds-eye-view.html#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="terra-a-birds-eye-view.html#cb1-17" tabindex="-1"></a>funs <span class="ot">=</span> <span class="fu">fread</span>(<span class="st">&#39;data/raster_to_terra_funs.csv&#39;</span>)</span>
+<span id="cb1-18"><a href="terra-a-birds-eye-view.html#cb1-18" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="terra-a-birds-eye-view.html#cb1-19" tabindex="-1"></a>vars <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;DataType&#39;</span>, <span class="st">&#39;Operation&#39;</span>, <span class="st">&#39;old&#39;</span>, <span class="st">&#39;terra&#39;</span>)</span>
+<span id="cb1-20"><a href="terra-a-birds-eye-view.html#cb1-20" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="terra-a-birds-eye-view.html#cb1-21" tabindex="-1"></a>elev_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/elev.tif&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
+<span id="cb1-22"><a href="terra-a-birds-eye-view.html#cb1-22" tabindex="-1"></a>lux_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/lux.shp&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
+<span id="cb1-23"><a href="terra-a-birds-eye-view.html#cb1-23" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="terra-a-birds-eye-view.html#cb1-24" tabindex="-1"></a>elev <span class="ot">=</span> <span class="fu">rast</span>(elev_fn)</span>
+<span id="cb1-25"><a href="terra-a-birds-eye-view.html#cb1-25" tabindex="-1"></a>r_elev <span class="ot">=</span> <span class="fu">raster</span>(elev)</span>
+<span id="cb1-26"><a href="terra-a-birds-eye-view.html#cb1-26" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="terra-a-birds-eye-view.html#cb1-27" tabindex="-1"></a>lux <span class="ot">=</span> <span class="fu">vect</span>(lux_fn)</span>
+<span id="cb1-28"><a href="terra-a-birds-eye-view.html#cb1-28" tabindex="-1"></a>sp_lux <span class="ot">=</span> <span class="fu">shapefile</span>(lux_fn)</span></code></pre></div>
 </div>
             </section>
 

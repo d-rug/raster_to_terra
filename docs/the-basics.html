@@ -192,11 +192,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.1</span> Reading in data<a href="the-basics.html#reading-in-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Reading and writing data functionality is based on GDAL, so you will have all
 the flexibility in your choice of file type that GDAL provides.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="the-basics.html#cb16-1" tabindex="-1"></a>io <span class="ot">=</span> funs[OperationGroup<span class="sc">==</span><span class="st">&#39;I/O&#39;</span>, ..vars]</span>
-<span id="cb16-2"><a href="the-basics.html#cb16-2" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="the-basics.html#cb16-3" tabindex="-1"></a>io <span class="sc">%&gt;%</span> </span>
-<span id="cb16-4"><a href="the-basics.html#cb16-4" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb16-5"><a href="the-basics.html#cb16-5" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -273,546 +268,29 @@ writeVector
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="the-basics.html#cb17-1" tabindex="-1"></a><span class="co"># reading raster data </span></span>
-<span id="cb17-2"><a href="the-basics.html#cb17-2" tabindex="-1"></a>elev_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/elev.tif&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
-<span id="cb17-3"><a href="the-basics.html#cb17-3" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="the-basics.html#cb17-4" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb17-5"><a href="the-basics.html#cb17-5" tabindex="-1"></a>  <span class="fu">rast</span>(elev_fn),</span>
-<span id="cb17-6"><a href="the-basics.html#cb17-6" tabindex="-1"></a>  <span class="fu">raster</span>(elev_fn),</span>
-<span id="cb17-7"><a href="the-basics.html#cb17-7" tabindex="-1"></a>  </span>
-<span id="cb17-8"><a href="the-basics.html#cb17-8" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
-<span id="cb17-9"><a href="the-basics.html#cb17-9" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="the-basics.html#cb2-1" tabindex="-1"></a><span class="co"># reading raster data </span></span>
+<span id="cb2-2"><a href="the-basics.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="the-basics.html#cb2-3" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb2-4"><a href="the-basics.html#cb2-4" tabindex="-1"></a>  <span class="fu">rast</span>(elev_fn),</span>
+<span id="cb2-5"><a href="the-basics.html#cb2-5" tabindex="-1"></a>  <span class="fu">raster</span>(elev_fn),</span>
+<span id="cb2-6"><a href="the-basics.html#cb2-6" tabindex="-1"></a>  </span>
+<span id="cb2-7"><a href="the-basics.html#cb2-7" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
+<span id="cb2-8"><a href="the-basics.html#cb2-8" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Unit: microseconds
-##             expr      min        lq      mean    median        uq       max
-##    rast(elev_fn)  625.455  660.2025  837.7095  695.8315  719.5295   9427.54
-##  raster(elev_fn) 6436.836 6541.1195 9698.8616 6622.6890 6716.4765 271277.20
+##             expr      min        lq      mean    median       uq       max
+##    rast(elev_fn)  636.771  660.8995  733.0566  698.1685  715.819  4547.679
+##  raster(elev_fn) 6466.192 6560.4100 6965.5248 6608.6260 6715.083 21746.564
 ##  neval
 ##    100
 ##    100</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="the-basics.html#cb19-1" tabindex="-1"></a><span class="co">#reading vector data</span></span>
-<span id="cb19-2"><a href="the-basics.html#cb19-2" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="the-basics.html#cb19-3" tabindex="-1"></a>lux_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/lux.shp&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
-<span id="cb19-4"><a href="the-basics.html#cb19-4" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="the-basics.html#cb19-5" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb19-6"><a href="the-basics.html#cb19-6" tabindex="-1"></a>  <span class="fu">vect</span>(lux_fn),</span>
-<span id="cb19-7"><a href="the-basics.html#cb19-7" tabindex="-1"></a>  <span class="fu">shapefile</span>(lux_fn),</span>
-<span id="cb19-8"><a href="the-basics.html#cb19-8" tabindex="-1"></a>  <span class="fu">readOGR</span>(lux_fn),</span>
-<span id="cb19-9"><a href="the-basics.html#cb19-9" tabindex="-1"></a>  </span>
-<span id="cb19-10"><a href="the-basics.html#cb19-10" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">100</span></span>
-<span id="cb19-11"><a href="the-basics.html#cb19-11" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP 
-## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/lux.shp&quot;, layer: &quot;lux&quot;
-## with 12 features
-## It has 6 fields
-## Integer64 fields read as strings:  POP</code></pre>
-<pre><code>## Unit: microseconds
-##               expr        min          lq       mean      median         uq
-##       vect(lux_fn)    728.939    778.9385   1007.157    856.7565   1089.595
-##  shapefile(lux_fn)  10299.323  10726.2355  11397.185  11157.9655  11816.180
-##    readOGR(lux_fn) 357801.875 358997.8860 360530.139 359926.8025 361078.144
-##        max neval
-##   10977.75   100
-##   19452.78   100
-##  372546.91   100</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="the-basics.html#cb22-1" tabindex="-1"></a>elev <span class="ot">=</span> <span class="fu">rast</span>(elev_fn)</span>
-<span id="cb22-2"><a href="the-basics.html#cb22-2" tabindex="-1"></a>lux <span class="ot">=</span> <span class="fu">vect</span>(lux_fn)</span>
-<span id="cb22-3"><a href="the-basics.html#cb22-3" tabindex="-1"></a>r_elev <span class="ot">=</span> <span class="fu">raster</span>(elev)</span>
-<span id="cb22-4"><a href="the-basics.html#cb22-4" tabindex="-1"></a>sp_lux <span class="ot">=</span> <span class="fu">shapefile</span>(lux_fn)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="the-basics.html#cb4-1" tabindex="-1"></a><span class="co">#reading vector data</span></span>
+<span id="cb4-2"><a href="the-basics.html#cb4-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb4-3"><a href="the-basics.html#cb4-3" tabindex="-1"></a>  <span class="fu">vect</span>(lux_fn),</span>
+<span id="cb4-4"><a href="the-basics.html#cb4-4" tabindex="-1"></a>  <span class="fu">shapefile</span>(lux_fn),</span>
+<span id="cb4-5"><a href="the-basics.html#cb4-5" tabindex="-1"></a>  <span class="fu">readOGR</span>(lux_fn),</span>
+<span id="cb4-6"><a href="the-basics.html#cb4-6" tabindex="-1"></a>  </span>
+<span id="cb4-7"><a href="the-basics.html#cb4-7" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">100</span></span>
+<span id="cb4-8"><a href="the-basics.html#cb4-8" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="writing-data" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Writing data<a href="the-basics.html#writing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -821,12 +299,45 @@ specifying the type of file written has changed from <code>format</code> (in <co
 <code>filetype</code> (in <code>terra</code>). Additionally, while in theory the function can
 automatically detect the file type, it seems to rarely work, so it is better to
 just specify <code>filetype</code> from the get-go.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="the-basics.html#cb23-1" tabindex="-1"></a><span class="fu">writeRaster</span>(elev, </span>
-<span id="cb23-2"><a href="the-basics.html#cb23-2" tabindex="-1"></a>            <span class="at">filename=</span><span class="fu">paste0</span>(<span class="st">&#39;data/elevation.GTiff&#39;</span>), </span>
-<span id="cb23-3"><a href="the-basics.html#cb23-3" tabindex="-1"></a>            <span class="at">filetype=</span><span class="st">&#39;GTiff&#39;</span>,</span>
-<span id="cb23-4"><a href="the-basics.html#cb23-4" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="the-basics.html#cb5-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb5-2"><a href="the-basics.html#cb5-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">writeRaster</span>(elev,</span>
+<span id="cb5-3"><a href="the-basics.html#cb5-3" tabindex="-1"></a>                     <span class="at">filename=</span><span class="st">&#39;data/elevation.GTiff&#39;</span>,</span>
+<span id="cb5-4"><a href="the-basics.html#cb5-4" tabindex="-1"></a>                     <span class="at">filetype=</span><span class="st">&#39;GTiff&#39;</span>, </span>
+<span id="cb5-5"><a href="the-basics.html#cb5-5" tabindex="-1"></a>                     <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb5-6"><a href="the-basics.html#cb5-6" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">writeRaster</span>(r_elev,</span>
+<span id="cb5-7"><a href="the-basics.html#cb5-7" tabindex="-1"></a>                      <span class="at">filename=</span><span class="st">&#39;data/elevation.GTiff&#39;</span>,</span>
+<span id="cb5-8"><a href="the-basics.html#cb5-8" tabindex="-1"></a>                      <span class="at">format=</span><span class="st">&#39;GTiff&#39;</span>,</span>
+<span id="cb5-9"><a href="the-basics.html#cb5-9" tabindex="-1"></a>                      <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb5-10"><a href="the-basics.html#cb5-10" tabindex="-1"></a>  </span>
+<span id="cb5-11"><a href="the-basics.html#cb5-11" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
+<span id="cb5-12"><a href="the-basics.html#cb5-12" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Unit: milliseconds
+##                                                                                                     expr
+##   terra::writeRaster(elev, filename = &quot;data/elevation.GTiff&quot;, filetype = &quot;GTiff&quot;,      overwrite = TRUE)
+##  raster::writeRaster(r_elev, filename = &quot;data/elevation.GTiff&quot;,      format = &quot;GTiff&quot;, overwrite = TRUE)
+##        min        lq      mean   median        uq       max neval
+##   2.276853  2.354056  2.690137  2.46166  2.534497  8.796632   100
+##  24.249286 24.731692 27.614151 25.11330 29.040628 60.784345   100</code></pre>
 <p>With <code>spatVectors</code> we get <code>writeVector()</code>, which largely mirrors <code>writeRaster()</code>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="the-basics.html#cb24-1" tabindex="-1"></a><span class="fu">writeVector</span>(lux, <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, <span class="at">filetype=</span><span class="st">&#39;ESRI Shapefile&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="the-basics.html#cb7-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb7-2"><a href="the-basics.html#cb7-2" tabindex="-1"></a>  <span class="fu">writeVector</span>(lux, </span>
+<span id="cb7-3"><a href="the-basics.html#cb7-3" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
+<span id="cb7-4"><a href="the-basics.html#cb7-4" tabindex="-1"></a>            <span class="at">filetype=</span><span class="st">&#39;ESRI Shapefile&#39;</span>,</span>
+<span id="cb7-5"><a href="the-basics.html#cb7-5" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb7-6"><a href="the-basics.html#cb7-6" tabindex="-1"></a>  <span class="fu">shapefile</span>(sp_lux, </span>
+<span id="cb7-7"><a href="the-basics.html#cb7-7" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
+<span id="cb7-8"><a href="the-basics.html#cb7-8" tabindex="-1"></a>            <span class="at">filetype=</span><span class="st">&#39;ESRI Shapefile&#39;</span>,</span>
+<span id="cb7-9"><a href="the-basics.html#cb7-9" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb7-10"><a href="the-basics.html#cb7-10" tabindex="-1"></a>  </span>
+<span id="cb7-11"><a href="the-basics.html#cb7-11" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
+<span id="cb7-12"><a href="the-basics.html#cb7-12" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Unit: microseconds
+##                                                                                              expr
+##   writeVector(lux, filename = &quot;data/lux.shp&quot;, filetype = &quot;ESRI Shapefile&quot;,      overwrite = TRUE)
+##  shapefile(sp_lux, filename = &quot;data/lux.shp&quot;, filetype = &quot;ESRI Shapefile&quot;,      overwrite = TRUE)
+##       min       lq      mean    median        uq      max neval
+##   841.525  892.406  961.7493  921.4955  987.4235  1323.07   100
+##  3127.152 3333.833 3785.8100 3480.7155 3661.4025 17811.96   100</code></pre>
 </div>
 </div>
             </section>
