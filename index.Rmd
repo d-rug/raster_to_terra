@@ -170,14 +170,6 @@ microbenchmark(
 
 ```
 
-
-
-
-```{r read_in}
-
-
-```
-
 ## Writing data
 
 The function `writeRaster()` is relatively unchanged, though the argument 
@@ -210,11 +202,9 @@ With `spatVectors` we get `writeVector()`, which largely mirrors `writeRaster()`
 microbenchmark(
   writeVector(lux, 
             filename='data/lux.shp', 
-            filetype='ESRI Shapefile',
             overwrite=TRUE),
   shapefile(sp_lux, 
             filename='data/lux.shp', 
-            filetype='ESRI Shapefile',
             overwrite=TRUE),
   
   times = 100
