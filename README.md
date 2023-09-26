@@ -1,73 +1,30 @@
-# Template: Workshop Reader
+# Raster To Terra (and geodata): Modernizing spatial data analysis
 
-This repository is a template for workshop readers for the UC Davis DataLab.
-This template uses **bookdown** to knit the reader. You can also optionally use
-**renv** to manage packages and Git Large File Storage to manage large files
-(instructions included).
+_[UC Davis DataLab](https://datalab.ucdavis.edu/)_
 
-To get started, create a new repo on GitHub from this template
-([instructions][gh]), then `git clone` your new repo.
+_Fall 2023_  
 
-[gh]: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template
+_Instructor/Maintainer: Elise Hellwig <<echellwig@ucdavis.edu>>_  
 
-Once you've cloned the repo, here's a checklist of things to do to prepare the
-repo:
+* [Reader](https://github.com/d-rug/raster_to_terra)
 
-1. **renv** (optional): To set up **renv**, open R at the top level of the repo
-   and run:
+No one wants to relearn something they already know how to do. But sometimes 
+there's no other choice. The sp, rgdal, rgeos, and maptools packages will be
+[gone by the end of 2023](https://r-spatial.org/r/2023/05/15/evolution4.html).
+The raster package is not long for this world [either](https://rspatial.org/raster/).
+sf is nice, but it doesn't have the necessary raster functionality for many
+types of analysis. This workshop aims to make the transition from raster to
+terra as painless as possible. 
 
-    ```r
-    renv::init()
-    ```
+## Learning Goals
 
-    Restart R. Then, to install the **bookdown** toolchain to the project
-    package library, run:
+- Get a sense for the functionality of the terra package as a whole
+- Be able to translate existing code from deprecated packages to terra syntax
+- Know where to find more information about `terra`.
 
-    ```r
-    install.packages("bookdown")
-    renv::snapshot()
-    ```
+## Prerequisites
 
-    You can skip this step if you're not going to use **renv**.
-
-2. `index.Rmd`: Replace the all-caps text with your workshop details.
-    + Title (in 2 places, 1 of them in the `output:` HTML block)
-    + Author's name
-    + Repo name (in 4 places, 2 of them in the `output:` HTML block)
-    + Description, learning goals, & prerequisites
-
-3. `README.md`: Replace the all-caps text with your workshop details.
-    + Title
-    + Quarter & year
-    + Author's name & email
-    + Reader URL
-    + Event URL
-    + Description, learning goals, & prerequisites
-
-4. GitHub: In the repo's About section, add the reader URL and appropriate
-   tags.
-
-5. GitHub: In the repo's Settings page, enable GitHub pages. Set the branch to
-   `main` and the directory to `docs/`.
-
-6. `README.md`: Remove these template instructions, which end at the `#
-   Workshop:` header below
-
-7. `git add` all changed files, then `git commit` and `git push`.
-
-
-# Workshop: YOUR WORKSHOP TITLE
-
-_[UC Davis DataLab](https://datalab.ucdavis.edu/)_  
-_QUARTER YEAR_  
-_Instructor: YOUR NAME <<YOUR_EMAIL@ucdavis.edu>>_  
-_Maintainer: MAINTAINER'S NAME <<MAINTAINER_EMAIL@ucdavis.edu>>_
-
-* [Reader](https://ucdavisdatalab.github.io/YOUR_REPOSITORY/)
-* [Event Page](https://datalab.ucdavis.edu/eventscalendar/YOUR_EVENT/)
-
-YOUR DESCRIPTION, LEARNING GOALS, PREREQUISITES, ETC
-
+- Familiarity with the raster and sp packages 
 
 ## Contributing
 
@@ -196,23 +153,5 @@ repo.
 
 [git-lfs]: https://git-lfs.github.com/
 -->
-
-
-### R Packages
-
-This repo uses [**renv**](https://rstudio.github.io/renv/) for package
-management. Install **renv** according to the installation instructions on
-their website.
-
-Then open an R session at the top level of the repo and run:
-
-```r
-renv::restore()
-```
-
-This will download and install the correct versions of all the required
-packages to **renv**'s package library. This is separate from your global R
-package library and will not interfere with other versions of packages you have
-installed.
 
 [Back to Top](#top)
