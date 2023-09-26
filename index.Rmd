@@ -216,6 +216,16 @@ microbenchmark(
 
 # Transform
 
+```{r transform_table, echo=FALSE}
+
+trns = funs[OperationGroup=='Transform', ..vars]
+
+trns %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling()
+
+```
+
 Most of the methods for transforming spatial data remain the same from raster.
 The exception to that is `raster::projectRaster()`, which now becomes 
 `terra::project()` and now works for both rasters and vectors. 
