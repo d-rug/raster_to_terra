@@ -97,9 +97,7 @@ library(kableExtra)
 
 options(warn=-1)
 
-funs = fread('data/raster_to_terra_funs.csv')
 
-vars = c('DataType', 'Operation', 'old', 'terra')
 
 elev_fn = system.file("ex/elev.tif", package="terra")
 lux_fn = system.file("ex/lux.shp", package="terra")
@@ -113,6 +111,16 @@ sp_lux = shapefile(lux_fn)
 
 
 ```
+
+
+```{r table_setup, echo=FALSE}
+
+funs = fread('data/raster_to_terra_funs.csv')
+
+vars = c('DataType', 'Operation', 'old', 'terra')
+
+```
+
 
 # The basics
 
