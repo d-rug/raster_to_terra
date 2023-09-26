@@ -79,7 +79,7 @@ Old Packages: sp, raster, rgdal, rgeos, maptools
 New Packages: terra and geodata (for data)
 
 
-```{r setup}
+```{r setup, message=FALSE, warning=FALSE}
 
 library(microbenchmark) # for speed testing
 
@@ -101,6 +101,17 @@ funs = fread('data/raster_to_terra_funs.csv')
 
 vars = c('DataType', 'Operation', 'old', 'terra')
 
+elev_fn = system.file("ex/elev.tif", package="terra")
+lux_fn = system.file("ex/lux.shp", package="terra")
+
+elev = rast(elev_fn)
+r_elev = raster(elev)
+
+lux = vect(lux_fn)
+sp_lux = shapefile(lux_fn)
+
+
+
 ```
 
 # The basics
@@ -110,7 +121,7 @@ vars = c('DataType', 'Operation', 'old', 'terra')
 Reading and writing data functionality is based on GDAL, so you will have all 
 the flexibility in your choice of file type that GDAL provides. 
 
-```{r io_table}
+```{r io_table, echo=FALSE}
 
 io = funs[OperationGroup=='I/O', ..vars]
 
@@ -126,7 +137,6 @@ io %>%
 ```{r read_raster_bench}
 
 # reading raster data 
-elev_fn = system.file("ex/elev.tif", package="terra")
 
 microbenchmark(
   rast(elev_fn),
@@ -140,12 +150,9 @@ microbenchmark(
 ```
 
 
-```{r read_vect_bench}
+```{r read_vect_bench, message=FALSE, warning=FALSE, eval=FALSE}
 
 #reading vector data
-
-lux_fn = system.file("ex/lux.shp", package="terra")
-
 microbenchmark(
   vect(lux_fn),
   shapefile(lux_fn),
@@ -162,10 +169,6 @@ microbenchmark(
 
 ```{r read_in}
 
-elev = rast(elev_fn)
-lux = vect(lux_fn)
-r_elev = raster(elev)
-sp_lux = shapefile(lux_fn)
 
 ```
 
@@ -179,12 +182,18 @@ just specify `filetype` from the get-go.
 
 ```{r write_raster}
 
-
-writeRaster(elev, 
-            filename=paste0('data/elevation.GTiff'), 
-            filetype='GTiff',
-            overwrite=TRUE)
-
+microbenchmark(
+  terra::writeRaster(elev,
+                     filename='data/elevation.GTiff',
+                     filetype='GTiff', 
+                     overwrite=TRUE),
+  raster::writeRaster(r_elev,
+                      filename='data/elevation.GTiff',
+                      format='GTiff',
+                      overwrite=TRUE),
+  
+  times = 100
+)
 
 ```
 
@@ -192,7 +201,18 @@ With `spatVectors` we get `writeVector()`, which largely mirrors `writeRaster()`
 
 ```{r write_vect}
 
-writeVector(lux, filename='data/lux.shp', filetype='ESRI Shapefile')
+microbenchmark(
+  writeVector(lux, 
+            filename='data/lux.shp', 
+            filetype='ESRI Shapefile',
+            overwrite=TRUE),
+  shapefile(sp_lux, 
+            filename='data/lux.shp', 
+            filetype='ESRI Shapefile',
+            overwrite=TRUE),
+  
+  times = 100
+)
 
 
 ```
