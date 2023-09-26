@@ -97,8 +97,6 @@ library(kableExtra)
 
 options(warn=-1)
 
-
-
 elev_fn = system.file("ex/elev.tif", package="terra")
 lux_fn = system.file("ex/lux.shp", package="terra")
 
@@ -108,8 +106,6 @@ r_elev = raster(elev)
 lux = vect(lux_fn)
 sp_lux = shapefile(lux_fn)
 
-
-
 ```
 
 
@@ -117,7 +113,9 @@ sp_lux = shapefile(lux_fn)
 
 funs = fread('data/raster_to_terra_funs.csv')
 
-vars = c('DataType', 'Operation', 'old', 'terra')
+vars = c('Operation', 'DataType', 'old', 'terra')
+
+col_names = c('Operation', 'Data Type', 'Old Functions', 'New Functions')
 
 ```
 
@@ -134,7 +132,7 @@ the flexibility in your choice of file type that GDAL provides.
 io = funs[OperationGroup=='I/O', ..vars]
 
 io %>% 
-  kbl() %>% 
+  kbl(col.names = col_names) %>% 
   kable_styling()
 
 ```
