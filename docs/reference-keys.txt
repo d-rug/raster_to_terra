@@ -1,0 +1,13 @@
+learning-goals
+prerequisites
+what-we-will-cover
+terra-a-birds-eye-view
+the-basics
+reading-in-data
+writing-data
+transform
+combine
+querying
+calculate
+extents
+what-about-sf-and-stars
