@@ -4,7 +4,7 @@ _[UC Davis DataLab](https://datalab.ucdavis.edu/)_
 
 _Fall 2023_  
 
-_Instructor/Maintainer: Elise Hellwig <<echellwig@ucdavis.edu>>_  
+_Instructor/Maintainer: Elise Hellwig <echellwig@ucdavis.edu>_  
 
 * [Reader](https://d-rug.github.io/raster_to_terra/)
 * [Repo](https://github.com/d-rug/raster_to_terra)
