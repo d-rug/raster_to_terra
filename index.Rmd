@@ -103,19 +103,6 @@ vars = c('DataType', 'Operation', 'old', 'terra')
 
 ```
 
-
-```{r run_pre_workshop, eval=FALSE}
-
-
-# from geodata package
-bio = worldclim_global('bio', res=0.5, path='data')
-usa = gadm('USA', path='data')
-
-writeVector(usa, 'data/usa.geojson', filetype='GeoJSON')
-writeVector(usa, 'data/USA/usa.shp', filetype='ESRI Shapefile')
-
-```
-
 # The basics
 
 ## Reading in data
@@ -139,14 +126,13 @@ io %>%
 ```{r read_raster_bench}
 
 # reading raster data 
-
-bio_fns = file.path('data/wc2.1_30s', list.files('data/wc2.1_30s'))
+elev_fn = system.file("ex/elev.tif", package="terra")
 
 microbenchmark(
-  rast(bio_fns),
-  stack(bio_fns),
+  rast(elev_fn),
+  raster(elev_fn),
   
-  times = 1
+  times = 100
 )
 
 
@@ -158,14 +144,14 @@ microbenchmark(
 
 #reading vector data
 
-usa_fn = 'data/USA/usa.shp'
+lux_fn = system.file("ex/lux.shp", package="terra")
 
 microbenchmark(
-  vect(usa_fn),
-  shapefile(usa_fn),
-  readOGR(usa_fn),
+  vect(lux_fn),
+  shapefile(lux_fn),
+  readOGR(lux_fn),
   
-  times=1
+  times=100
 )
 
 
@@ -176,10 +162,10 @@ microbenchmark(
 
 ```{r read_in}
 
-bio = worldclim_tile('bio', lon=-121, lat=38, res=2.5, path='data')
-usa = gadm('USA', path='data')
-r_bio = raster(bio)
-sp_usa = shapefile(usa_fn)
+elev = rast(elev_fn)
+lux = vect(lux_fn)
+r_elev = raster(elev)
+sp_lux = shapefile(lux_fn)
 
 ```
 
@@ -194,8 +180,8 @@ just specify `filetype` from the get-go.
 ```{r write_raster}
 
 
-writeRaster(bio, 
-            filename=paste0('data/bioclim', sample.int(5e5, 1), '.GTiff'), 
+writeRaster(elev, 
+            filename=paste0('data/elevation.GTiff'), 
             filetype='GTiff',
             overwrite=TRUE)
 
@@ -206,12 +192,7 @@ With `spatVectors` we get `writeVector()`, which largely mirrors `writeRaster()`
 
 ```{r write_vect}
 
-microbenchmark(
-  shapefile(sp_usa, filename=paste0('data/gadm.shp', filetype='ESRI Shapefile')),
-  writeVector(usa, filename=paste0('data/gadm.shp', filetype='ESRI Shapefile')),
-  
-  times=1
-)
+writeVector(lux, filename='data/lux.shp', filetype='ESRI Shapefile')
 
 
 ```
@@ -226,10 +207,10 @@ The exception to that is `raster::projectRaster()`, which now becomes
 ```{r project_raster_bench}
 
 microbenchmark(
-  raster::projectRaster(r_bio, crs="epsg:3310"),
-  terra::project(bio, "epsg:3310"),
+  terra::project(elev, "epsg:3310"),
+  raster::projectRaster(r_elev, crs="epsg:3310"),
   
-  times=1
+  times=10
 )
 
 
