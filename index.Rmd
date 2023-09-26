@@ -1,10 +1,10 @@
 ---
-title: YOUR WORKSHOP TITLE
-author: [YOUR NAME]
+title: Raster to Terra
+author: Elise Hellwig
 date: "`r Sys.Date()`"
 
-github-repo: d-rug/YOUR_REPO
-url: "https://d-rug.github.io/YOUR_REPO/"
+github-repo: d-rug/raster_to_terra
+url: "https://d-rug.github.io/raster_to_terra/"
 
 site: "bookdown::bookdown_site"
 knit: "bookdown::render_book"
@@ -16,17 +16,235 @@ output:
           <li><a href="https://d-rug.github.io/">
             <img src="https://github.com/d-rug/d-rug.github.io/raw/main/DRUG_final_cobalt.png" style="height: 100%; width: 100%; object-fit: contain" />
           </a></li>
-          <li><a href="./" style="font-size: 18px">YOUR WORKSHOP TITLE</a></li>
+          <li><a href="./" style="font-size: 18px">Raster to Terra</a></li>
         after: |
           <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
             <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" style="float: right; padding-right: 10px;" />
           </a>
         collapse: section
       sharing: no
-      view: https://github.com/d-rug/YOUR_REPO/blob/master/%s
-      edit: https://github.com/d-rug/YOUR_REPO/edit/master/%s
+      view: https://github.com/d-rug/raster-to-terra/blob/main/%s
+      edit: https://github.com/d-rug/raster-to-terra/edit/main/%s
 ---
 
 # Overview {-}
 
-YOUR DESCRIPTION, LEARNING GOALS, PREREQUISITES, ETC
+No one wants to relearn something they already know how to do. But sometimes 
+there's no other choice. The sp, rgdal, rgeos, and maptools packages will be
+[gone by the end of 2023](https://r-spatial.org/r/2023/05/15/evolution4.html).
+The raster package is not long for this world [either](https://rspatial.org/raster/).
+sf is nice, but it doesn't have the raster functionality necessary for many
+types of analysis. This workshop aims to make the transition from raster to
+terra as painless as possible. 
+
+## Learning Goals
+
+- Get a sense for the functionality of the terra package as a whole
+- Be able to translate existing code from deprecated packages to terra syntax
+- Know where to find more information about `terra`.
+
+**This presentation will NOT give you a comprehensive discussion of `terra`.**
+
+It is too short for that. However, it will provide links to places you can find 
+more documentation.
+
+## Prerequisites
+
+- Familiarity with the raster and sp packages 
+
+## What we will cover
+
+ - read/write
+ - transformations
+ - joining
+ - calculations
+ - get coordinates for spatVector
+ - sampling
+ - transformation
+ - Plotting
+ - interpolation
+ - data access
+
+# `terra`: a bird's eye view
+
+ - The last spatial package you'll ever need*
+ - Rasters and Vectors, with united functions where possible
+ - One task, one function
+ - Improved speed
+ - Very large: 345 functions; raster has 277, sf has 150
+ - Some things changed, many stayed the same
+ 
+Old Packages: sp, raster, rgdal, rgeos, maptools
+
+New Packages: terra and geodata (for data)
+
+
+```{r setup}
+
+library(microbenchmark) # for speed testing
+
+#new packages
+library(terra) 
+library(geodata)
+
+#old packages
+library(raster)
+library(rgdal)
+
+#table formatting
+library(data.table)
+library(kableExtra)
+
+options(warn=-1)
+
+funs = fread('data/raster_to_terra_funs.csv')
+
+vars = c('DataType', 'Operation', 'old', 'terra')
+
+```
+
+
+```{r run_pre_workshop, eval=FALSE}
+
+
+# from geodata package
+bio = worldclim_global('bio', res=0.5, path='data')
+usa = gadm('USA', path='data')
+
+writeVector(usa, 'data/usa.geojson', filetype='GeoJSON')
+writeVector(usa, 'data/USA/usa.shp', filetype='ESRI Shapefile')
+
+```
+
+# The basics
+
+## Reading in data
+
+Reading and writing data functionality is based on GDAL, so you will have all 
+the flexibility in your choice of file type that GDAL provides. 
+
+```{r io_table}
+
+io = funs[OperationGroup=='I/O', ..vars]
+
+io %>% 
+  kbl() %>% 
+  kable_styling()
+
+```
+
+
+
+
+```{r read_raster_bench}
+
+# reading raster data 
+
+bio_fns = file.path('data/wc2.1_30s', list.files('data/wc2.1_30s'))
+
+microbenchmark(
+  rast(bio_fns),
+  stack(bio_fns),
+  
+  times = 1
+)
+
+
+
+```
+
+
+```{r read_vect_bench}
+
+#reading vector data
+
+usa_fn = 'data/USA/usa.shp'
+
+microbenchmark(
+  vect(usa_fn),
+  shapefile(usa_fn),
+  readOGR(usa_fn),
+  
+  times=1
+)
+
+
+```
+
+
+
+
+```{r read_in}
+
+bio = worldclim_tile('bio', lon=-121, lat=38, res=2.5, path='data')
+usa = gadm('USA', path='data')
+r_bio = raster(bio)
+sp_usa = shapefile(usa_fn)
+
+```
+
+## Writing data
+
+The function `writeRaster()` is relatively unchanged, though the argument 
+specifying the type of file written has changed from `format` (in `raster`) to 
+`filetype` (in `terra`). Additionally, while in theory the function can 
+automatically detect the file type, it seems to rarely work, so it is better to 
+just specify `filetype` from the get-go. 
+
+```{r write_raster}
+
+
+writeRaster(bio, 
+            filename=paste0('data/bioclim', sample.int(5e5, 1), '.GTiff'), 
+            filetype='GTiff',
+            overwrite=TRUE)
+
+
+```
+
+With `spatVectors` we get `writeVector()`, which largely mirrors `writeRaster()`.
+
+```{r write_vect}
+
+microbenchmark(
+  shapefile(sp_usa, filename=paste0('data/gadm.shp', filetype='ESRI Shapefile')),
+  writeVector(usa, filename=paste0('data/gadm.shp', filetype='ESRI Shapefile')),
+  
+  times=1
+)
+
+
+```
+
+
+# Transform
+
+Most of the methods for transforming spatial data remain the same from raster.
+The exception to that is `raster::projectRaster()`, which now becomes 
+`terra::project()` and now works for both rasters and vectors. 
+
+```{r project_raster_bench}
+
+microbenchmark(
+  raster::projectRaster(r_bio, crs="epsg:3310"),
+  terra::project(bio, "epsg:3310"),
+  
+  times=1
+)
+
+
+```
+
+# Combine
+
+## Querying 
+
+Similar to 
+
+# Calculate
+
+# Extents
+
+
+
+# What about sf (and stars)?
