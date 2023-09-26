@@ -6,7 +6,8 @@ _Fall 2023_
 
 _Instructor/Maintainer: Elise Hellwig <<echellwig@ucdavis.edu>>_  
 
-* [Reader](https://github.com/d-rug/raster_to_terra)
+* [Reader](https://d-rug.github.io/raster_to_terra/)
+* [Repo](https://github.com/d-rug/raster_to_terra)
 
 No one wants to relearn something they already know how to do. But sometimes 
 there's no other choice. The sp, rgdal, rgeos, and maptools packages will be
