@@ -218,9 +218,9 @@ microbenchmark(
 
 ```{r transform_table, echo=FALSE}
 
-trns = funs[OperationGroup=='Transform', ..vars]
+trans_tab = funs[OperationGroup=='Transform', ..vars]
 
-trns %>% 
+trans_tab %>% 
   kbl(col.names = col_names) %>% 
   kable_styling()
 
