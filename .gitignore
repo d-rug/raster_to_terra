@@ -4,6 +4,7 @@
 .LSOverride
 #.RData
 .Rhistory
+data/
 
 # Thumbnails
 ._*
