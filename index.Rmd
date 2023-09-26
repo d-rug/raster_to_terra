@@ -242,13 +242,28 @@ microbenchmark(
 
 ```
 
+# Calculate
+One of `raster`'s claims to fame was the ease at which you could do calculations.
+R automatically treated each cell in a `RasterLayer` as if it was a number, and 
+each cell in a `RasterBrick` or `RasterStack` as if it were a vector. There were
+additional functions for doing calculations on an entire layer of a raster and 
+for applying non-vectorized functions.
+
+```{r calculate_table, echo=FALSE}
+
+calc_tab = funs[OperationGroup=='Calculate', ..vars]
+
+calc_tab %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling()
+
+```
+
 # Combine
 
 ## Querying 
 
 Similar to 
-
-# Calculate
 
 # Extents
 
