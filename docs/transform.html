@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-09-26" />
+<meta name="date" content="2023-09-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.2</b> Writing data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>3</b> Transform</a></li>
-<li class="chapter" data-level="4" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>4</b> Calculate</a></li>
+<li class="chapter" data-level="4" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>4</b> Calculate</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="calculate.html"><a href="calculate.html#summary"><i class="fa fa-check"></i><b>4.1</b> Summary</a></li>
+<li class="chapter" data-level="4.2" data-path="calculate.html"><a href="calculate.html#conversion-table"><i class="fa fa-check"></i><b>4.2</b> Conversion Table</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="combine.html"><a href="combine.html"><i class="fa fa-check"></i><b>5</b> Combine</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="combine.html"><a href="combine.html#querying"><i class="fa fa-check"></i><b>5.1</b> Querying</a></li>
@@ -295,19 +299,19 @@ crop, intersect
 <p>Most of the methods for transforming spatial data remain the same from raster.
 The exception to that is <code>raster::projectRaster()</code>, which now becomes
 <code>terra::project()</code> and now works for both rasters and vectors.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="transform.html#cb9-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb9-2"><a href="transform.html#cb9-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">project</span>(elev, <span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb9-3"><a href="transform.html#cb9-3" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">projectRaster</span>(r_elev, <span class="at">crs=</span><span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb9-4"><a href="transform.html#cb9-4" tabindex="-1"></a>  </span>
-<span id="cb9-5"><a href="transform.html#cb9-5" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">10</span></span>
-<span id="cb9-6"><a href="transform.html#cb9-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="transform.html#cb10-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb10-2"><a href="transform.html#cb10-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">project</span>(elev, <span class="st">&quot;epsg:3310&quot;</span>),</span>
+<span id="cb10-3"><a href="transform.html#cb10-3" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">projectRaster</span>(r_elev, <span class="at">crs=</span><span class="st">&quot;epsg:3310&quot;</span>),</span>
+<span id="cb10-4"><a href="transform.html#cb10-4" tabindex="-1"></a>  </span>
+<span id="cb10-5"><a href="transform.html#cb10-5" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">10</span></span>
+<span id="cb10-6"><a href="transform.html#cb10-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                              expr      min       lq     mean
-##                 terra::project(elev, &quot;epsg:3310&quot;) 42.23816 44.71567 48.28620
-##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 54.45587 54.85124 82.17683
-##    median        uq       max neval
-##  45.06173  46.05243  73.05708    10
-##  58.14643 119.56801 167.90968    10</code></pre>
+##                 terra::project(elev, &quot;epsg:3310&quot;) 41.53226 44.37106 47.44512
+##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 50.15136 55.81207 68.32080
+##    median       uq       max neval
+##  44.59381 44.78774  73.03539    10
+##  58.57203 60.36065 117.51600    10</code></pre>
 </div>
             </section>
 

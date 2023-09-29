@@ -7,6 +7,8 @@ reading-in-data
 writing-data
 transform
 calculate
+summary
+conversion-table
 combine
 querying
 extents

@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-09-26" />
+<meta name="date" content="2023-09-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.2</b> Writing data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>3</b> Transform</a></li>
-<li class="chapter" data-level="4" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>4</b> Calculate</a></li>
+<li class="chapter" data-level="4" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>4</b> Calculate</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="calculate.html"><a href="calculate.html#summary"><i class="fa fa-check"></i><b>4.1</b> Summary</a></li>
+<li class="chapter" data-level="4.2" data-path="calculate.html"><a href="calculate.html#conversion-table"><i class="fa fa-check"></i><b>4.2</b> Conversion Table</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="combine.html"><a href="combine.html"><i class="fa fa-check"></i><b>5</b> Combine</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="combine.html"><a href="combine.html#querying"><i class="fa fa-check"></i><b>5.1</b> Querying</a></li>
@@ -189,7 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Raster to Terra</h1>
 <p class="author"><em>Elise Hellwig</em></p>
-<p class="date"><em>2023-09-26</em></p>
+<p class="date"><em>2023-09-29</em></p>
 </div>
 <div id="overview" class="section level1 unnumbered hasAnchor">
 <h1>Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -200,6 +204,10 @@ The raster package is not long for this world <a href="https://rspatial.org/rast
 sf is nice, but it doesn’t have the raster functionality necessary for many
 types of analysis. This workshop aims to make the transition from raster to
 terra as painless as possible.</p>
+<p>Each of this workshop will have a conversion table. This table will tell you
+which <code>terra</code> function to use, given an operation and data type. It will also
+provide the functions from <code>raster</code>, <code>sp</code>, <code>rgdal</code>, and <code>rgeos</code> that used to
+accomplish that operation.</p>
 <div id="learning-goals" class="section level2 hasAnchor" number="0.1">
 <h2><span class="header-section-number">0.1</span> Learning Goals<a href="index.html#learning-goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
