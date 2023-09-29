@@ -37,6 +37,11 @@ sf is nice, but it doesn't have the raster functionality necessary for many
 types of analysis. This workshop aims to make the transition from raster to
 terra as painless as possible. 
 
+Each of this workshop will have a conversion table. This table will tell you 
+which `terra` function to use, given an operation and data type. It will also
+provide the functions from `raster`, `sp`,  `rgdal`, and `rgeos` that used to 
+accomplish that operation.
+
 ## Learning Goals
 
 - Get a sense for the functionality of the terra package as a whole
@@ -156,13 +161,13 @@ microbenchmark(
 ```
 
 
-```{r read_vect_bench, message=FALSE, warning=FALSE, eval=FALSE}
+```{r read_vect_bench}
 
 #reading vector data
 microbenchmark(
   vect(lux_fn),
   shapefile(lux_fn),
-  readOGR(lux_fn),
+  #readOGR(lux_fn),
   
   times=100
 )
@@ -243,11 +248,15 @@ microbenchmark(
 ```
 
 # Calculate
+
+## Summary
 One of `raster`'s claims to fame was the ease at which you could do calculations.
 R automatically treated each cell in a `RasterLayer` as if it was a number, and 
 each cell in a `RasterBrick` or `RasterStack` as if it were a vector. There were
 additional functions for doing calculations on an entire layer of a raster and 
 for applying non-vectorized functions.
+
+## Conversion Table
 
 ```{r calculate_table, echo=FALSE}
 
