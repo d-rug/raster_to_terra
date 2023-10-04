@@ -99,6 +99,7 @@ library(rgdal)
 #table formatting
 library(data.table)
 library(kableExtra)
+library(scales)
 
 options(warn=-1)
 
@@ -116,11 +117,56 @@ sp_lux = shapefile(lux_fn)
 
 ```{r table_setup, echo=FALSE}
 
+n_reps = 10
+
 funs = fread('data/raster_to_terra_funs.csv')
 
 vars = c('Operation', 'DataType', 'old', 'terra')
 
 col_names = c('Operation', 'Data Type', 'Old Functions', 'New Functions')
+
+time_to_power = function(nano) {
+  return(floor(log(nano, 10)))
+}
+
+microbench_df = function(mb, labs=NA) {
+  
+  mb2 <- copy(mb)
+  setDT(mb2)
+  
+  sec_types = rep(c('nano', 'micro','milli', ''), each=3)
+  
+  n = dim(mb2)[1]/length(levels(mb2$expr))
+  
+  if (!is.na(labs[1])){
+    mb2[,expr:=factor(expr, labels=labs)]
+    
+  }  
+  
+  mb_tab = mb2[,.(median=median(time),
+                  n_eval=n,
+                  id=as.integer(expr)),
+               by=expr]
+  
+  setkey(mb_tab, id)
+  
+  mb_tab$id <- NULL
+  
+  unit_pwr = time_to_power(min(mb_tab$median))
+  
+  num_format = label_comma(accuracy=0.01, scale=10^(-unit_pwr))
+  
+  mb_tab[,median:=num_format(median)]
+  
+  setnames(mb_tab, 
+           c('expr', 'median'),
+           c('function', paste0('median (', sec_types[unit_pwr+1],'sec)'))
+           )
+  
+  return(mb_tab)
+  
+}
+
 
 ```
 
@@ -147,33 +193,30 @@ io %>%
 
 ```{r read_raster_bench}
 
-# reading raster data 
+# reading data 
 
-microbenchmark(
+readbench = microbenchmark(
   rast(elev_fn),
   raster(elev_fn),
-  
-  times = 100
-)
-
-
-
-```
-
-
-```{r read_vect_bench}
-
-#reading vector data
-microbenchmark(
   vect(lux_fn),
   shapefile(lux_fn),
-  #readOGR(lux_fn),
+  readOGR(lux_fn, verbose = FALSE),
   
-  times=100
+  times = n_reps
 )
+
+read_names = c('terra::rast', 'raster::raster', 'terra::vect', 'raster::shapefile',
+               'rgdal::readOGR')
+
+readtab = microbench_df(readbench, read_names)
+
+readtab %>% 
+  kbl(align='lrr') %>% 
+  kable_styling()
 
 
 ```
+
 
 ## Writing data
 
@@ -183,9 +226,14 @@ specifying the type of file written has changed from `format` (in `raster`) to
 automatically detect the file type, it seems to rarely work, so it is better to 
 just specify `filetype` from the get-go. 
 
+With `spatVectors` we get `writeVector()`, which largely mirrors `writeRaster()`.
+
 ```{r write_raster}
 
-microbenchmark(
+
+# writing data 
+
+writebench = microbenchmark(
   terra::writeRaster(elev,
                      filename='data/elevation.GTiff',
                      filetype='GTiff', 
@@ -194,13 +242,34 @@ microbenchmark(
                       filename='data/elevation.GTiff',
                       format='GTiff',
                       overwrite=TRUE),
+  writeVector(lux, 
+              filename='data/lux.shp', 
+              overwrite=TRUE),
+  shapefile(sp_lux, 
+            filename='data/lux.shp', 
+            overwrite=TRUE),
+  writeOGR(sp_lux,
+          dsn='data/lux.shp',
+          layer='lux',
+          driver='ESRI Shapefile',
+          overwrite_layer=TRUE,
+          verbose=FALSE),
   
-  times = 100
+  times = n_reps
 )
+
+write_names = c('terra::writeRaster', 'raster::writeRaster', 'terra::writeVector',
+                'raster::shapefile', 'rgdal::writeOGR')
+
+write_tab = microbench_df(writebench, write_names)
+
+write_tab %>% 
+  kbl(align='lrr') %>% 
+  kable_styling()
 
 ```
 
-With `spatVectors` we get `writeVector()`, which largely mirrors `writeRaster()`.
+
 
 ```{r write_vect}
 
@@ -252,7 +321,7 @@ microbenchmark(
 ## Summary
 One of `raster`'s claims to fame was the ease at which you could do calculations.
 R automatically treated each cell in a `RasterLayer` as if it was a number, and 
-each cell in a `RasterBrick` or `RasterStack` as if it were a vector. There were
+each cell in a `RasterBrick` or `RasterStack` as if it were a vector. There are
 additional functions for doing calculations on an entire layer of a raster and 
 for applying non-vectorized functions.
 
