@@ -9,6 +9,7 @@ editor: visual
 
 1.  You have to (older packages are going away)
 2.  Other spatial packages are too slow
+3.  Your data is too large to read into memory
 3.  You don't want to have to load 5 packages when doing geospatial work
 
 ## Learning Objectives
