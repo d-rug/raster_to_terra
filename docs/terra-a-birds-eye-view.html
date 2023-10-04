@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-09-29" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,17 +215,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-11"><a href="terra-a-birds-eye-view.html#cb1-11" tabindex="-1"></a><span class="co">#table formatting</span></span>
 <span id="cb1-12"><a href="terra-a-birds-eye-view.html#cb1-12" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
 <span id="cb1-13"><a href="terra-a-birds-eye-view.html#cb1-13" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb1-14"><a href="terra-a-birds-eye-view.html#cb1-14" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="terra-a-birds-eye-view.html#cb1-15" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb1-16"><a href="terra-a-birds-eye-view.html#cb1-16" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="terra-a-birds-eye-view.html#cb1-17" tabindex="-1"></a>elev_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/elev.tif&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
-<span id="cb1-18"><a href="terra-a-birds-eye-view.html#cb1-18" tabindex="-1"></a>lux_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/lux.shp&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
-<span id="cb1-19"><a href="terra-a-birds-eye-view.html#cb1-19" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="terra-a-birds-eye-view.html#cb1-20" tabindex="-1"></a>elev <span class="ot">=</span> <span class="fu">rast</span>(elev_fn)</span>
-<span id="cb1-21"><a href="terra-a-birds-eye-view.html#cb1-21" tabindex="-1"></a>r_elev <span class="ot">=</span> <span class="fu">raster</span>(elev)</span>
-<span id="cb1-22"><a href="terra-a-birds-eye-view.html#cb1-22" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="terra-a-birds-eye-view.html#cb1-23" tabindex="-1"></a>lux <span class="ot">=</span> <span class="fu">vect</span>(lux_fn)</span>
-<span id="cb1-24"><a href="terra-a-birds-eye-view.html#cb1-24" tabindex="-1"></a>sp_lux <span class="ot">=</span> <span class="fu">shapefile</span>(lux_fn)</span></code></pre></div>
+<span id="cb1-14"><a href="terra-a-birds-eye-view.html#cb1-14" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-15"><a href="terra-a-birds-eye-view.html#cb1-15" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="terra-a-birds-eye-view.html#cb1-16" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb1-17"><a href="terra-a-birds-eye-view.html#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="terra-a-birds-eye-view.html#cb1-18" tabindex="-1"></a>elev_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/elev.tif&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
+<span id="cb1-19"><a href="terra-a-birds-eye-view.html#cb1-19" tabindex="-1"></a>lux_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/lux.shp&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
+<span id="cb1-20"><a href="terra-a-birds-eye-view.html#cb1-20" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="terra-a-birds-eye-view.html#cb1-21" tabindex="-1"></a>elev <span class="ot">=</span> <span class="fu">rast</span>(elev_fn)</span>
+<span id="cb1-22"><a href="terra-a-birds-eye-view.html#cb1-22" tabindex="-1"></a>r_elev <span class="ot">=</span> <span class="fu">raster</span>(elev)</span>
+<span id="cb1-23"><a href="terra-a-birds-eye-view.html#cb1-23" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="terra-a-birds-eye-view.html#cb1-24" tabindex="-1"></a>lux <span class="ot">=</span> <span class="fu">vect</span>(lux_fn)</span>
+<span id="cb1-25"><a href="terra-a-birds-eye-view.html#cb1-25" tabindex="-1"></a>sp_lux <span class="ot">=</span> <span class="fu">shapefile</span>(lux_fn)</span></code></pre></div>
 </div>
             </section>
 

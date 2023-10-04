@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-09-29" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> Summary<a href="calculate.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One of <code>raster</code>’s claims to fame was the ease at which you could do calculations.
 R automatically treated each cell in a <code>RasterLayer</code> as if it was a number, and
-each cell in a <code>RasterBrick</code> or <code>RasterStack</code> as if it were a vector. There were
+each cell in a <code>RasterBrick</code> or <code>RasterStack</code> as if it were a vector. There are
 additional functions for doing calculations on an entire layer of a raster and
 for applying non-vectorized functions.</p>
 </div>
@@ -236,35 +236,7 @@ raster
 </tr>
 <tr>
 <td style="text-align:left;">
-calculate statistic for a layer in a raster
-</td>
-<td style="text-align:left;">
-raster
-</td>
-<td style="text-align:left;">
-cellStats
-</td>
-<td style="text-align:left;">
-global
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-calculate statistics on a moving window
-</td>
-<td style="text-align:left;">
-raster
-</td>
-<td style="text-align:left;">
-focal
-</td>
-<td style="text-align:left;">
-focal
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-calculate pre-vectorized statistic on each cell across all layers
+apply pre-vectorized function on each cell of a raster
 </td>
 <td style="text-align:left;">
 raster
@@ -274,6 +246,34 @@ sum, mean, max, etc.
 </td>
 <td style="text-align:left;">
 sum, mean, max etc.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+apply functions on a moving window
+</td>
+<td style="text-align:left;">
+raster
+</td>
+<td style="text-align:left;">
+focal
+</td>
+<td style="text-align:left;">
+focal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+apply functions to layers in a raster
+</td>
+<td style="text-align:left;">
+raster
+</td>
+<td style="text-align:left;">
+cellStats
+</td>
+<td style="text-align:left;">
+global
 </td>
 </tr>
 <tr>

@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-09-29" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -272,33 +272,98 @@ writeVector
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="the-basics.html#cb2-1" tabindex="-1"></a><span class="co"># reading raster data </span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="the-basics.html#cb2-1" tabindex="-1"></a><span class="co"># reading data </span></span>
 <span id="cb2-2"><a href="the-basics.html#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="the-basics.html#cb2-3" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb2-3"><a href="the-basics.html#cb2-3" tabindex="-1"></a>readbench <span class="ot">=</span> <span class="fu">microbenchmark</span>(</span>
 <span id="cb2-4"><a href="the-basics.html#cb2-4" tabindex="-1"></a>  <span class="fu">rast</span>(elev_fn),</span>
 <span id="cb2-5"><a href="the-basics.html#cb2-5" tabindex="-1"></a>  <span class="fu">raster</span>(elev_fn),</span>
-<span id="cb2-6"><a href="the-basics.html#cb2-6" tabindex="-1"></a>  </span>
-<span id="cb2-7"><a href="the-basics.html#cb2-7" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
-<span id="cb2-8"><a href="the-basics.html#cb2-8" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## Unit: microseconds
-##             expr      min       lq      mean    median       uq       max neval
-##    rast(elev_fn)  625.332  650.178  684.5979  672.6665  713.400   808.438   100
-##  raster(elev_fn) 6436.385 6537.717 6997.1559 6591.9390 6678.675 21972.474   100</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="the-basics.html#cb4-1" tabindex="-1"></a><span class="co">#reading vector data</span></span>
-<span id="cb4-2"><a href="the-basics.html#cb4-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb4-3"><a href="the-basics.html#cb4-3" tabindex="-1"></a>  <span class="fu">vect</span>(lux_fn),</span>
-<span id="cb4-4"><a href="the-basics.html#cb4-4" tabindex="-1"></a>  <span class="fu">shapefile</span>(lux_fn),</span>
-<span id="cb4-5"><a href="the-basics.html#cb4-5" tabindex="-1"></a>  <span class="co">#readOGR(lux_fn),</span></span>
-<span id="cb4-6"><a href="the-basics.html#cb4-6" tabindex="-1"></a>  </span>
-<span id="cb4-7"><a href="the-basics.html#cb4-7" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">100</span></span>
-<span id="cb4-8"><a href="the-basics.html#cb4-8" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## Unit: microseconds
-##               expr       min         lq       mean    median        uq
-##       vect(lux_fn)   710.776   747.8605   805.5413   820.615   845.994
-##  shapefile(lux_fn) 10051.232 10438.5180 11217.2646 10609.057 10932.363
-##        max neval
-##   1085.106   100
-##  22478.086   100</code></pre>
+<span id="cb2-6"><a href="the-basics.html#cb2-6" tabindex="-1"></a>  <span class="fu">vect</span>(lux_fn),</span>
+<span id="cb2-7"><a href="the-basics.html#cb2-7" tabindex="-1"></a>  <span class="fu">shapefile</span>(lux_fn),</span>
+<span id="cb2-8"><a href="the-basics.html#cb2-8" tabindex="-1"></a>  <span class="fu">readOGR</span>(lux_fn, <span class="at">verbose =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb2-9"><a href="the-basics.html#cb2-9" tabindex="-1"></a>  </span>
+<span id="cb2-10"><a href="the-basics.html#cb2-10" tabindex="-1"></a>  <span class="at">times =</span> n_reps</span>
+<span id="cb2-11"><a href="the-basics.html#cb2-11" tabindex="-1"></a>)</span>
+<span id="cb2-12"><a href="the-basics.html#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="the-basics.html#cb2-13" tabindex="-1"></a>read_names <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;terra::rast&#39;</span>, <span class="st">&#39;raster::raster&#39;</span>, <span class="st">&#39;terra::vect&#39;</span>, <span class="st">&#39;raster::shapefile&#39;</span>,</span>
+<span id="cb2-14"><a href="the-basics.html#cb2-14" tabindex="-1"></a>               <span class="st">&#39;rgdal::readOGR&#39;</span>)</span>
+<span id="cb2-15"><a href="the-basics.html#cb2-15" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="the-basics.html#cb2-16" tabindex="-1"></a>readtab <span class="ot">=</span> <span class="fu">microbench_df</span>(readbench, read_names)</span>
+<span id="cb2-17"><a href="the-basics.html#cb2-17" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="the-basics.html#cb2-18" tabindex="-1"></a>readtab <span class="sc">%&gt;%</span> </span>
+<span id="cb2-19"><a href="the-basics.html#cb2-19" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align=</span><span class="st">&#39;lrr&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-20"><a href="the-basics.html#cb2-20" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+function
+</th>
+<th style="text-align:right;">
+median (microsec)
+</th>
+<th style="text-align:right;">
+n_eval
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+terra::rast
+</td>
+<td style="text-align:right;">
+7.83
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+raster::raster
+</td>
+<td style="text-align:right;">
+71.10
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+terra::vect
+</td>
+<td style="text-align:right;">
+10.07
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+raster::shapefile
+</td>
+<td style="text-align:right;">
+114.49
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgdal::readOGR
+</td>
+<td style="text-align:right;">
+3,620.06
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="writing-data" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Writing data<a href="the-basics.html#writing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -307,43 +372,138 @@ specifying the type of file written has changed from <code>format</code> (in <co
 <code>filetype</code> (in <code>terra</code>). Additionally, while in theory the function can
 automatically detect the file type, it seems to rarely work, so it is better to
 just specify <code>filetype</code> from the get-go.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="the-basics.html#cb6-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb6-2"><a href="the-basics.html#cb6-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">writeRaster</span>(elev,</span>
-<span id="cb6-3"><a href="the-basics.html#cb6-3" tabindex="-1"></a>                     <span class="at">filename=</span><span class="st">&#39;data/elevation.GTiff&#39;</span>,</span>
-<span id="cb6-4"><a href="the-basics.html#cb6-4" tabindex="-1"></a>                     <span class="at">filetype=</span><span class="st">&#39;GTiff&#39;</span>, </span>
-<span id="cb6-5"><a href="the-basics.html#cb6-5" tabindex="-1"></a>                     <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
-<span id="cb6-6"><a href="the-basics.html#cb6-6" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">writeRaster</span>(r_elev,</span>
-<span id="cb6-7"><a href="the-basics.html#cb6-7" tabindex="-1"></a>                      <span class="at">filename=</span><span class="st">&#39;data/elevation.GTiff&#39;</span>,</span>
-<span id="cb6-8"><a href="the-basics.html#cb6-8" tabindex="-1"></a>                      <span class="at">format=</span><span class="st">&#39;GTiff&#39;</span>,</span>
-<span id="cb6-9"><a href="the-basics.html#cb6-9" tabindex="-1"></a>                      <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
-<span id="cb6-10"><a href="the-basics.html#cb6-10" tabindex="-1"></a>  </span>
-<span id="cb6-11"><a href="the-basics.html#cb6-11" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
-<span id="cb6-12"><a href="the-basics.html#cb6-12" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## Unit: milliseconds
-##                                                                                                     expr
-##   terra::writeRaster(elev, filename = &quot;data/elevation.GTiff&quot;, filetype = &quot;GTiff&quot;,      overwrite = TRUE)
-##  raster::writeRaster(r_elev, filename = &quot;data/elevation.GTiff&quot;,      format = &quot;GTiff&quot;, overwrite = TRUE)
-##        min        lq      mean    median        uq        max neval
-##   2.298214  2.365167  2.669943  2.454076  2.554854   7.568313   100
-##  24.296805 24.686982 27.710795 25.062131 27.778361 153.273990   100</code></pre>
 <p>With <code>spatVectors</code> we get <code>writeVector()</code>, which largely mirrors <code>writeRaster()</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="the-basics.html#cb8-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb8-2"><a href="the-basics.html#cb8-2" tabindex="-1"></a>  <span class="fu">writeVector</span>(lux, </span>
-<span id="cb8-3"><a href="the-basics.html#cb8-3" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
-<span id="cb8-4"><a href="the-basics.html#cb8-4" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
-<span id="cb8-5"><a href="the-basics.html#cb8-5" tabindex="-1"></a>  <span class="fu">shapefile</span>(sp_lux, </span>
-<span id="cb8-6"><a href="the-basics.html#cb8-6" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
-<span id="cb8-7"><a href="the-basics.html#cb8-7" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
-<span id="cb8-8"><a href="the-basics.html#cb8-8" tabindex="-1"></a>  </span>
-<span id="cb8-9"><a href="the-basics.html#cb8-9" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
-<span id="cb8-10"><a href="the-basics.html#cb8-10" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="the-basics.html#cb3-1" tabindex="-1"></a><span class="co"># writing data </span></span>
+<span id="cb3-2"><a href="the-basics.html#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="the-basics.html#cb3-3" tabindex="-1"></a>writebench <span class="ot">=</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb3-4"><a href="the-basics.html#cb3-4" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">writeRaster</span>(elev,</span>
+<span id="cb3-5"><a href="the-basics.html#cb3-5" tabindex="-1"></a>                     <span class="at">filename=</span><span class="st">&#39;data/elevation.GTiff&#39;</span>,</span>
+<span id="cb3-6"><a href="the-basics.html#cb3-6" tabindex="-1"></a>                     <span class="at">filetype=</span><span class="st">&#39;GTiff&#39;</span>, </span>
+<span id="cb3-7"><a href="the-basics.html#cb3-7" tabindex="-1"></a>                     <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb3-8"><a href="the-basics.html#cb3-8" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">writeRaster</span>(r_elev,</span>
+<span id="cb3-9"><a href="the-basics.html#cb3-9" tabindex="-1"></a>                      <span class="at">filename=</span><span class="st">&#39;data/elevation.GTiff&#39;</span>,</span>
+<span id="cb3-10"><a href="the-basics.html#cb3-10" tabindex="-1"></a>                      <span class="at">format=</span><span class="st">&#39;GTiff&#39;</span>,</span>
+<span id="cb3-11"><a href="the-basics.html#cb3-11" tabindex="-1"></a>                      <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb3-12"><a href="the-basics.html#cb3-12" tabindex="-1"></a>  <span class="fu">writeVector</span>(lux, </span>
+<span id="cb3-13"><a href="the-basics.html#cb3-13" tabindex="-1"></a>              <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
+<span id="cb3-14"><a href="the-basics.html#cb3-14" tabindex="-1"></a>              <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb3-15"><a href="the-basics.html#cb3-15" tabindex="-1"></a>  <span class="fu">shapefile</span>(sp_lux, </span>
+<span id="cb3-16"><a href="the-basics.html#cb3-16" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
+<span id="cb3-17"><a href="the-basics.html#cb3-17" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb3-18"><a href="the-basics.html#cb3-18" tabindex="-1"></a>  <span class="fu">writeOGR</span>(sp_lux,</span>
+<span id="cb3-19"><a href="the-basics.html#cb3-19" tabindex="-1"></a>          <span class="at">dsn=</span><span class="st">&#39;data/lux.shp&#39;</span>,</span>
+<span id="cb3-20"><a href="the-basics.html#cb3-20" tabindex="-1"></a>          <span class="at">layer=</span><span class="st">&#39;lux&#39;</span>,</span>
+<span id="cb3-21"><a href="the-basics.html#cb3-21" tabindex="-1"></a>          <span class="at">driver=</span><span class="st">&#39;ESRI Shapefile&#39;</span>,</span>
+<span id="cb3-22"><a href="the-basics.html#cb3-22" tabindex="-1"></a>          <span class="at">overwrite_layer=</span><span class="cn">TRUE</span>,</span>
+<span id="cb3-23"><a href="the-basics.html#cb3-23" tabindex="-1"></a>          <span class="at">verbose=</span><span class="cn">FALSE</span>),</span>
+<span id="cb3-24"><a href="the-basics.html#cb3-24" tabindex="-1"></a>  </span>
+<span id="cb3-25"><a href="the-basics.html#cb3-25" tabindex="-1"></a>  <span class="at">times =</span> n_reps</span>
+<span id="cb3-26"><a href="the-basics.html#cb3-26" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## rgeos version: 0.6-4, (SVN revision 699)
+##  GEOS runtime version: 3.11.0-CAPI-1.17.0 
+##  Please note that rgeos will be retired during October 2023,
+## plan transition to sf or terra functions using GEOS at your earliest convenience.
+## See https://r-spatial.org/r/2023/05/15/evolution4.html for details.
+##  GEOS using OverlayNG
+##  Linking to sp version: 2.0-0 
+##  Polygon checking: TRUE</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="the-basics.html#cb5-1" tabindex="-1"></a>write_names <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;terra::writeRaster&#39;</span>, <span class="st">&#39;raster::writeRaster&#39;</span>, <span class="st">&#39;terra::writeVector&#39;</span>,</span>
+<span id="cb5-2"><a href="the-basics.html#cb5-2" tabindex="-1"></a>                <span class="st">&#39;raster::shapefile&#39;</span>, <span class="st">&#39;rgdal::writeOGR&#39;</span>)</span>
+<span id="cb5-3"><a href="the-basics.html#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="the-basics.html#cb5-4" tabindex="-1"></a>write_tab <span class="ot">=</span> <span class="fu">microbench_df</span>(writebench, write_names)</span>
+<span id="cb5-5"><a href="the-basics.html#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="the-basics.html#cb5-6" tabindex="-1"></a>write_tab <span class="sc">%&gt;%</span> </span>
+<span id="cb5-7"><a href="the-basics.html#cb5-7" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align=</span><span class="st">&#39;lrr&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="the-basics.html#cb5-8" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code></pre></div>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+function
+</th>
+<th style="text-align:right;">
+median (microsec)
+</th>
+<th style="text-align:right;">
+n_eval
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+terra::writeRaster
+</td>
+<td style="text-align:right;">
+25.33
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+raster::writeRaster
+</td>
+<td style="text-align:right;">
+261.96
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+terra::writeVector
+</td>
+<td style="text-align:right;">
+9.55
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+raster::shapefile
+</td>
+<td style="text-align:right;">
+35.20
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgdal::writeOGR
+</td>
+<td style="text-align:right;">
+28.17
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="the-basics.html#cb6-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb6-2"><a href="the-basics.html#cb6-2" tabindex="-1"></a>  <span class="fu">writeVector</span>(lux, </span>
+<span id="cb6-3"><a href="the-basics.html#cb6-3" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
+<span id="cb6-4"><a href="the-basics.html#cb6-4" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb6-5"><a href="the-basics.html#cb6-5" tabindex="-1"></a>  <span class="fu">shapefile</span>(sp_lux, </span>
+<span id="cb6-6"><a href="the-basics.html#cb6-6" tabindex="-1"></a>            <span class="at">filename=</span><span class="st">&#39;data/lux.shp&#39;</span>, </span>
+<span id="cb6-7"><a href="the-basics.html#cb6-7" tabindex="-1"></a>            <span class="at">overwrite=</span><span class="cn">TRUE</span>),</span>
+<span id="cb6-8"><a href="the-basics.html#cb6-8" tabindex="-1"></a>  </span>
+<span id="cb6-9"><a href="the-basics.html#cb6-9" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span></span>
+<span id="cb6-10"><a href="the-basics.html#cb6-10" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Unit: microseconds
 ##                                                            expr      min
-##   writeVector(lux, filename = &quot;data/lux.shp&quot;, overwrite = TRUE)  862.804
-##  shapefile(sp_lux, filename = &quot;data/lux.shp&quot;, overwrite = TRUE) 3241.378
-##        lq     mean   median       uq       max neval
-##   936.399 1024.630 1002.716 1085.495  1959.964   100
-##  3479.629 3886.207 3587.951 3719.131 11715.299   100</code></pre>
+##   writeVector(lux, filename = &quot;data/lux.shp&quot;, overwrite = TRUE)  850.094
+##  shapefile(sp_lux, filename = &quot;data/lux.shp&quot;, overwrite = TRUE) 3221.001
+##         lq     mean    median       uq      max neval
+##   921.7005 1014.058  969.0145 1075.122 1470.998   100
+##  3460.0515 3802.876 3685.3465 3914.332 9076.785   100</code></pre>
 </div>
 </div>
             </section>

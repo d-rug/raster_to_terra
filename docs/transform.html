@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-09-29" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -254,7 +254,7 @@ project
 </tr>
 <tr>
 <td style="text-align:left;">
-change resolution
+change resolution/origin
 </td>
 <td style="text-align:left;">
 raster
@@ -280,38 +280,24 @@ crop, intersect, mask
 crop, intersect, mask
 </td>
 </tr>
-<tr>
-<td style="text-align:left;">
-spatial subset
-</td>
-<td style="text-align:left;">
-vector
-</td>
-<td style="text-align:left;">
-crop, intersect, rgeos::gIntersection,
-</td>
-<td style="text-align:left;">
-crop, intersect
-</td>
-</tr>
 </tbody>
 </table>
 <p>Most of the methods for transforming spatial data remain the same from raster.
 The exception to that is <code>raster::projectRaster()</code>, which now becomes
 <code>terra::project()</code> and now works for both rasters and vectors.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="transform.html#cb10-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb10-2"><a href="transform.html#cb10-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">project</span>(elev, <span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb10-3"><a href="transform.html#cb10-3" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">projectRaster</span>(r_elev, <span class="at">crs=</span><span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb10-4"><a href="transform.html#cb10-4" tabindex="-1"></a>  </span>
-<span id="cb10-5"><a href="transform.html#cb10-5" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">10</span></span>
-<span id="cb10-6"><a href="transform.html#cb10-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="transform.html#cb8-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb8-2"><a href="transform.html#cb8-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">project</span>(elev, <span class="st">&quot;epsg:3310&quot;</span>),</span>
+<span id="cb8-3"><a href="transform.html#cb8-3" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">projectRaster</span>(r_elev, <span class="at">crs=</span><span class="st">&quot;epsg:3310&quot;</span>),</span>
+<span id="cb8-4"><a href="transform.html#cb8-4" tabindex="-1"></a>  </span>
+<span id="cb8-5"><a href="transform.html#cb8-5" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">10</span></span>
+<span id="cb8-6"><a href="transform.html#cb8-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                                              expr      min       lq     mean
-##                 terra::project(elev, &quot;epsg:3310&quot;) 41.53226 44.37106 47.44512
-##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 50.15136 55.81207 68.32080
+##                 terra::project(elev, &quot;epsg:3310&quot;) 41.21808 43.24053 50.71560
+##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 50.41475 54.81917 71.60935
 ##    median       uq       max neval
-##  44.59381 44.78774  73.03539    10
-##  58.57203 60.36065 117.51600    10</code></pre>
+##  45.06128 52.20760  87.42258    10
+##  56.96550 61.36704 149.21064    10</code></pre>
 </div>
             </section>
 
