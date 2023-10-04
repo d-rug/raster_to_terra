@@ -7,57 +7,61 @@ editor: visual
 
 # Why Switch?
 
-1.   You have to (older packages are going away)
-2.   Other spatial packages are too slow for big data
-3.   You don't want to have to load 5 packages when doing geospatial work
+1.  You have to (older packages are going away)
+2.  Other spatial packages are too slow
+3.  You don't want to have to load 5 packages when doing geospatial work
 
 ## Learning Objectives
 
-- Get a sense for the functionality of the `terra` package as a whole
-- Be able to translate existing code from deprecated packages to `terra` syntax
-- Know where to find more information about `terra`.
-
+-   Get a sense for the functionality of the `terra` package as a whole
+-   Be able to translate existing code from deprecated packages to `terra` syntax
+-   Know where to find more information about `terra`.
 
 ### Prerequisites
-Familiarity with the raster and sp packages 
+
+Familiarity with the raster and sp packages
 
 ## What we will cover
 
- - read/write
- - transformations
- - joining
- - calculations
- - get coordinates for spatVector
- - sampling
- - transformation
- - Plotting
- - interpolation
- - data access
+-   read/write
+-   transformations
+-   joining
+-   calculations
+-   get coordinates for spatVector
+-   sampling
+-   transformation
+-   Plotting
+-   interpolation
+-   data access
 
 # `terra`: A bird's eye view
 
- - The last spatial package you'll ever need*
- - One class each for rasters, vectors and extents
- - One task, one function
- - Improved speed
- - Very large: 345 functions; raster has 277, sf has 150
- - Some things changed, many stayed the same
+-   The last spatial package you'll ever need\*
+-   One class main class each for rasters and vectors
+-   One task, one function
+-   Improved speed
+-   Very large: 345 functions; raster has 277, sf has 150
+-   Some things changed, many stayed the same
 
 ## Setup
+
 ```{r setup, message=FALSE, warning=FALSE, echo=TRUE}
 
 library(microbenchmark) # for speed testing
 
 #new packages
 library(terra) 
-library(geodata)
 
 #old packages
 library(raster)
+library(rgdal)
 
 #table formatting
 library(data.table)
 library(kableExtra)
+library(scales)
+
+options(warn=-1)
 
 elev_fn = system.file("ex/elev.tif", package="terra")
 lux_fn = system.file("ex/lux.shp", package="terra")
@@ -69,8 +73,56 @@ lux = vect(lux_fn)
 sp_lux = shapefile(lux_fn)
 
 ```
- 
- 
+
+```{r microbench_display, echo=FALSE}
+
+n_reps = 10
+
+time_to_power = function(nano) {
+  return(floor(log(nano, 10)))
+}
+
+
+microbench_df = function(mb, labs=NA) {
+  
+  mb2 <- copy(mb)
+  setDT(mb2)
+  
+  sec_types = rep(c('nano', 'micro','milli', ''), each=3)
+  
+  n = dim(mb2)[1]/length(levels(mb2$expr))
+  
+  if (!is.na(labs[1])){
+    mb2[,expr:=factor(expr, labels=labs)]
+    
+  }  
+  
+  mb_tab = mb2[,.(median=median(time),
+                  n_eval=n,
+                  id=as.integer(expr)),
+               by=expr]
+  
+  setkey(mb_tab, id)
+  
+  mb_tab$id <- NULL
+  
+  unit_pwr = time_to_power(min(mb_tab$median))
+  
+  num_format = label_comma(accuracy=0.01, scale=10^(-unit_pwr))
+  
+  mb_tab[,median:=num_format(median)]
+  
+  setnames(mb_tab, 
+           c('expr', 'median'),
+           c('function', paste0('median (', sec_types[unit_pwr+1],'sec)'))
+           )
+  
+  return(mb_tab)
+  
+}
+
+```
+
 ```{r table_setup, echo=FALSE}
 
 funs = fread('../data/raster_to_terra_funs.csv')
@@ -81,7 +133,7 @@ col_names = c('Operation', 'Data Type', 'Old Functions', 'New Functions')
 
 ```
 
-# Read/Write
+# Reading and Writing
 
 ```{r io_table}
 
@@ -91,5 +143,202 @@ io %>%
   kbl(col.names = col_names) %>% 
   kable_styling()
  
+```
+
+## Reading in Data
+
+-   One raster function, regardless of number of layers
+-   Vector function reads in more than just shapefiles
+
+```{r read_bench, eval=FALSE}
+
+# reading raster data 
+
+readbench = microbenchmark(
+  rast(elev_fn),
+  raster(elev_fn),
+  vect(lux_fn),
+  shapefile(lux_fn),
+  readOGR(lux_fn, verbose = FALSE),
+  
+  times = n_reps
+)
+
+read_names = c('terra::rast', 'raster::raster', 'terra::vect', 'raster::shapefile',
+               'rgdal::readOGR')
+
+readtab = microbench_df(readbench, read_names)
+
+readtab %>% 
+  kbl(align='lrr') %>% 
+  kable_styling()
+
+
+```
+
+## Writing Data
+
+-   Always specify `filetype`, `terra`'s version of `format` argument
+
+```{r write_bench, eval=FALSE}
+
+# writing data 
+
+writebench = microbenchmark(
+  terra::writeRaster(elev,
+                     filename='../data/elevation.GTiff',
+                     filetype='GTiff', 
+                     overwrite=TRUE),
+  raster::writeRaster(r_elev,
+                      filename='../data//elevation.GTiff',
+                      format='GTiff',
+                      overwrite=TRUE),
+  writeVector(lux, 
+              filename='../data/lux.shp', 
+              overwrite=TRUE),
+  shapefile(sp_lux, 
+            filename='../data/lux.shp', 
+            overwrite=TRUE),
+  writeOGR(sp_lux, 
+          dsn='../data/lux.shp', 
+          layer='lux',
+          driver='ESRI Shapefile',
+          overwrite_layer=TRUE,
+          verbose=FALSE),
+  
+  times = n_reps
+)
+
+write_names = c('terra::writeRaster', 'raster::writeRaster', 'terra::writeVector',
+                'raster::shapefile', 'rgdal::writeOGR')
+
+write_tab = microbench_df(writebench, write_names)
+
+write_tab %>% 
+  kbl(align='lrr') %>% 
+  kable_styling()
+
+
+```
+
+# Transform
+
+::: {style="font-size: 80%;"}
+```{r transform_tab}
+
+trans_tab = funs[OperationGroup=='Transform', ..vars]
+
+trans_tab %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling()
+
+```
+:::
+
+## Speed Improvements
+
+```{r transform_bench, eval=FALSE}
+
+r <- rast(nrows=3, ncols=3, xmin=0, xmax=10, ymin=0, ymax=10)
+values(r) <- 1:ncell(r)
+s <- rast(nrows=25, ncols=30, xmin=1, xmax=11, ymin=-1, ymax=11)
+
+r_r <- raster(r)
+s_r <- raster(s)
+
+transbench = microbenchmark(
+  terra::project(elev, "epsg:3310"),
+  raster::projectRaster(r_elev, crs="epsg:3310"),
+  terra::resample(r, s, method='bilinear'),
+  raster::resample(r_r, s_r, method='bilinear'),
+  times=n_reps
+)
+
+transform_names = c('terra::project', 'raster::projectRaster','terra::resample',
+                    'raster::resample')
+
+trans_tab = microbench_df(transbench, transform_names)
+
+trans_tab %>% 
+  kbl(align='lrr') %>% 
+  kable_styling()
+
+
+
+```
+
+# Calculations
+
+-   Raster math is still very easy
+-   There are name changes
+-   One task, one function
+
+## Calculation Functions
+
+::: {style="font-size: 68%;"}
+```{r calculate_table, echo=FALSE}
+
+calc_tab = funs[OperationGroup=='Calculate', ..vars]
+
+calc_tab %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling()
+
+```
+:::
+
+## Comparisons
+
+![](images/applyfuns.png)
+
+# Combine
+
+::: {style="font-size: 80%;"}
+```{r comb_tab}
+
+comb_tab = funs[OperationGroup=='Combine', ..vars]
+
+comb_tab %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling()
+
+```
+:::
+
+# Spatial Relationships
+
+-   `relate` for many to many comparison
+-   `is.related` for a one to one or one to many comparison
+-   `relation` = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string
+
+# `plot` is still `plot`
+
+-   vectors can be added using `points`, `lines` and `polys`
+-   can now specify which layer to plot more easily
+
+### There is also `plet` for interactive maps
  
- 
+
+## Where's the data? `geodata`!
+
+-   Marine Data
+-   Climate
+-   Crop distribution and yields
+-   Elevation and landcover
+-   Political boundaries
+-   Human Footprint
+-   Soils
+-   Open Street Map
+-   Species Occurrence
+
+# Resources
+
+-   [Spatial Data with terra on rspatial.org](https://rspatial.org/spatial/index.html) - How to do spatial data analysis in the context of R and the `terra` package.
+
+- [terra documentation on rspatial.org](https://rspatial.org/pkg/index.html) - A vignette that walks you through the `terra` package.
+
+-   [`terra` documentation on github](https://rspatial.github.io/terra/reference/terra-package.html) - An overview of `terra` and a comprehensive description of its classes and methods. Highlights differences between `raster` and `terra`.
+
+-   [`geodata` documentation on github](https://github.com/rspatial/geodata) - A description of available data as well as some links to the original source.
+
+-   
