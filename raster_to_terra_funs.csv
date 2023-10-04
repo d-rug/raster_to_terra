@@ -1,0 +1,23 @@
+OperationGroup,DataType,Operation,old,terra
+I/O,raster,read data,"raster, stack, brick",rast
+I/O,vector,read data,"shapefile, rgdal::readOGR",vect
+I/O,raster,write data,writeRaster,writeRaster
+I/O,vector,write data,"shapefile, rgdal::writeOGR",writeVector
+Transform,all,add projection ,crs(x) <- ,crs(x) <- 
+Transform,raster,change projection,projectRaster,project
+Transform,vector,change projection,sp::spTransform,project
+Transform,raster,change resolution/origin,"resample, aggregate, disaggregate","resample, aggregate, disagg"
+Transform,all,spatial subset,"crop, intersect, mask","crop, intersect, mask"
+Combine,"vector, vector",query,sp::over,extract
+Combine,"raster, vector",query,extract,extract
+Calculate,raster,raster arithmetic,"+, -, *, / etc.","+, -, *, / etc."
+Calculate,raster,apply pre-vectorized function on each cell of a raster,"sum, mean, max, etc.","sum, mean, max etc."
+Calculate,raster,apply functions on a moving window,focal,focal
+Calculate,raster,apply functions to layers in a raster,cellStats,global
+Calculate,raster,apply functions to the values of each cell of a raster,calc,app
+Calculate,raster,apply functions using layers as arguments,calc,lapp
+Calculate,all,area covered,"area, rgeos::gArea",expanse
+Calculate,raster,area of raster cell,area,cellSize
+Combine,rasters,join rasters with different extents*,merge,merge
+Combine,rasters,join rasters with the same extent*,"brick, stack",c
+Combine,vectors,join vector objects,sp::rbind,rbind

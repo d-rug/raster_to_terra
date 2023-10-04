@@ -126,7 +126,7 @@ microbench_df = function(mb, labs=NA) {
 
 ```{r table_setup, echo=FALSE}
 
-funs = fread('../data/raster_to_terra_funs.csv')
+funs = fread('../raster_to_terra_funs.csv')
 
 vars = c('Operation', 'DataType', 'old', 'terra')
 
