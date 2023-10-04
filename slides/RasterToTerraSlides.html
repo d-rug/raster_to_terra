@@ -479,6 +479,76 @@ Elise Hellwig
 <span id="cb1-23"><a href="#cb1-23"></a>lux <span class="ot">=</span> <span class="fu">vect</span>(lux_fn)</span>
 <span id="cb1-24"><a href="#cb1-24"></a>sp_lux <span class="ot">=</span> <span class="fu">shapefile</span>(lux_fn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="more-speed-fewer-details" class="slide level2">
+<h2>More Speed, Fewer Details</h2>
+<p>Structure of a <code>spatRaster</code> object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">str</span>(elev) <span class="co"># spatRaster</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>S4 class 'SpatRaster' [package "terra"]</code></pre>
+</div>
+</div>
+<p>Structure of a <code>RasterLayer</code> object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">str</span>(r_elev) <span class="co"># rasterLayer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Formal class 'RasterLayer' [package "raster"] with 13 slots
+  ..@ file    :Formal class '.RasterFile' [package "raster"] with 13 slots
+  .. .. ..@ name        : chr "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/elev.tif"
+  .. .. ..@ datanotation: chr "INT2S"
+  .. .. ..@ byteorder   : chr "little"
+  .. .. ..@ nodatavalue : num -Inf
+  .. .. ..@ NAchanged   : logi FALSE
+  .. .. ..@ nbands      : int 1
+  .. .. ..@ bandorder   : chr "BIL"
+  .. .. ..@ offset      : int 0
+  .. .. ..@ toptobottom : logi TRUE
+  .. .. ..@ blockrows   : Named int 43
+  .. .. .. ..- attr(*, "names")= chr "rows"
+  .. .. ..@ blockcols   : Named int 95
+  .. .. .. ..- attr(*, "names")= chr "cols"
+  .. .. ..@ driver      : chr "gdal"
+  .. .. ..@ open        : logi FALSE
+  ..@ data    :Formal class '.SingleLayerData' [package "raster"] with 13 slots
+  .. .. ..@ values    : logi(0) 
+  .. .. ..@ offset    : num 0
+  .. .. ..@ gain      : num 1
+  .. .. ..@ inmemory  : logi FALSE
+  .. .. ..@ fromdisk  : logi TRUE
+  .. .. ..@ isfactor  : logi FALSE
+  .. .. ..@ attributes: list()
+  .. .. ..@ haveminmax: logi TRUE
+  .. .. ..@ min       : num 141
+  .. .. ..@ max       : num 547
+  .. .. ..@ band      : int 1
+  .. .. ..@ unit      : chr ""
+  .. .. ..@ names     : chr "elevation"
+  ..@ legend  :Formal class '.RasterLegend' [package "raster"] with 5 slots
+  .. .. ..@ type      : chr(0) 
+  .. .. ..@ values    : logi(0) 
+  .. .. ..@ color     : logi(0) 
+  .. .. ..@ names     : logi(0) 
+  .. .. ..@ colortable: logi(0) 
+  ..@ title   : chr(0) 
+  ..@ extent  :Formal class 'Extent' [package "raster"] with 4 slots
+  .. .. ..@ xmin: num 5.74
+  .. .. ..@ xmax: num 6.53
+  .. .. ..@ ymin: num 49.4
+  .. .. ..@ ymax: num 50.2
+  ..@ rotated : logi FALSE
+  ..@ rotation:Formal class '.Rotation' [package "raster"] with 2 slots
+  .. .. ..@ geotrans: num(0) 
+  .. .. ..@ transfun:function ()  
+  ..@ ncols   : int 95
+  ..@ nrows   : int 90
+  ..@ crs     :Formal class 'CRS' [package "sp"] with 1 slot
+  .. .. ..@ projargs: chr NA
+  ..@ srs     : chr "+proj=longlat +datum=WGS84 +no_defs"
+  ..@ history : list()
+  ..@ z       : list()</code></pre>
+</div>
+</div>
 </section></section>
 <section>
 <section id="reading-and-writing" class="title-slide slide level1 center">
