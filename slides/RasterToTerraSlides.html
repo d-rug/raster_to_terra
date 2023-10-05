@@ -404,6 +404,10 @@ Elise Hellwig
 </div>
 
 </section>
+<section id="section" class="slide level2">
+<h2></h2>
+
+<img data-src="images/TitleSlide.png" class="r-stretch"></section>
 <section>
 <section id="why-switch" class="title-slide slide level1 center">
 <h1>Why Switch?</h1>
@@ -446,7 +450,7 @@ Elise Hellwig
 <li>The last spatial package you’ll ever need*</li>
 <li>One class main class each for rasters and vectors</li>
 <li>One task, one function</li>
-<li>Improved speed</li>
+<li>Written in C++ for improved speed</li>
 <li>Very large: 345 functions; raster has 277, sf has 150</li>
 <li>Some things changed, many stayed the same</li>
 </ul>
@@ -491,7 +495,7 @@ Elise Hellwig
 </div>
 <p>Structure of a <code>RasterLayer</code> object:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">str</span>(r_elev) <span class="co"># rasterLayer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">head</span>(<span class="fu">str</span>(r_elev)) <span class="co"># rasterLayer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Formal class 'RasterLayer' [package "raster"] with 13 slots
   ..@ file    :Formal class '.RasterFile' [package "raster"] with 13 slots
@@ -547,6 +551,9 @@ Elise Hellwig
   ..@ srs     : chr "+proj=longlat +datum=WGS84 +no_defs"
   ..@ history : list()
   ..@ z       : list()</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
 </div>
 </div>
 </section></section>
@@ -843,7 +850,6 @@ Elise Hellwig
 <li><p><a href="https://rspatial.org/pkg/index.html">terra documentation on rspatial.org</a> - A vignette that walks you through the <code>terra</code> package.</p></li>
 <li><p><a href="https://rspatial.github.io/terra/reference/terra-package.html"><code>terra</code> documentation on github</a> - An overview of <code>terra</code> and a comprehensive description of its classes and methods. Highlights differences between <code>raster</code> and <code>terra</code>.</p></li>
 <li><p><a href="https://github.com/rspatial/geodata"><code>geodata</code> documentation on github</a> - A description of available data as well as some links to the original source.</p></li>
-<li></li>
 </ul>
 <div class="footer footer-default">
 

@@ -5,12 +5,16 @@ format: revealjs
 editor: visual
 ---
 
+## 
+![](images/TitleSlide.png)
+
+
 # Why Switch?
 
 1.  You have to (older packages are going away)
 2.  Other spatial packages are too slow
 3.  Your data is too large to read into memory
-3.  You don't want to have to load 5 packages when doing geospatial work
+4.  You don't want to have to load 5 packages when doing geospatial work
 
 ## Learning Objectives
 
@@ -40,7 +44,7 @@ Familiarity with the raster and sp packages
 -   The last spatial package you'll ever need\*
 -   One class main class each for rasters and vectors
 -   One task, one function
--   Improved speed
+-   Written in C++ for improved speed
 -   Very large: 345 functions; raster has 277, sf has 150
 -   Some things changed, many stayed the same
 
@@ -144,17 +148,13 @@ str(elev) # spatRaster
 
 ```
 
-  
-  
-  
 Structure of a `RasterLayer` object:
 
 ```{r under_the_hood2, echo=TRUE}
 
-str(r_elev) # rasterLayer
+head(str(r_elev)) # rasterLayer
 
 ```
-
 
 # Reading and Writing
 
@@ -340,7 +340,6 @@ comb_tab %>%
 -   can now specify which layer to plot more easily
 
 ### There is also `plet` for interactive maps
- 
 
 ## Where's the data? `geodata`!
 
@@ -358,10 +357,10 @@ comb_tab %>%
 
 -   [Spatial Data with terra on rspatial.org](https://rspatial.org/spatial/index.html) - How to do spatial data analysis in the context of R and the `terra` package.
 
-- [terra documentation on rspatial.org](https://rspatial.org/pkg/index.html) - A vignette that walks you through the `terra` package.
+-   [terra documentation on rspatial.org](https://rspatial.org/pkg/index.html) - A vignette that walks you through the `terra` package.
 
 -   [`terra` documentation on github](https://rspatial.github.io/terra/reference/terra-package.html) - An overview of `terra` and a comprehensive description of its classes and methods. Highlights differences between `raster` and `terra`.
 
 -   [`geodata` documentation on github](https://github.com/rspatial/geodata) - A description of available data as well as some links to the original source.
 
--   
+
