@@ -138,23 +138,6 @@ col_names = c('Operation', 'Data Type', 'Old Functions', 'New Functions')
 
 ```
 
-## More Speed, Fewer Details
-
-Structure of a `spatRaster` object:
-
-```{r under_the_hood, echo=TRUE}
-
-str(elev) # spatRaster
-
-```
-
-Structure of a `RasterLayer` object:
-
-```{r under_the_hood2, echo=TRUE}
-
-head(str(r_elev)) # rasterLayer
-
-```
 
 # Reading and Writing
 
