@@ -443,6 +443,15 @@ Elise Hellwig
 <li>data access</li>
 </ul>
 </section></section>
+<section id="what-this-is-not" class="title-slide slide level1 center">
+<h1>What this is not:</h1>
+<ul>
+<li>A tutorial on doing geospatial work in R</li>
+<li>A deep dive into all the functionality of <code>terra</code></li>
+<li>A debate between whether <code>terra</code> or <code>sf</code>/<code>stars</code> is better</li>
+</ul>
+</section>
+
 <section>
 <section id="terra-a-birds-eye-view" class="title-slide slide level1 center">
 <h1><code>terra</code>: A bird’s eye view</h1>
@@ -483,80 +492,12 @@ Elise Hellwig
 <span id="cb1-23"><a href="#cb1-23"></a>lux <span class="ot">=</span> <span class="fu">vect</span>(lux_fn)</span>
 <span id="cb1-24"><a href="#cb1-24"></a>sp_lux <span class="ot">=</span> <span class="fu">shapefile</span>(lux_fn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="more-speed-fewer-details" class="slide level2">
-<h2>More Speed, Fewer Details</h2>
-<p>Structure of a <code>spatRaster</code> object:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">str</span>(elev) <span class="co"># spatRaster</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>S4 class 'SpatRaster' [package "terra"]</code></pre>
-</div>
-</div>
-<p>Structure of a <code>RasterLayer</code> object:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">head</span>(<span class="fu">str</span>(r_elev)) <span class="co"># rasterLayer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Formal class 'RasterLayer' [package "raster"] with 13 slots
-  ..@ file    :Formal class '.RasterFile' [package "raster"] with 13 slots
-  .. .. ..@ name        : chr "/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/terra/ex/elev.tif"
-  .. .. ..@ datanotation: chr "INT2S"
-  .. .. ..@ byteorder   : chr "little"
-  .. .. ..@ nodatavalue : num -Inf
-  .. .. ..@ NAchanged   : logi FALSE
-  .. .. ..@ nbands      : int 1
-  .. .. ..@ bandorder   : chr "BIL"
-  .. .. ..@ offset      : int 0
-  .. .. ..@ toptobottom : logi TRUE
-  .. .. ..@ blockrows   : Named int 43
-  .. .. .. ..- attr(*, "names")= chr "rows"
-  .. .. ..@ blockcols   : Named int 95
-  .. .. .. ..- attr(*, "names")= chr "cols"
-  .. .. ..@ driver      : chr "gdal"
-  .. .. ..@ open        : logi FALSE
-  ..@ data    :Formal class '.SingleLayerData' [package "raster"] with 13 slots
-  .. .. ..@ values    : logi(0) 
-  .. .. ..@ offset    : num 0
-  .. .. ..@ gain      : num 1
-  .. .. ..@ inmemory  : logi FALSE
-  .. .. ..@ fromdisk  : logi TRUE
-  .. .. ..@ isfactor  : logi FALSE
-  .. .. ..@ attributes: list()
-  .. .. ..@ haveminmax: logi TRUE
-  .. .. ..@ min       : num 141
-  .. .. ..@ max       : num 547
-  .. .. ..@ band      : int 1
-  .. .. ..@ unit      : chr ""
-  .. .. ..@ names     : chr "elevation"
-  ..@ legend  :Formal class '.RasterLegend' [package "raster"] with 5 slots
-  .. .. ..@ type      : chr(0) 
-  .. .. ..@ values    : logi(0) 
-  .. .. ..@ color     : logi(0) 
-  .. .. ..@ names     : logi(0) 
-  .. .. ..@ colortable: logi(0) 
-  ..@ title   : chr(0) 
-  ..@ extent  :Formal class 'Extent' [package "raster"] with 4 slots
-  .. .. ..@ xmin: num 5.74
-  .. .. ..@ xmax: num 6.53
-  .. .. ..@ ymin: num 49.4
-  .. .. ..@ ymax: num 50.2
-  ..@ rotated : logi FALSE
-  ..@ rotation:Formal class '.Rotation' [package "raster"] with 2 slots
-  .. .. ..@ geotrans: num(0) 
-  .. .. ..@ transfun:function ()  
-  ..@ ncols   : int 95
-  ..@ nrows   : int 90
-  ..@ crs     :Formal class 'CRS' [package "sp"] with 1 slot
-  .. .. ..@ projargs: chr NA
-  ..@ srs     : chr "+proj=longlat +datum=WGS84 +no_defs"
-  ..@ history : list()
-  ..@ z       : list()</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>NULL</code></pre>
-</div>
-</div>
 </section></section>
+<section id="classes" class="title-slide slide level1 center">
+<h1>Classes</h1>
+
+<img data-src="images/raster_to_terra_classes.png" class="r-stretch quarto-figure-center"></section>
+
 <section>
 <section id="reading-and-writing" class="title-slide slide level1 center">
 <h1>Reading and Writing</h1>
@@ -609,12 +550,96 @@ Elise Hellwig
 <li>One raster function, regardless of number of layers</li>
 <li>Vector function reads in more than just shapefiles</li>
 </ul>
+<div class="cell" data-hash="RasterToTerraSlides_cache/revealjs/read_bench_91649c874e8a5569949c35b274cd1a58">
+<div class="cell-output-display">
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">function</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">median (microsec)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n_eval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">terra::rast</td>
+<td style="text-align: right;">8.07</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">raster::raster</td>
+<td style="text-align: right;">69.80</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">terra::vect</td>
+<td style="text-align: right;">8.09</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">raster::shapefile</td>
+<td style="text-align: right;">115.20</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rgdal::readOGR</td>
+<td style="text-align: right;">3,652.36</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
 </section>
 <section id="writing-data" class="slide level2">
 <h2>Writing Data</h2>
 <ul>
 <li>Always specify <code>filetype</code>, <code>terra</code>’s version of <code>format</code> argument</li>
 </ul>
+<div class="cell" data-hash="RasterToTerraSlides_cache/revealjs/write_bench_9820cd0cb6ae36ab01864c7ab4409507">
+<div class="cell-output-display">
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">function</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">median (microsec)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n_eval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">terra::writeRaster</td>
+<td style="text-align: right;">24.83</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">raster::writeRaster</td>
+<td style="text-align: right;">267.24</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">terra::writeVector</td>
+<td style="text-align: right;">9.74</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">raster::shapefile</td>
+<td style="text-align: right;">35.38</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rgdal::writeOGR</td>
+<td style="text-align: right;">28.07</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
 </section></section>
 <section>
 <section id="transform" class="title-slide slide level1 center">
@@ -633,34 +658,34 @@ Elise Hellwig
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">add projection</td>
-<td style="text-align: left;">all</td>
-<td style="text-align: left;">crs(x) &lt;-</td>
-<td style="text-align: left;">crs(x) &lt;-</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">change projection</td>
 <td style="text-align: left;">raster</td>
 <td style="text-align: left;">projectRaster</td>
 <td style="text-align: left;">project</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">change projection</td>
 <td style="text-align: left;">vector</td>
 <td style="text-align: left;">sp::spTransform</td>
 <td style="text-align: left;">project</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">change resolution/origin</td>
 <td style="text-align: left;">raster</td>
-<td style="text-align: left;">resample, aggregate, disaggregate</td>
-<td style="text-align: left;">resample, aggregate, disagg</td>
+<td style="text-align: left;">disaggregate</td>
+<td style="text-align: left;">disagg</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">convert raster with multiple layers to a list of 1 layer rasters</td>
+<td style="text-align: left;">vector</td>
+<td style="text-align: left;">unstack</td>
+<td style="text-align: left;">as.list</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">spatial subset</td>
-<td style="text-align: left;">all</td>
-<td style="text-align: left;">crop, intersect, mask</td>
-<td style="text-align: left;">crop, intersect, mask</td>
+<td style="text-align: left;">convert from raster to vector representation</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">rasterToPoints/Contours/Polygons</td>
+<td style="text-align: left;">as.points/lines/polygons</td>
 </tr>
 </tbody>
 </table>
@@ -672,7 +697,118 @@ Elise Hellwig
 </section>
 <section id="speed-improvements" class="slide level2">
 <h2>Speed Improvements</h2>
+<div class="cell" data-hash="RasterToTerraSlides_cache/revealjs/transform_bench_17e69426fb2a13227730be5886dd6bf1">
+<div class="cell-output-display">
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">function</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">median (millisec)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n_eval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">terra::project</td>
+<td style="text-align: right;">42.05</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">raster::projectRaster</td>
+<td style="text-align: right;">53.45</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">terra::resample</td>
+<td style="text-align: right;">1.48</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">raster::resample</td>
+<td style="text-align: right;">45.17</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">terra::rasterize</td>
+<td style="text-align: right;">1.37</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">raster::rasterize</td>
+<td style="text-align: right;">183.45</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">terra::as.polygons</td>
+<td style="text-align: right;">22.45</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">raster::rasterToPolygons</td>
+<td style="text-align: right;">168.36</td>
+<td style="text-align: right;">100</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
 </section></section>
+<section id="combine" class="title-slide slide level1 center">
+<h1>Combine</h1>
+<div style="font-size: 80%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Old Functions</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">New Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">spatial query</td>
+<td style="text-align: left;">vector, vector</td>
+<td style="text-align: left;">sp::over</td>
+<td style="text-align: left;">extract</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">spatial query</td>
+<td style="text-align: left;">raster, vector</td>
+<td style="text-align: left;">extract</td>
+<td style="text-align: left;">extract</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">join rasters with different extents*</td>
+<td style="text-align: left;">rasters</td>
+<td style="text-align: left;">merge</td>
+<td style="text-align: left;">merge</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">join rasters with the same extent*</td>
+<td style="text-align: left;">rasters</td>
+<td style="text-align: left;">stack, addLayer</td>
+<td style="text-align: left;">c</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">join vector objects</td>
+<td style="text-align: left;">vectors</td>
+<td style="text-align: left;">bind</td>
+<td style="text-align: left;">rbind</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+
 <section>
 <section id="calculations" class="title-slide slide level1 center">
 <h1>Calculations</h1>
@@ -704,46 +840,22 @@ Elise Hellwig
 <td style="text-align: left;">+, -, *, / etc.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">apply pre-vectorized function on each cell of a raster</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">sum, mean, max, etc.</td>
-<td style="text-align: left;">sum, mean, max etc.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">apply functions on a moving window</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">focal</td>
-<td style="text-align: left;">focal</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">apply functions to layers in a raster</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">cellStats</td>
-<td style="text-align: left;">global</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">apply functions to the values of each cell of a raster</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">calc</td>
-<td style="text-align: left;">app</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">apply functions using layers as arguments</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">calc</td>
-<td style="text-align: left;">lapp</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">area covered</td>
 <td style="text-align: left;">all</td>
 <td style="text-align: left;">area, rgeos::gArea</td>
 <td style="text-align: left;">expanse</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">area of raster cell</td>
 <td style="text-align: left;">raster</td>
 <td style="text-align: left;">area</td>
 <td style="text-align: left;">cellSize</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Distance between objects</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">distance, pointDistance, distanceFromPoints</td>
+<td style="text-align: left;">distance</td>
 </tr>
 </tbody>
 </table>
@@ -757,65 +869,11 @@ Elise Hellwig
 <h2>Comparisons</h2>
 
 <img data-src="images/applyfuns.png" class="r-stretch"></section></section>
-<section id="combine" class="title-slide slide level1 center">
-<h1>Combine</h1>
-<div style="font-size: 80%;">
-<div class="cell">
-<div class="cell-output-display">
-<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Old Functions</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">New Functions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">query</td>
-<td style="text-align: left;">vector, vector</td>
-<td style="text-align: left;">sp::over</td>
-<td style="text-align: left;">extract</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">query</td>
-<td style="text-align: left;">raster, vector</td>
-<td style="text-align: left;">extract</td>
-<td style="text-align: left;">extract</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">join rasters with different extents*</td>
-<td style="text-align: left;">rasters</td>
-<td style="text-align: left;">merge</td>
-<td style="text-align: left;">merge</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">join rasters with the same extent*</td>
-<td style="text-align: left;">rasters</td>
-<td style="text-align: left;">brick, stack</td>
-<td style="text-align: left;">c</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">join vector objects</td>
-<td style="text-align: left;">vectors</td>
-<td style="text-align: left;">sp::rbind</td>
-<td style="text-align: left;">rbind</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</div>
-</section>
-
 <section id="spatial-relationships" class="title-slide slide level1 center">
 <h1>Spatial Relationships</h1>
 <ul>
-<li><code>relate</code> for many to many comparison</li>
 <li><code>is.related</code> for a one to one or one to many comparison</li>
+<li><code>relate</code> for many to many comparison</li>
 <li><code>relation</code> = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string</li>
 </ul>
 </section>
@@ -850,6 +908,15 @@ Elise Hellwig
 <li><p><a href="https://rspatial.org/pkg/index.html">terra documentation on rspatial.org</a> - A vignette that walks you through the <code>terra</code> package.</p></li>
 <li><p><a href="https://rspatial.github.io/terra/reference/terra-package.html"><code>terra</code> documentation on github</a> - An overview of <code>terra</code> and a comprehensive description of its classes and methods. Highlights differences between <code>raster</code> and <code>terra</code>.</p></li>
 <li><p><a href="https://github.com/rspatial/geodata"><code>geodata</code> documentation on github</a> - A description of available data as well as some links to the original source.</p></li>
+</ul>
+</section>
+
+<section id="so-about-c" class="title-slide slide level1 center">
+<h1>So about C++…</h1>
+<ul>
+<li><p><code>terra</code> is 64% C++ code as opposed to <code>raster</code> which is only 8.5%</p></li>
+<li><p>spat* cannot be saved from session to session (you shouldn’t be doing this anyway)</p></li>
+<li><p>spat* objects cannot be passed directly to cluster nodes, see <a href="https://rspatial.github.io/terra/reference/wrap.html">wrap</a> for this.</p></li>
 </ul>
 <div class="footer footer-default">
 

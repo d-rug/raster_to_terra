@@ -39,6 +39,12 @@ Familiarity with the raster and sp packages
 -   interpolation
 -   data access
 
+# What this is not:
+
+- A tutorial on doing geospatial work in R
+- A deep dive into all the functionality of `terra`
+- A debate between whether `terra` or `sf`/`stars` is better
+
 # `terra`: A bird's eye view
 
 -   The last spatial package you'll ever need\*
@@ -81,7 +87,6 @@ sp_lux = shapefile(lux_fn)
 
 ```{r microbench_display, echo=FALSE}
 
-n_reps = 10
 
 time_to_power = function(nano) {
   return(floor(log(nano, 10)))
@@ -136,7 +141,13 @@ vars = c('Operation', 'DataType', 'old', 'terra')
 
 col_names = c('Operation', 'Data Type', 'Old Functions', 'New Functions')
 
+n_reps = 100
+
 ```
+
+# Classes
+
+![](images/raster_to_terra_classes.png){fig-align="center"}
 
 
 # Reading and Writing
@@ -156,7 +167,7 @@ io %>%
 -   One raster function, regardless of number of layers
 -   Vector function reads in more than just shapefiles
 
-```{r read_bench, eval=FALSE}
+```{r read_bench, cache=TRUE}
 
 # reading raster data 
 
@@ -186,7 +197,7 @@ readtab %>%
 
 -   Always specify `filetype`, `terra`'s version of `format` argument
 
-```{r write_bench, eval=FALSE}
+```{r write_bench, cache=TRUE}
 
 # writing data 
 
@@ -243,7 +254,7 @@ trans_tab %>%
 
 ## Speed Improvements
 
-```{r transform_bench, eval=FALSE}
+```{r transform_bench, cache=TRUE}
 
 r <- rast(nrows=3, ncols=3, xmin=0, xmax=10, ymin=0, ymax=10)
 values(r) <- 1:ncell(r)
@@ -257,11 +268,16 @@ transbench = microbenchmark(
   raster::projectRaster(r_elev, crs="epsg:3310"),
   terra::resample(r, s, method='bilinear'),
   raster::resample(r_r, s_r, method='bilinear'),
+  terra::rasterize(lux, elev),
+  raster::rasterize(sp_lux, r_elev),
+  as.polygons(elev),
+  rasterToPolygons(r_elev),
   times=n_reps
 )
 
 transform_names = c('terra::project', 'raster::projectRaster','terra::resample',
-                    'raster::resample')
+                    'raster::resample', 'terra::rasterize', 'raster::rasterize',
+                    'terra::as.polygons', 'raster::rasterToPolygons')
 
 trans_tab = microbench_df(transbench, transform_names)
 
@@ -272,6 +288,20 @@ trans_tab %>%
 
 
 ```
+
+# Combine
+
+::: {style="font-size: 80%;"}
+```{r comb_tab}
+
+comb_tab = funs[OperationGroup=='Combine', ..vars]
+
+comb_tab %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling()
+
+```
+:::
 
 # Calculations
 
@@ -297,24 +327,12 @@ calc_tab %>%
 
 ![](images/applyfuns.png)
 
-# Combine
 
-::: {style="font-size: 80%;"}
-```{r comb_tab}
-
-comb_tab = funs[OperationGroup=='Combine', ..vars]
-
-comb_tab %>% 
-  kbl(col.names = col_names) %>% 
-  kable_styling()
-
-```
-:::
 
 # Spatial Relationships
 
--   `relate` for many to many comparison
 -   `is.related` for a one to one or one to many comparison
+-   `relate` for many to many comparison
 -   `relation` = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string
 
 # `plot` is still `plot`
@@ -323,6 +341,7 @@ comb_tab %>%
 -   can now specify which layer to plot more easily
 
 ### There is also `plet` for interactive maps
+  
 
 ## Where's the data? `geodata`!
 
