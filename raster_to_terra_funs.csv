@@ -24,3 +24,4 @@ Utility,raster,get coordinates of a raster,coordinates,crds
 Utility,raster,get values of a raster,getValues,values
 Utility,raster,get number of layers in a raster,nlayers,nlyr
 Utility,raster,(re)classify raster values in groups,"reclassify, subs, cut",classify
+Utility,raster,determine if two rasters have the same characteristics,compareRaster,compareGeom
