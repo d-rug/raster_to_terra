@@ -300,6 +300,17 @@ trans_tab %>%
 
 ```
 
+# Spatial Relationships
+
+
+::: {style="font-size: 120%;"}
+
+-   `is.related` for a one to one or one to many comparison
+-   `relate` for many to many comparison
+-   `relation` = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string
+
+:::
+
 # Combine
 
 ::: {style="font-size: 80%;"}
@@ -316,18 +327,39 @@ comb_tab %>%
 
 # Calculations
 
--   Raster math is still very easy
--   There are name changes
--   One task, one function
+::: {style="font-size: 150%;"}
+
+-   Raster [arithmetic](https://rspatial.github.io/terra/reference/arith-generic.html), [mathematical calculations](https://rspatial.github.io/terra/reference/math-generics.html) and [summary stats](https://rspatial.github.io/terra/reference/summarize-generics.html) are still very easy 
+-   Many name changes
+-   More "apply" functions than ever
+:::
 
 ## Calculation Functions
 
-::: {style="font-size: 68%;"}
+
+::: {style="font-size: 90%;"}
 ```{r calculate_table, echo=FALSE}
 
 calc_tab = funs[OperationGroup=='Calculate', ..vars]
 
 calc_tab %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling()
+
+```
+
+:::
+
+
+## Apply-like functions
+
+::: {style="font-size: 75%;"}
+
+```{r apply_table, echo=FALSE}
+
+apply_tab = funs[OperationGroup=='Apply', ..vars]
+
+apply_tab %>% 
   kbl(col.names = col_names) %>% 
   kable_styling()
 
@@ -339,12 +371,6 @@ calc_tab %>%
 ![](images/applyfuns.png)
 
 
-
-# Spatial Relationships
-
--   `is.related` for a one to one or one to many comparison
--   `relate` for many to many comparison
--   `relation` = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string
 
 # `plot` is still `plot`
 

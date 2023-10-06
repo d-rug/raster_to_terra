@@ -713,6 +713,17 @@ Elise Hellwig
 </div>
 </div>
 </section></section>
+<section id="spatial-relationships" class="title-slide slide level1 center">
+<h1>Spatial Relationships</h1>
+<div style="font-size: 120%;">
+<ul>
+<li><code>is.related</code> for a one to one or one to many comparison</li>
+<li><code>relate</code> for many to many comparison</li>
+<li><code>relation</code> = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string</li>
+</ul>
+</div>
+</section>
+
 <section id="combine" class="title-slide slide level1 center">
 <h1>Combine</h1>
 <div style="font-size: 80%;">
@@ -764,15 +775,17 @@ Elise Hellwig
 <section>
 <section id="calculations" class="title-slide slide level1 center">
 <h1>Calculations</h1>
+<div style="font-size: 150%;">
 <ul>
-<li>Raster math is still very easy</li>
-<li>There are name changes</li>
-<li>One task, one function</li>
+<li>Raster <a href="https://rspatial.github.io/terra/reference/arith-generic.html">arithmetic</a>, <a href="https://rspatial.github.io/terra/reference/math-generics.html">mathematical calculations</a> and <a href="https://rspatial.github.io/terra/reference/summarize-generics.html">summary stats</a> are still very easy</li>
+<li>Many name changes</li>
+<li>More “apply” functions than ever</li>
 </ul>
+</div>
 </section>
 <section id="calculation-functions" class="slide level2">
 <h2>Calculation Functions</h2>
-<div style="font-size: 68%;">
+<div style="font-size: 90%;">
 <div class="cell">
 <div class="cell-output-display">
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
@@ -786,28 +799,87 @@ Elise Hellwig
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">raster arithmetic</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">+, -, *, / etc.</td>
-<td style="text-align: left;">+, -, *, / etc.</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">area covered</td>
 <td style="text-align: left;">all</td>
 <td style="text-align: left;">area, rgeos::gArea</td>
 <td style="text-align: left;">expanse</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">area of raster cell</td>
 <td style="text-align: left;">raster</td>
 <td style="text-align: left;">area</td>
 <td style="text-align: left;">cellSize</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Distance between objects</td>
+<tr class="odd">
+<td style="text-align: left;">distance between objects</td>
 <td style="text-align: left;">all</td>
 <td style="text-align: left;">distance, pointDistance, distanceFromPoints</td>
 <td style="text-align: left;">distance</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Estimate values for NA cells in a raster</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">approxNA</td>
+<td style="text-align: left;">approximate</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="apply-like-functions" class="slide level2">
+<h2>Apply-like functions</h2>
+<div style="font-size: 75%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Old Functions</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">New Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">compute paired summary statistics between all pairs of layers</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">layerStats</td>
+<td style="text-align: left;">layerCor</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">compute function on a window moving through layers</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">movingFun</td>
+<td style="text-align: left;">roll</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">apply functions to layers in a raster</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">cellStats</td>
+<td style="text-align: left;">global</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">apply functions to the values of each cell of a raster</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">calc</td>
+<td style="text-align: left;">app</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">apply functions to cells grouped by layer</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">stackApply</td>
+<td style="text-align: left;">tapp</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">apply functions to cells using layers as arguments</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">overlay</td>
+<td style="text-align: left;">lapp</td>
 </tr>
 </tbody>
 </table>
@@ -821,15 +893,6 @@ Elise Hellwig
 <h2>Comparisons</h2>
 
 <img data-src="images/applyfuns.png" class="r-stretch"></section></section>
-<section id="spatial-relationships" class="title-slide slide level1 center">
-<h1>Spatial Relationships</h1>
-<ul>
-<li><code>is.related</code> for a one to one or one to many comparison</li>
-<li><code>relate</code> for many to many comparison</li>
-<li><code>relation</code> = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string</li>
-</ul>
-</section>
-
 <section>
 <section id="plot-is-still-plot" class="title-slide slide level1 center">
 <h1><code>plot</code> is still <code>plot</code></h1>
