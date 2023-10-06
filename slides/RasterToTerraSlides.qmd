@@ -28,15 +28,13 @@ Familiarity with the raster and sp packages
 
 ## What we will cover
 
+-   new classes
 -   read/write
 -   transformations
--   joining
+-   combining data
 -   calculations
--   get coordinates for spatVector
--   sampling
--   transformation
--   Plotting
--   interpolation
+-   spatial relationships
+-   plotting
 -   data access
 
 # What this is not:
@@ -54,9 +52,8 @@ Familiarity with the raster and sp packages
 -   Very large: 345 functions; raster has 277, sf has 150
 -   Some things changed, many stayed the same
 
-## Setup
 
-```{r setup, message=FALSE, warning=FALSE, echo=TRUE}
+```{r setup, message=FALSE, warning=FALSE}
 
 library(microbenchmark) # for speed testing
 
@@ -237,6 +234,20 @@ write_tab %>%
 
 
 ```
+
+# Working with Rasters
+::: {style="font-size: 80%;"}
+```{r utility_tab}
+
+util_tab = funs[OperationGroup=='Utility', ..vars]
+
+util_tab %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling()
+
+```
+:::
+
 
 # Transform
 
