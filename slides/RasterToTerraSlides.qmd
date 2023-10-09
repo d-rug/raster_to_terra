@@ -350,8 +350,12 @@ calc_tab %>%
 
 :::
 
+## Common Apply-like Functions
 
-## Apply-like functions
+![](images/applyfuns.png)
+
+
+## More Apply-like Functions
 
 ::: {style="font-size: 75%;"}
 
@@ -366,9 +370,6 @@ apply_tab %>%
 ```
 :::
 
-## Comparisons
-
-![](images/applyfuns.png)
 
 
 
