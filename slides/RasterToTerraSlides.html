@@ -564,57 +564,44 @@ Elise Hellwig
 <li><p><code>stack</code>, <code>addLayer</code> <span class="math inline">\(\rightarrow\)</span> <code>c</code></p></li>
 <li><p><code>unstack</code> <span class="math inline">\(\rightarrow\)</span> <code>as.list</code></p></li>
 <li><p><code>dropLayer</code> <span class="math inline">\(\rightarrow\)</span> <code>subset</code></p></li>
-<li><p><code>rasterToPoints</code> <span class="math inline">\(\rightarrow\)</span> <code>as.points</code></p></li>
-<li><p><code>rasterToPolygons</code> <span class="math inline">\(\rightarrow\)</span> <code>as.polygons</code></p></li>
+<li><p><code>rasterTo*</code> <span class="math inline">\(\rightarrow\)</span> <code>as.*</code></p></li>
 <li><p><code>isLonLat</code> <span class="math inline">\(\rightarrow\)</span> <code>is.lonlat</code></p></li>
+<li><p><em><code>bind</code> <span class="math inline">\(\rightarrow\)</span> <code>rbind</code></em></p></li>
 </ul>
 </div>
-</section></section>
-<section>
-<section id="transform" class="title-slide slide level1 center">
-<h1>Transform</h1>
-<div style="font-size: 80%;">
+</section>
+<section id="different-classes-same-method" class="slide level2">
+<h2>Different Classes, Same Method</h2>
+<div style="font-size: 130%;">
 <div class="cell">
 <div class="cell-output-display">
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Old Functions</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">New Functions</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Method</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">change projection</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">projectRaster</td>
+<td style="text-align: left;">reproject</td>
 <td style="text-align: left;">project</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">change projection</td>
-<td style="text-align: left;">vector</td>
-<td style="text-align: left;">sp::spTransform</td>
-<td style="text-align: left;">project</td>
+<td style="text-align: left;">combine cells/polygons</td>
+<td style="text-align: left;">aggregate</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">change resolution/origin</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">disaggregate</td>
+<td style="text-align: left;">split cells/polygons</td>
 <td style="text-align: left;">disagg</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">convert raster with multiple layers to a list of 1 layer rasters</td>
-<td style="text-align: left;">vector</td>
-<td style="text-align: left;">unstack</td>
-<td style="text-align: left;">as.list</td>
+<td style="text-align: left;">spatial query</td>
+<td style="text-align: left;">extract</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">convert from raster to vector representation</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">rasterToPoints/Contours/Polygons</td>
-<td style="text-align: left;">as.points/lines/polygons</td>
+<td style="text-align: left;">spatial sampling</td>
+<td style="text-align: left;">spatSample</td>
 </tr>
 </tbody>
 </table>
@@ -711,28 +698,34 @@ Elise Hellwig
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">reproject</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">projectRaster</td>
+<td style="text-align: left;">project</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">combine cells/polygons</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">aggregate</td>
+<td style="text-align: left;">aggregate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">split cells/polygons</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">disaggregate</td>
+<td style="text-align: left;">disagg</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">spatial query</td>
 <td style="text-align: left;">vector, vector</td>
 <td style="text-align: left;">sp::over</td>
 <td style="text-align: left;">extract</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">spatial query</td>
-<td style="text-align: left;">raster, vector</td>
-<td style="text-align: left;">extract</td>
-<td style="text-align: left;">extract</td>
-</tr>
 <tr class="odd">
-<td style="text-align: left;">join rasters with different extents*</td>
-<td style="text-align: left;">rasters</td>
-<td style="text-align: left;">merge</td>
-<td style="text-align: left;">merge</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">join vector objects</td>
-<td style="text-align: left;">vectors</td>
-<td style="text-align: left;">bind</td>
-<td style="text-align: left;">rbind</td>
+<td style="text-align: left;">spatial sampling</td>
+<td style="text-align: left;">raster</td>
+<td style="text-align: left;">sp::spsample, sampleRandom</td>
+<td style="text-align: left;">spatSample</td>
 </tr>
 </tbody>
 </table>

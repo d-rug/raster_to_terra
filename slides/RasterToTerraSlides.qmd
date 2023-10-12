@@ -259,19 +259,19 @@ Method names got shorter...
 
 -   `isLonLat` $\rightarrow$ `is.lonlat`
 
--   `bind` $\rightarrow$ `rbind``
+-   *`bind` $\rightarrow$ `rbind`*
 
 :::
 
-# Transform
+## Different Classes, Same Method
 
-::: {style="font-size: 80%;"}
-```{r transform_tab}
+::: {style="font-size: 130%;"}
+```{r same_name_tab}
 
-trans_tab = funs[OperationGroup=='Transform', ..vars]
+comb_tab = funs[OperationGroup=='Combine', c('Operation', 'terra')]
 
-trans_tab %>% 
-  kbl(col.names = col_names) %>% 
+comb_tab %>% 
+  kbl(col.names = c('Operation', 'Method')) %>% 
   kable_styling()
 
 ```

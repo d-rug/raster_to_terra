@@ -3,15 +3,11 @@ I/O,raster,read data,"raster, stack, brick",rast
 I/O,vector,read data,"shapefile, rgdal::readOGR",vect
 I/O,raster,write data,writeRaster,writeRaster
 I/O,vector,write data,"shapefile, rgdal::writeOGR",writeVector
-Transform,raster,change projection,projectRaster,project
-Transform,vector,change projection,sp::spTransform,project
-Transform,raster,change resolution/origin,disaggregate,disagg
-Transform,vector,convert raster with multiple layers to a list of 1 layer rasters,unstack,as.list
-Transform,raster,convert from raster to vector representation,rasterToPoints/Contours/Polygons,as.points/lines/polygons
+Combine,raster,reproject,projectRaster,project
+Combine,raster,combine cells/polygons,aggregate,aggregate
+Combine,raster,split cells/polygons,disaggregate,disagg
 Combine,"vector, vector",spatial query,sp::over,extract
-Combine,"raster, vector",spatial query,extract,extract
-Combine,rasters,join rasters with different extents*,merge,merge
-Combine,vectors,join vector objects,bind,rbind
+Combine,raster,spatial sampling,"sp::spsample, sampleRandom ",spatSample
 Calculate,all,area covered,"area, rgeos::gArea",expanse
 Calculate,raster,area of raster cell,area,cellSize
 Calculate,all,distance between objects,"distance, pointDistance, distanceFromPoints",distance
