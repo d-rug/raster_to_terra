@@ -52,7 +52,6 @@ Familiarity with the raster and sp packages
 -   Very large: 345 functions; raster has 277, sf has 150
 -   Some things changed, many stayed the same
 
-
 ```{r setup, message=FALSE, warning=FALSE}
 
 library(microbenchmark) # for speed testing
@@ -146,7 +145,6 @@ n_reps = 100
 
 ![](images/raster_to_terra_classes.png){fig-align="center"}
 
-
 # Reading and Writing
 
 ```{r io_table}
@@ -236,18 +234,34 @@ write_tab %>%
 ```
 
 # Working with Rasters
-::: {style="font-size: 80%;"}
-```{r utility_tab}
 
-util_tab = funs[OperationGroup=='Utility', ..vars]
+::: {style="font-size: 170%;"}
+Method names got shorter...
 
-util_tab %>% 
-  kbl(col.names = col_names) %>% 
-  kable_styling()
+-   `coordinates` $\rightarrow$ `crds`
 
-```
+-   `nlayers` $\rightarrow$ `nlyr`
+
+-   `getValues` $\rightarrow$ `values`
 :::
 
+## ...and more similar to base R.
+
+::: {style="font-size: 120%;"}
+
+-   `stack`, `addLayer` $\rightarrow$ `c`
+
+-   `unstack` $\rightarrow$ `as.list`
+
+-   `dropLayer` $\rightarrow$ `subset`
+
+-   `rasterTo*` $\rightarrow$ `as.*`
+
+-   `isLonLat` $\rightarrow$ `is.lonlat`
+
+-   `bind` $\rightarrow$ `rbind``
+
+:::
 
 # Transform
 
@@ -302,13 +316,10 @@ trans_tab %>%
 
 # Spatial Relationships
 
-
 ::: {style="font-size: 120%;"}
-
 -   `is.related` for a one to one or one to many comparison
 -   `relate` for many to many comparison
 -   `relation` = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string
-
 :::
 
 # Combine
@@ -389,11 +400,11 @@ And there is `plet` for interactive maps!
 
 # So about C++...
 
-- `terra` is 64% C++ code as opposed to `raster` which is only 8.5%
+-   `terra` is 64% C++ code as opposed to `raster` which is only 8.5%
 
-- spat* cannot be saved from session to session (you shouldn't be doing this anyway)
+-   spat\* cannot be saved from session to session (you shouldn't be doing this anyway)
 
-- spat* objects cannot be passed directly to cluster nodes, see [wrap](https://rspatial.github.io/terra/reference/wrap.html) for this.
+-   spat\* objects cannot be passed directly to cluster nodes, see [wrap](https://rspatial.github.io/terra/reference/wrap.html) for this.
 
 # Resources
 
@@ -404,6 +415,3 @@ And there is `plet` for interactive maps!
 -   [terra documentation on github](https://rspatial.github.io/terra/reference/terra-package.html) - An overview of `terra` and a comprehensive description of its classes and methods. Highlights differences between `raster` and `terra`.
 
 -   [geodata documentation on github](https://github.com/rspatial/geodata) - A description of available data as well as some links to the original source.
-
-
-

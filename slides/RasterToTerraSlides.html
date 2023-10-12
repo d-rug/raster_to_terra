@@ -545,60 +545,31 @@ Elise Hellwig
 </div>
 </div>
 </section></section>
+<section>
 <section id="working-with-rasters" class="title-slide slide level1 center">
 <h1>Working with Rasters</h1>
-<div style="font-size: 80%;">
-<div class="cell">
-<div class="cell-output-display">
-<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Old Functions</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">New Functions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">get coordinates of a raster</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">coordinates</td>
-<td style="text-align: left;">crds</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">get values of a raster</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">getValues</td>
-<td style="text-align: left;">values</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">get number of layers in a raster</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">nlayers</td>
-<td style="text-align: left;">nlyr</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">(re)classify raster values in groups</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">reclassify, subs, cut</td>
-<td style="text-align: left;">classify</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">determine if two rasters have the same characteristics</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">compareRaster</td>
-<td style="text-align: left;">compareGeom</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
+<div style="font-size: 170%;">
+<p>Method names got shorter…</p>
+<ul>
+<li><p><code>coordinates</code> <span class="math inline">\(\rightarrow\)</span> <code>crds</code></p></li>
+<li><p><code>nlayers</code> <span class="math inline">\(\rightarrow\)</span> <code>nlyr</code></p></li>
+<li><p><code>getValues</code> <span class="math inline">\(\rightarrow\)</span> <code>values</code></p></li>
+</ul>
 </div>
 </section>
-
+<section id="and-more-similar-to-base-r." class="slide level2">
+<h2>…and more similar to base R.</h2>
+<div style="font-size: 120%;">
+<ul>
+<li><p><code>stack</code>, <code>addLayer</code> <span class="math inline">\(\rightarrow\)</span> <code>c</code></p></li>
+<li><p><code>unstack</code> <span class="math inline">\(\rightarrow\)</span> <code>as.list</code></p></li>
+<li><p><code>dropLayer</code> <span class="math inline">\(\rightarrow\)</span> <code>subset</code></p></li>
+<li><p><code>rasterToPoints</code> <span class="math inline">\(\rightarrow\)</span> <code>as.points</code></p></li>
+<li><p><code>rasterToPolygons</code> <span class="math inline">\(\rightarrow\)</span> <code>as.polygons</code></p></li>
+<li><p><code>isLonLat</code> <span class="math inline">\(\rightarrow\)</span> <code>is.lonlat</code></p></li>
+</ul>
+</div>
+</section></section>
 <section>
 <section id="transform" class="title-slide slide level1 center">
 <h1>Transform</h1>
