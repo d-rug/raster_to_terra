@@ -332,19 +332,6 @@ trans_tab %>%
 -   `relation` = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string
 :::
 
-# Combine
-
-::: {style="font-size: 80%;"}
-```{r comb_tab}
-
-comb_tab = funs[OperationGroup=='Combine', ..vars]
-
-comb_tab %>% 
-  kbl(col.names = col_names) %>% 
-  kable_styling()
-
-```
-:::
 
 # Calculations
 
