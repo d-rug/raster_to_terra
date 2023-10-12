@@ -6,8 +6,8 @@ editor: visual
 ---
 
 ## 
-![](images/TitleSlide.png)
 
+![](images/TitleSlide.png)
 
 # Why Switch?
 
@@ -28,9 +28,9 @@ Familiarity with the raster and sp packages
 
 # What this is not:
 
-- A tutorial on doing geospatial work in R
-- A deep dive into all the functionality of `terra`
-- A debate between whether `terra` or `sf`/`stars` is better
+-   A tutorial on doing geospatial work in R
+-   A deep dive into all the functionality of `terra`
+-   A debate between whether `terra` or `sf`/`stars` is better
 
 ## What we will cover
 
@@ -328,14 +328,12 @@ comb_tab %>%
 # Calculations
 
 ::: {style="font-size: 150%;"}
-
--   Raster [arithmetic](https://rspatial.github.io/terra/reference/arith-generic.html), [mathematical calculations](https://rspatial.github.io/terra/reference/math-generics.html) and [summary stats](https://rspatial.github.io/terra/reference/summarize-generics.html) are still very easy 
+-   Raster [arithmetic](https://rspatial.github.io/terra/reference/arith-generic.html), [mathematical calculations](https://rspatial.github.io/terra/reference/math-generics.html) and [summary stats](https://rspatial.github.io/terra/reference/summarize-generics.html) are still very easy
 -   Many name changes
 -   More "apply" functions than ever
 :::
 
 ## Calculation Functions
-
 
 ::: {style="font-size: 90%;"}
 ```{r calculate_table, echo=FALSE}
@@ -347,18 +345,15 @@ calc_tab %>%
   kable_styling()
 
 ```
-
 :::
 
 ## Common Apply-like Functions
 
 ![](images/applyfuns.png)
 
-
 ## More Apply-like Functions
 
 ::: {style="font-size: 75%;"}
-
 ```{r apply_table, echo=FALSE}
 
 apply_tab = funs[OperationGroup=='Apply', ..vars]
@@ -370,16 +365,12 @@ apply_tab %>%
 ```
 :::
 
-
-
-
 # `plot` is still `plot`
 
 -   vectors can be added using `points`, `lines` and `polys`
 -   can now specify which layer to plot more easily
 -   `panel` for multi-plot figures
--   `geom_Spat*` methods from the [tidyterra package](https://dieghernan.github.io/tidyterra/index.html) 
-
+-   `geom_Spat*` methods from the [tidyterra package](https://dieghernan.github.io/tidyterra/index.html)
 
 ::: {style="font-size: 160%;"}
 And there is `plet` for interactive maps!
