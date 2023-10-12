@@ -454,7 +454,7 @@ Elise Hellwig
 <li>One raster function, regardless of number of layers</li>
 <li>Vector function reads in more than just shapefiles</li>
 </ul>
-<div class="cell" data-hash="RasterToTerraSlides_cache/revealjs/read_bench_91649c874e8a5569949c35b274cd1a58">
+<div class="cell" data-hash="RasterToTerraSlides_cache/revealjs/read_bench_1ae409433f71194b87b964f33600671c">
 <div class="cell-output-display">
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -467,28 +467,28 @@ Elise Hellwig
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">terra::rast</td>
-<td style="text-align: right;">8.07</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: right;">8.02</td>
+<td style="text-align: right;">100</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">raster::raster</td>
-<td style="text-align: right;">69.80</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">raster::raster</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">71.79</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">terra::vect</td>
-<td style="text-align: right;">8.09</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: right;">8.76</td>
+<td style="text-align: right;">100</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">raster::shapefile</td>
-<td style="text-align: right;">115.20</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">raster::shapefile</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">115.68</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">rgdal::readOGR</td>
-<td style="text-align: right;">3,652.36</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">rgdal::readOGR</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">3,698.74</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 </tbody>
 </table>
@@ -502,41 +502,41 @@ Elise Hellwig
 <ul>
 <li>Always specify <code>filetype</code>, <code>terra</code>’s version of <code>format</code> argument</li>
 </ul>
-<div class="cell" data-hash="RasterToTerraSlides_cache/revealjs/write_bench_9820cd0cb6ae36ab01864c7ab4409507">
+<div class="cell" data-hash="RasterToTerraSlides_cache/revealjs/write_bench_ebc2476a09ebfeceef69343446629fdf">
 <div class="cell-output-display">
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">function</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">median (microsec)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">median (millisec)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">n_eval</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">terra::writeRaster</td>
-<td style="text-align: right;">24.83</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: right;">2.68</td>
+<td style="text-align: right;">100</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">raster::writeRaster</td>
-<td style="text-align: right;">267.24</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">raster::writeRaster</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">27.02</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">terra::writeVector</td>
-<td style="text-align: right;">9.74</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: right;">1.10</td>
+<td style="text-align: right;">100</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">raster::shapefile</td>
-<td style="text-align: right;">35.38</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">raster::shapefile</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">3.66</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">rgdal::writeOGR</td>
-<td style="text-align: right;">28.07</td>
-<td style="text-align: right;">10</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">rgdal::writeOGR</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">3.02</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 </tbody>
 </table>
@@ -569,13 +569,14 @@ Elise Hellwig
 <li><p><em><code>bind</code> <span class="math inline">\(\rightarrow\)</span> <code>rbind</code></em></p></li>
 </ul>
 </div>
-</section>
-<section id="different-classes-same-method" class="slide level2">
-<h2>Different Classes, Same Method</h2>
-<div style="font-size: 130%;">
+</section></section>
+<section>
+<section id="different-class-same-method" class="title-slide slide level1 center">
+<h1>Different Class, Same Method</h1>
+<div style="font-size: 115%;">
 <div class="cell">
 <div class="cell-output-display">
-<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<table class="table table-striped" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
@@ -584,24 +585,24 @@ Elise Hellwig
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">reproject</td>
-<td style="text-align: left;">project</td>
+<td style="text-align: left; background-color: #c6eec3 !important;">reproject</td>
+<td style="text-align: left; background-color: #c6eec3 !important;">project</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">combine cells/polygons</td>
 <td style="text-align: left;">aggregate</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">split cells/polygons</td>
-<td style="text-align: left;">disagg</td>
+<td style="text-align: left; background-color: #c6eec3 !important;">split cells/polygons</td>
+<td style="text-align: left; background-color: #c6eec3 !important;">disagg</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">spatial query</td>
 <td style="text-align: left;">extract</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">spatial sampling</td>
-<td style="text-align: left;">spatSample</td>
+<td style="text-align: left; background-color: #c6eec3 !important;">spatial sampling</td>
+<td style="text-align: left; background-color: #c6eec3 !important;">spatSample</td>
 </tr>
 </tbody>
 </table>
@@ -613,7 +614,7 @@ Elise Hellwig
 </section>
 <section id="speed-improvements" class="slide level2">
 <h2>Speed Improvements</h2>
-<div class="cell" data-hash="RasterToTerraSlides_cache/revealjs/transform_bench_17e69426fb2a13227730be5886dd6bf1">
+<div class="cell" data-hash="RasterToTerraSlides_cache/revealjs/transform_bench_e5e29318ca07c43069429e59d68a8816">
 <div class="cell-output-display">
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -626,43 +627,43 @@ Elise Hellwig
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">terra::project</td>
-<td style="text-align: right;">42.05</td>
+<td style="text-align: right;">42.45</td>
 <td style="text-align: right;">100</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">raster::projectRaster</td>
-<td style="text-align: right;">53.45</td>
-<td style="text-align: right;">100</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">raster::projectRaster</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">54.79</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">terra::resample</td>
-<td style="text-align: right;">1.48</td>
+<td style="text-align: right;">1.55</td>
 <td style="text-align: right;">100</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">raster::resample</td>
-<td style="text-align: right;">45.17</td>
-<td style="text-align: right;">100</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">raster::resample</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">45.92</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">terra::rasterize</td>
-<td style="text-align: right;">1.37</td>
+<td style="text-align: right;">1.41</td>
 <td style="text-align: right;">100</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">raster::rasterize</td>
-<td style="text-align: right;">183.45</td>
-<td style="text-align: right;">100</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">raster::rasterize</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">185.87</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">terra::as.polygons</td>
-<td style="text-align: right;">22.45</td>
+<td style="text-align: right;">22.70</td>
 <td style="text-align: right;">100</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">raster::rasterToPolygons</td>
-<td style="text-align: right;">168.36</td>
-<td style="text-align: right;">100</td>
+<td style="text-align: left; background-color: #dcdcdc !important;">raster::rasterToPolygons</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">169.40</td>
+<td style="text-align: right; background-color: #dcdcdc !important;">100</td>
 </tr>
 </tbody>
 </table>

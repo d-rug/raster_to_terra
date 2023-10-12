@@ -183,7 +183,8 @@ readtab = microbench_df(readbench, read_names)
 
 readtab %>% 
   kbl(align='lrr') %>% 
-  kable_styling()
+  kable_styling()  %>% 
+  row_spec(c(2,4,5), background = '#dcdcdc')
 
 
 ```
@@ -228,7 +229,9 @@ write_tab = microbench_df(writebench, write_names)
 
 write_tab %>% 
   kbl(align='lrr') %>% 
-  kable_styling()
+  kable_styling() %>% 
+  row_spec(c(2,4,5), background = '#dcdcdc')
+
 
 
 ```
@@ -263,16 +266,17 @@ Method names got shorter...
 
 :::
 
-## Different Classes, Same Method
+# Different Class, Same Method
 
-::: {style="font-size: 130%;"}
+::: {style="font-size: 115%;"}
 ```{r same_name_tab}
 
 comb_tab = funs[OperationGroup=='Combine', c('Operation', 'terra')]
 
 comb_tab %>% 
   kbl(col.names = c('Operation', 'Method')) %>% 
-  kable_styling()
+  kable_styling(bootstrap_options = c("striped")) %>% 
+  row_spec(c(1,3,5), background = '#c6eec3')
 
 ```
 :::
@@ -308,7 +312,8 @@ trans_tab = microbench_df(transbench, transform_names)
 
 trans_tab %>% 
   kbl(align='lrr') %>% 
-  kable_styling()
+  kable_styling() %>% 
+  row_spec(seq(2, 8, 2), background = '#dcdcdc')
 
 
 
