@@ -293,8 +293,11 @@ r_r <- raster(r)
 s_r <- raster(s)
 
 transbench = microbenchmark(
-  terra::project(elev, "epsg:3310"),
-  raster::projectRaster(r_elev, crs="epsg:3310"),
+  terra::spatSample(elev, 100, xy=TRUE),
+  raster::sampleRandom(r_elev, 100, xy=TRUE),
+  #spsample(sp_lux, 100, 'random'),
+  #terra::project(elev, "epsg:3310"),
+  #raster::projectRaster(r_elev, crs="epsg:3310"),
   terra::resample(r, s, method='bilinear'),
   raster::resample(r_r, s_r, method='bilinear'),
   terra::rasterize(lux, elev),
@@ -304,8 +307,10 @@ transbench = microbenchmark(
   times=n_reps
 )
 
-transform_names = c('terra::project', 'raster::projectRaster','terra::resample',
-                    'raster::resample', 'terra::rasterize', 'raster::rasterize',
+transform_names = c('terra::spatSample', 'raster::sampleRandom',#'spsample',
+                    #'terra::project', 'raster::projectRaster',
+                    'terra::resample','raster::resample',
+                    'terra::rasterize', 'raster::rasterize',
                     'terra::as.polygons', 'raster::rasterToPolygons')
 
 trans_tab = microbench_df(transbench, transform_names)
