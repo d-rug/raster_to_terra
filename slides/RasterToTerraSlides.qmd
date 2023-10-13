@@ -133,9 +133,9 @@ microbench_df = function(mb, labs=NA) {
 
 funs = fread('../raster_to_terra_funs.csv')
 
-vars = c('Operation', 'DataType', 'old', 'terra')
+vars = c('old', 'terra','Operation')
 
-col_names = c('Operation', 'Data Type', 'Old Functions', 'New Functions')
+col_names = c('Old Functions', 'New Function', 'Operation')
 
 n_reps = 100
 
