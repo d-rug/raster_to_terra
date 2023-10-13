@@ -410,36 +410,31 @@ Elise Hellwig
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Old Functions</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">New Functions</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">New Function</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">read data</td>
-<td style="text-align: left;">raster</td>
 <td style="text-align: left;">raster, stack, brick</td>
 <td style="text-align: left;">rast</td>
+<td style="text-align: left;">read data</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">read data</td>
-<td style="text-align: left;">vector</td>
 <td style="text-align: left;">shapefile, rgdal::readOGR</td>
 <td style="text-align: left;">vect</td>
+<td style="text-align: left;">read data</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">writeRaster</td>
+<td style="text-align: left;">writeRaster</td>
 <td style="text-align: left;">write data</td>
-<td style="text-align: left;">raster</td>
-<td style="text-align: left;">writeRaster</td>
-<td style="text-align: left;">writeRaster</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">write data</td>
-<td style="text-align: left;">vector</td>
 <td style="text-align: left;">shapefile, rgdal::writeOGR</td>
 <td style="text-align: left;">writeVector</td>
+<td style="text-align: left;">write data</td>
 </tr>
 </tbody>
 </table>
@@ -694,44 +689,39 @@ Elise Hellwig
 </ul>
 </div>
 </section>
-<section id="calculation-functions" class="slide level2">
-<h2>Calculation Functions</h2>
+<section id="spatial-calculations" class="slide level2">
+<h2>Spatial Calculations</h2>
 <div style="font-size: 90%;">
 <div class="cell">
 <div class="cell-output-display">
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Old Functions</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">New Functions</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">New Function</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">area covered</td>
-<td style="text-align: left;">all</td>
 <td style="text-align: left;">area, rgeos::gArea</td>
 <td style="text-align: left;">expanse</td>
+<td style="text-align: left;">area covered</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">area of raster cell</td>
-<td style="text-align: left;">raster</td>
 <td style="text-align: left;">area</td>
 <td style="text-align: left;">cellSize</td>
+<td style="text-align: left;">area of raster cell</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">distance between objects</td>
-<td style="text-align: left;">all</td>
 <td style="text-align: left;">distance, pointDistance, distanceFromPoints</td>
 <td style="text-align: left;">distance</td>
+<td style="text-align: left;">distance between objects</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Estimate values for NA cells in a raster</td>
-<td style="text-align: left;">raster</td>
 <td style="text-align: left;">approxNA</td>
 <td style="text-align: left;">approximate</td>
+<td style="text-align: left;">Estimate values for NA cells in a raster</td>
 </tr>
 </tbody>
 </table>
@@ -745,59 +735,64 @@ Elise Hellwig
 <h2>Common Apply-like Functions</h2>
 
 <img data-src="images/applyfuns.png" class="r-stretch"></section>
-<section id="more-apply-like-functions" class="slide level2">
-<h2>More Apply-like Functions</h2>
-<div style="font-size: 75%;">
+<section id="most-of-the-apply-like-functions" class="slide level2">
+<h2>Most of the Apply-like Functions</h2>
+<div style="font-size: 70%;">
 <div class="cell">
 <div class="cell-output-display">
+<div class="table-responsive">
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Data Type</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Old Functions</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">New Functions</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">New Function</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Operation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">compute paired summary statistics between all pairs of layers</td>
-<td style="text-align: left;">raster</td>
 <td style="text-align: left;">layerStats</td>
 <td style="text-align: left;">layerCor</td>
+<td style="text-align: left;">compute summary stats of layers pairwise</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">compute function on a window moving through layers</td>
-<td style="text-align: left;">raster</td>
 <td style="text-align: left;">movingFun</td>
 <td style="text-align: left;">roll</td>
+<td style="text-align: left;">compute function on a window moving through layers</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">apply functions to layers in a raster</td>
-<td style="text-align: left;">raster</td>
 <td style="text-align: left;">cellStats</td>
 <td style="text-align: left;">global</td>
+<td style="text-align: left;">apply functions to layers in a raster</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">apply functions to the values of each cell of a raster</td>
-<td style="text-align: left;">raster</td>
 <td style="text-align: left;">calc</td>
 <td style="text-align: left;">app</td>
+<td style="text-align: left;">apply functions to the values of each raster cell</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">apply functions to cells grouped by layer</td>
-<td style="text-align: left;">raster</td>
 <td style="text-align: left;">stackApply</td>
 <td style="text-align: left;">tapp</td>
+<td style="text-align: left;">apply functions to cells grouped by layer</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">apply functions to cells using layers as arguments</td>
-<td style="text-align: left;">raster</td>
 <td style="text-align: left;">overlay</td>
 <td style="text-align: left;">lapp</td>
+<td style="text-align: left;">apply functions to cells using layers as arguments</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">rapp</td>
+<td style="text-align: left;">apply functions to a subset of layers that varies spatially</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">sapp</td>
+<td style="text-align: left;">apply functions that output layers to multiple layers</td>
 </tr>
 </tbody>
 </table>
+</div>
 
 
 </div>

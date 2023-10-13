@@ -341,7 +341,7 @@ trans_tab %>%
 -   More "apply" functions than ever
 :::
 
-## Calculation Functions
+## Spatial Calculations
 
 ::: {style="font-size: 90%;"}
 ```{r calculate_table, echo=FALSE}
@@ -359,16 +359,16 @@ calc_tab %>%
 
 ![](images/applyfuns.png)
 
-## More Apply-like Functions
+## Most of the Apply-like Functions
 
-::: {style="font-size: 75%;"}
+::: {style="font-size: 70%;"}
 ```{r apply_table, echo=FALSE}
 
 apply_tab = funs[OperationGroup=='Apply', ..vars]
 
 apply_tab %>% 
   kbl(col.names = col_names) %>% 
-  kable_styling()
+  kable_styling(bootstrap_options = 'responsive')
 
 ```
 :::
