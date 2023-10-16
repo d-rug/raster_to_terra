@@ -375,21 +375,21 @@ Elise Hellwig
 <section id="what-we-will-cover" class="slide level2">
 <h2>What we will cover</h2>
 <ul>
-<li>new classes</li>
-<li>read/write</li>
-<li>transformations</li>
-<li>combining data</li>
-<li>calculations</li>
-<li>spatial relationships</li>
-<li>plotting</li>
-<li>data access</li>
+<li>New classes</li>
+<li>Object creation</li>
+<li>Method name changes</li>
+<li>Calculations</li>
+<li>Spatial relationships</li>
+<li>Plotting</li>
+<li>What’s not in <code>terra</code></li>
+<li>C++ functionality</li>
 </ul>
 </section></section>
 <section id="terra-a-birds-eye-view" class="title-slide slide level1 center">
 <h1><code>terra</code>: A bird’s eye view</h1>
 <ul>
-<li>The last spatial package you’ll ever need*</li>
-<li>One class main class each for rasters and vectors</li>
+<li>Raster AND vector support</li>
+<li>Fewer classes, more functionality</li>
 <li>One task, one function</li>
 <li>Written in C++ for improved speed</li>
 <li>Very large: 345 functions; raster has 277, sf has 150</li>
@@ -691,7 +691,7 @@ Elise Hellwig
 </section>
 <section id="spatial-calculations" class="slide level2">
 <h2>Spatial Calculations</h2>
-<div style="font-size: 90%;">
+<div style="font-size: 100%;">
 <div class="cell">
 <div class="cell-output-display">
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
@@ -737,7 +737,7 @@ Elise Hellwig
 <img data-src="images/applyfuns.png" class="r-stretch"></section>
 <section id="most-of-the-apply-like-functions" class="slide level2">
 <h2>Most of the Apply-like Functions</h2>
-<div style="font-size: 70%;">
+<div style="font-size: 75%;">
 <div class="cell">
 <div class="cell-output-display">
 <div class="table-responsive">
@@ -799,7 +799,6 @@ Elise Hellwig
 </div>
 </div>
 </section></section>
-<section>
 <section id="plot-is-still-plot" class="title-slide slide level1 center">
 <h1><code>plot</code> is still <code>plot</code></h1>
 <ul>
@@ -811,6 +810,23 @@ Elise Hellwig
 <div style="font-size: 160%;">
 <p>And there is <code>plet</code> for interactive maps!</p>
 </div>
+</section>
+
+<section>
+<section id="whats-not-included" class="title-slide slide level1 center">
+<h1>What’s not included</h1>
+<ul>
+<li><p>Full spatial dependency and spatial regression capabilities</p>
+<ul>
+<li><p><code>spdep</code> and <code>spatialreg</code> are in the <code>sf</code> paradigm</p></li>
+<li><p>Use <code>sf::st_to_sf(v)</code> to convert objects and proceed as normal</p></li>
+</ul></li>
+<li><p><code>getData()</code></p>
+<ul>
+<li>New package <code>geodata</code></li>
+<li>More data with better documentation</li>
+</ul></li>
+</ul>
 </section>
 <section id="wheres-the-data-geodata" class="slide level2">
 <h2>Where’s the data? <code>geodata</code>!</h2>
