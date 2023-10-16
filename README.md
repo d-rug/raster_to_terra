@@ -27,7 +27,7 @@ possible.
     syntax
 -   Know where to find more information about `terra`.
 
-## Prerequisites
+### Prerequisites
 
 -   Familiarity with `raster` and `sp`
 
@@ -50,6 +50,12 @@ possible.
 -   [geodata documentation on
     github](https://github.com/rspatial/geodata) - A description of
     available data as well as some links to the original source.
+
+## Practice
+
+ - [Raster script to transition](https://github.com/d-rug/raster_to_terra/blob/main/practice_script_raster.R)
+ 
+ - Successfully transitioned terra script
 
 ## Contributing
 
