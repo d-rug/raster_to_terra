@@ -24,4 +24,4 @@ Utility,raster,get number of layers in a raster,nlayers,nlyr
 Utility,raster,(re)classify raster values in groups,"reclassify, subs, cut",classify
 Utility,raster,determine if two rasters have the same characteristics,compareRaster,compareGeom
 Apply,raster,apply functions to a subset of layers that varies spatially,,rapp
-Apply,raster,apply functions that output layers to multiple layers,,sapp
+Apply,raster,"apply functions to layers, similar to sapply or lapply",,sapp
