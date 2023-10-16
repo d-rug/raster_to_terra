@@ -34,14 +34,14 @@ Familiarity with the raster and sp packages
 
 ## What we will cover
 
--   new classes
--   read/write
--   transformations
--   combining data
--   calculations
--   spatial relationships
--   plotting
--   data access
+-   New classes
+-   Object creation
+-   Method name changes
+-   Calculations
+-   Spatial relationships
+-   Plotting
+-   What's not in `terra`
+-   C++ functionality
 
 # `terra`: A bird's eye view
 
