@@ -26,12 +26,6 @@ editor: visual
 
 Familiarity with the raster and sp packages
 
-# What this is not:
-
--   A tutorial on doing geospatial work in R
--   A deep dive into all the functionality of `terra`
--   A debate between whether `terra` or `sf`/`stars` is better
-
 ## What we will cover
 
 -   New classes
