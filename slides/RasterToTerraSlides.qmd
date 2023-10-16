@@ -384,6 +384,18 @@ apply_tab %>%
 And there is `plet` for interactive maps!
 :::
 
+# What's not included
+
+- Full spatial dependency and spatial regression capabilities
+
+  - `spdep` and `spatialreg` are in the `sf` paradigm
+
+  - Use `sf::st_to_sf(v)` to convert objects and proceed as normal
+
+- `getData()` 
+  - New package `geodata`
+  - More data with better documentation
+
 ## Where's the data? `geodata`!
 
 -   Climate and land cover
