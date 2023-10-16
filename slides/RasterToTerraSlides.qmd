@@ -343,7 +343,7 @@ trans_tab %>%
 
 ## Spatial Calculations
 
-::: {style="font-size: 90%;"}
+::: {style="font-size: 100%;"}
 ```{r calculate_table, echo=FALSE}
 
 calc_tab = funs[OperationGroup=='Calculate', ..vars]
@@ -361,7 +361,7 @@ calc_tab %>%
 
 ## Most of the Apply-like Functions
 
-::: {style="font-size: 70%;"}
+::: {style="font-size: 75%;"}
 ```{r apply_table, echo=FALSE}
 
 apply_tab = funs[OperationGroup=='Apply', ..vars]
