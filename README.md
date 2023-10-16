@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # Raster To Terra (and geodata): Modernizing spatial data analysis
 
 [*UC Davis DataLab*](https://datalab.ucdavis.edu/)
