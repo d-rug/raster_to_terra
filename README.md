@@ -1,104 +1,137 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 # Raster To Terra (and geodata): Modernizing spatial data analysis
 
-_[UC Davis DataLab](https://datalab.ucdavis.edu/)_
+[*UC Davis DataLab*](https://datalab.ucdavis.edu/)
 
-_Fall 2023_  
+*Fall 2023*
 
-_Instructor/Maintainer: Elise Hellwig <echellwig@ucdavis.edu>_  
+*Instructor/Maintainer: Elise Hellwig
+[echellwig\@ucdavis.edu](mailto:echellwig@ucdavis.edu){.email}*
 
-* [Reader](https://d-rug.github.io/raster_to_terra/)
-* [Repo](https://github.com/d-rug/raster_to_terra)
+-   [Reader](https://d-rug.github.io/raster_to_terra/)
+-   [Repo](https://github.com/d-rug/raster_to_terra)
 
-No one wants to relearn something they already know how to do. But sometimes 
-there's no other choice. The sp, rgdal, rgeos, and maptools packages will be
-[gone by the end of 2023](https://r-spatial.org/r/2023/05/15/evolution4.html).
-The raster package is not long for this world [either](https://rspatial.org/raster/).
-sf is nice, but it doesn't have the necessary raster functionality for many
-types of analysis. This workshop aims to make the transition from raster to
-terra as painless as possible. 
+No one wants to relearn something they already know how to do. But
+sometimes there's no other choice. The sp, rgdal, rgeos, and maptools
+packages will be [gone by the end of
+2023](https://r-spatial.org/r/2023/05/15/evolution4.html). The raster
+package is not long for this world
+[either](https://rspatial.org/raster/). sf is nice, but it doesn't have
+the necessary raster functionality for many types of analysis. This
+workshop aims to make the transition from raster to terra as painless as
+possible.
 
 ## Learning Goals
 
-- Get a sense for the functionality of the terra package as a whole
-- Be able to translate existing code from deprecated packages to terra syntax
-- Know where to find more information about `terra`.
+-   Get a sense for the functionality of the terra package as a whole
+-   Be able to translate existing code from deprecated packages to terra
+    syntax
+-   Know where to find more information about `terra`.
 
 ## Prerequisites
 
-- Familiarity with the raster and sp packages 
+-   Familiarity with `raster` and `sp`
+
+## Resources
+
+-   [Spatial Data with terra on
+    rspatial.org](https://rspatial.org/spatial/index.html) - How to do
+    spatial data analysis in the context of R and the `terra` package.
+
+-   [terra documentation on
+    rspatial.org](https://rspatial.org/pkg/index.html) - A vignette that
+    walks you through the `terra` package.
+
+-   [terra documentation on
+    github](https://rspatial.github.io/terra/reference/terra-package.html) -
+    An overview of `terra` and a comprehensive description of its
+    classes and methods. Highlights differences between `raster` and
+    `terra`.
+
+-   [geodata documentation on
+    github](https://github.com/rspatial/geodata) - A description of
+    available data as well as some links to the original source.
 
 ## Contributing
 
-The course reader is a live webpage, hosted through GitHub, where you can enter
-curriculum content and post it to a public-facing site for learners.
+The course reader is a live webpage, hosted through GitHub, where you
+can enter curriculum content and post it to a public-facing site for
+learners.
 
 To make alterations to the reader:
-	  
-1.  Check in with the reader's current maintainer and notify them about your 
-    intended changes. Maintainers might ask you to open an issue, use pull 
-    requests, tag your commits with versions, etc.
+
+1.  Check in with the reader's current maintainer and notify them about
+    your intended changes. Maintainers might ask you to open an issue,
+    use pull requests, tag your commits with versions, etc.
 
 2.  Run `git pull`, or if it's your first time contributing, see
     [Setup](#setup).
 
-3.  Edit an existing chapter file or create a new one. Chapter files are R
-    Markdown files (`.Rmd`) at the top level of the repo. Enter your text,
-    code, and other information directly into the file. Make sure your file:
+3.  Edit an existing chapter file or create a new one. Chapter files are
+    R Markdown files (`.Rmd`) at the top level of the repo. Enter your
+    text, code, and other information directly into the file. Make sure
+    your file:
 
-    - Follows the naming scheme `##_topic-of-chapter.Rmd` (the only exception
-      is `index.Rmd`, which contains the reader's front page).
-    - Begins with a first-level header (like `# This`). This will be the title
-      of your chapter. Subsequent section headers should be second-level
-      headers (like `## This`) or below.
-    - Uses caching for resource-intensive code (see [Caching](#caching)).
+    -   Follows the naming scheme `##_topic-of-chapter.Rmd` (the only
+        exception is `index.Rmd`, which contains the reader's front
+        page).
+    -   Begins with a first-level header (like `# This`). This will be
+        the title of your chapter. Subsequent section headers should be
+        second-level headers (like `## This`) or below.
+    -   Uses caching for resource-intensive code (see
+        [Caching](#caching)).
 
-    Put any supporting resources in `data/` or `img/`. For large files, see
-    [Large Files](#large-files). You do not need to
-    add resources generated by your R code (such as plots). The knit step saves
-    these in `docs/` automatically.
+    Put any supporting resources in `data/` or `img/`. For large files,
+    see [Large Files](#large-files). You do not need to add resources
+    generated by your R code (such as plots). The knit step saves these
+    in `docs/` automatically.
 
-4.  Run `knit.R` to regenerate the HTML files in the `docs/`. You can do this
-    in the shell with `./knit.R` or in R with `source("knit.R")`.
+4.  Run `knit.R` to regenerate the HTML files in the `docs/`. You can do
+    this in the shell with `./knit.R` or in R with `source("knit.R")`.
 
-5.  Run `renv::snapshot()` in an R session at the top level of the repo to
-    automatically add any packages your code uses to the project package
-    library.
+5.  Run `renv::snapshot()` in an R session at the top level of the repo
+    to automatically add any packages your code uses to the project
+    package library.
 
 6.  When you're finished, `git add`:
-    - Any files you added or edited directly, including in `data/` and `img/`
-    - `docs/` (all of it)
-    - `_bookdown_files/` (contains the **knitr** cache)
-    * `renv.lock` (contains the **renv** package list)
-<!--
-    - `.gitattributes` (contains the Git LFS file list)
--->
+
+    -   Any files you added or edited directly, including in `data/` and
+        `img/`
+    -   `docs/` (all of it)
+    -   `_bookdown_files/` (contains the **knitr** cache)
+    -   `renv.lock` (contains the **renv** package list) <!--
+        - `.gitattributes` (contains the Git LFS file list)
+        -->
 
     Then `git commit` and `git push`. The live web page will update
     automatically after 1-10 minutes.
 
+### Caching {#caching}
 
-### Caching
+If one of your code chunks takes a lot of time or memory to run,
+consider caching the result, so the chunk won't run every time someone
+knits the reader. To cache a code chunk, add `cache=TRUE` in the chunk
+header. It's best practice to label cached chunks, like so:
 
-If one of your code chunks takes a lot of time or memory to run, consider
-caching the result, so the chunk won't run every time someone knits the
-reader. To cache a code chunk, add `cache=TRUE` in the chunk header. It's
-best practice to label cached chunks, like so:
-
-````
-```{r YOUR_CHUNK_NAME, cache=TRUE}
+```{{r YOUR_CHUNK_NAME, cache=TRUE}}
 # Your code...
 ```
-````
 
-Cached files are stored in the `_bookdown_files/` directory. If you ever want
-to clear the cache, you can delete this directory (or its subdirectories).
-The cache will be rebuilt the next time you knit the reader.
+Cached files are stored in the `_bookdown_files/` directory. If you ever
+want to clear the cache, you can delete this directory (or its
+subdirectories). The cache will be rebuilt the next time you knit the
+reader.
 
-Beware that caching doesn't work with some packages, especially packages that
-use external libraries. Because of this, it's best to leave caching off for
-code chunks that are not resource-intensive.
+Beware that caching doesn't work with some packages, especially packages
+that use external libraries. Because of this, it's best to leave caching
+off for code chunks that are not resource-intensive.
 
-
+````{=html}
 <!--
 ### Large Files
 
@@ -124,19 +157,19 @@ GitHub provides 1 GB of storage and 1 GB of monthly bandwidth free per repo for
 large files. If your large file is more than 50 MB, check with the other
 contributors before adding it.
 -->
+````
 
 ### Github Actions
 
-GitHub Actions can be set up to automatically render your reader when you push 
-new content to a repo. If you would like to use this function, download the 
-materials in [datalab-dev/utilities/render_bookdown_site][render-site] and 
-follow the instructions there.
+GitHub Actions can be set up to automatically render your reader when
+you push new content to a repo. If you would like to use this function,
+download the materials in
+[datalab-dev/utilities/render_bookdown_site](https://github.com/datalab-dev/utilities/tree/main/render_bookdown_site)
+and follow the instructions there.
 
-[render-site]: https://github.com/datalab-dev/utilities/tree/main/render_bookdown_site
+## Setup {#setup}
 
-## Setup
-
-
+````{=html}
 <!--
 ### Git LFS
 
@@ -154,5 +187,6 @@ repo.
 
 [git-lfs]: https://git-lfs.github.com/
 -->
+````
 
 [Back to Top](#top)
