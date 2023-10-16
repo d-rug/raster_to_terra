@@ -422,5 +422,5 @@ And there is `plet` for interactive maps!
 # Practice!
 
 ::: {style="font-size: 120%;"}
-https://github.com/d-rug/raster_to_terra/blob/main/practice_script_raster.R
+https://github.com/d-rug/raster_to_terra#practice
 :::
