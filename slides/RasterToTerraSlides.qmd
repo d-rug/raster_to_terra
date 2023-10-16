@@ -45,8 +45,8 @@ Familiarity with the raster and sp packages
 
 # `terra`: A bird's eye view
 
--   The last spatial package you'll ever need\*
--   One class main class each for rasters and vectors
+-   Raster AND vector support
+-   Fewer classes, more functionality
 -   One task, one function
 -   Written in C++ for improved speed
 -   Very large: 345 functions; raster has 277, sf has 150
