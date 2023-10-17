@@ -17,16 +17,18 @@ scale_labels = function(n=5) {
   return(lab_fun)
 }
 
-
+#labeling function to convert raster layer names to season names
 x_to_season = function(x) {
-  seasons = c('Winter', 'Spring', 'Summer', 'Fall')
+  seasons = c('Winter', 'Spring', 'Summer', 'Fall') #list of seasons
   
+  #remove text from layer names and convert to numbers
   id = as.numeric(gsub('[^0-9]', '', x))
   
   return(seasons[id])
   
 }
 
+#convert function to labeller class
 x_to_season_lab = as_labeller(x_to_season)
 
 # Get Data ----------------------------------------------------------------
@@ -167,6 +169,7 @@ p
 #extract average precip by month for each state
 usa_precip = extract(prec_in, usa_albers, fun=mean, ID=FALSE, bind=TRUE, na.rm=TRUE)
 
+#bins for monthly precip
 month_breaks = seq(0, 7.5, by=0.5)
 
 #plot monthly precipitation averages using terra functionality
