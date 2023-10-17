@@ -370,9 +370,10 @@ apply_tab %>%
 # `plot` is still `plot`
 
 -   vectors can be added using `points`, `lines` and `polys`
--   can now specify which layer to plot more easily
 -   `panel` for multi-plot figures
--   `geom_Spat*` methods from the [tidyterra package](https://dieghernan.github.io/tidyterra/index.html)
+-   `geom_spat*` methods from the [tidyterra package](https://dieghernan.github.io/tidyterra/index.html)
+    - use `lyr` to reference raster layers
+    - lack of wide-to-long functions for `spatVectors` means faceting with polygons is easier in `sf`
 
 ::: {style="font-size: 160%;"}
 And there is `plet` for interactive maps!

@@ -794,9 +794,12 @@ Elise Hellwig
 <h1><code>plot</code> is still <code>plot</code></h1>
 <ul>
 <li>vectors can be added using <code>points</code>, <code>lines</code> and <code>polys</code></li>
-<li>can now specify which layer to plot more easily</li>
 <li><code>panel</code> for multi-plot figures</li>
-<li><code>geom_Spat*</code> methods from the <a href="https://dieghernan.github.io/tidyterra/index.html">tidyterra package</a></li>
+<li><code>geom_spat*</code> methods from the <a href="https://dieghernan.github.io/tidyterra/index.html">tidyterra package</a>
+<ul>
+<li>use <code>lyr</code> to reference raster layers</li>
+<li>lack of wide-to-long functions for <code>spatVectors</code> means faceting with polygons is easier in <code>sf</code></li>
+</ul></li>
 </ul>
 <div style="font-size: 160%;">
 <p>And there is <code>plet</code> for interactive maps!</p>
