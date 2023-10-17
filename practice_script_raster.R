@@ -4,7 +4,7 @@
 library(raster)
 library(rgeos)
 library(rnaturalearth)
-
+library(RColorBrewer)
 
 # Get Data ----------------------------------------------------------------
 
@@ -21,6 +21,9 @@ logo = stack(logo_fn)
 #Albers Equal Area North American projection
 albers_NA = crs("ESRI:102008")
 
+
+#Precipitation color palette
+blues = colorRampPalette(brewer.pal(9, 'Blues'))
 
 # Filtering ---------------------------------------------------------------
 
@@ -89,7 +92,8 @@ prec_in = prec_albers*0.0393701
 seasonality = cv(prec_in)
 
 #plot seasonality with state outlines
-plot(seasonality, yaxt="n",  xaxt="n",
+par(mfrow=c(1,1))
+plot(seasonality, yaxt="n",  xaxt="n", col=blues(120),
      main='Precipitation Seasonality\n(coefficient of variation)')
 plot(usa_albers, add=TRUE)
 
@@ -113,7 +117,8 @@ prec_q_30[prec_q_30>30] = 30
 #plot precipitation totals for all four quarters
 par(mfrow=c(2,2), mai=c(0, 0, 0.2, 0))
 for (i in 1:4) {
-  plot(prec_q_30[[i]], zlim=c(0, 30), yaxt="n",  xaxt="n", main=seasons[i])
+  plot(prec_q_30[[i]], zlim=c(0, 30), yaxt="n",  xaxt="n", main=seasons[i],
+       col=blues(60), colNA='white', axes=FALSE)
   plot(usa_albers, add=TRUE)
 }
 
@@ -130,4 +135,4 @@ names(usa_precip0) = c('ID', month.name)
 usa_precip = cbind(usa_albers, usa_precip0)
 
 #plot monthly precipitation averages
-spplot(usa_precip, zcol=month.name, as.table=TRUE)
+spplot(usa_precip, zcol=month.name, as.table=TRUE, col.regions=blues(16))
