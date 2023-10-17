@@ -14,7 +14,7 @@ editor: visual
 1.  You have to (older packages are going away)
 2.  Other spatial packages are too slow
 3.  Your data is too large to read into memory
-4.  You don't want to have to load 5 packages when doing geospatial work
+4.  You don't want to have to load 5 packages when doing geospatial work*
 
 ## Learning Objectives
 
@@ -28,14 +28,15 @@ Familiarity with the raster and sp packages
 
 ## What we will cover
 
+-   Package overview
 -   New classes
 -   Object creation
 -   Method name changes
--   Calculations
 -   Spatial relationships
+-   Calculations
 -   Plotting
 -   What's not in `terra`
--   C++ functionality
+-   Functionality changes
 
 # `terra`: A bird's eye view
 
