@@ -383,7 +383,7 @@ And there is `plet` for interactive maps!
 
     -   `spdep` and `spatialreg` are in the `sf` paradigm
 
-    -   Use `sf::st_to_sf(v)` to convert objects and proceed as normal
+    -   Use `sf::st_as_sf(v)` to convert objects and proceed as normal
 
 -   `getData()`
 
