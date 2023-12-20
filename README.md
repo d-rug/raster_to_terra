@@ -55,7 +55,7 @@ possible.
 
  - [Raster script to transition](https://github.com/d-rug/raster_to_terra/blob/main/practice_script_raster.R)
  
- - Successfully transitioned terra script
+ - [Successfully transitioned terra script](https://github.com/d-rug/raster_to_terra/blob/main/practice_script_terra.R)
 
 ## Contributing
 
