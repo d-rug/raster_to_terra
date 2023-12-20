@@ -3,10 +3,20 @@ I/O,raster,read data,"raster, stack, brick",rast
 I/O,vector,read data,"shapefile, rgdal::readOGR",vect
 I/O,raster,write data,writeRaster,writeRaster
 I/O,vector,write data,"shapefile, rgdal::writeOGR",writeVector
-Combine,raster,reproject,projectRaster,project
+rename,raster,get coordinates of a raster,coordinates,crds
+rename,raster,get values of a raster,getValues,values
+rename,raster,get layers of a raster,nlayers,nlyr
+rename,raster,convert numeric to categorical,"reclassify, subs, cut",classify
+rename,raster,combine rasters,"stack, addLayer",c
+rename,raster,convert single multilayer raster to list of single layer rasters,unstack,as.list
+rename,raster,select only some raster layers,dropLayer,subset
+rename,raster,convert raster to vector data,rasterTo*,as.*
+rename,raster,test if lon lat data,isLonLat,is.lonlat
+rename,vector,append vectors with same geometry type,bind,rbind
+Combine,raster,reproject geometry,"projectRaster, sp::spTransform",project
 Combine,raster,combine cells/polygons,aggregate,aggregate
 Combine,raster,split cells/polygons,disaggregate,disagg
-Combine,"vector, vector",spatial query,sp::over,extract
+Combine,"vector, vector",spatial query,"extract, sp::over",extract
 Combine,raster,spatial sampling,"sp::spsample, sampleRandom ",spatSample
 Calculate,all,area covered,"area, rgeos::gArea",expanse
 Calculate,raster,area of raster cell,area,cellSize

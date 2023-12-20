@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Calculate | Raster to Terra</title>
   <meta name="description" content="4 Calculate | Raster to Terra" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Calculate | Raster to Terra" />
   <meta property="og:type" content="book" />
@@ -23,15 +23,15 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-10-04" />
+<meta name="date" content="2023-12-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="transform.html"/>
-<link rel="next" href="combine.html"/>
+<link rel="prev" href="working-with-data.html"/>
+<link rel="next" href="plotting.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -150,24 +150,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>0.2</b> Prerequisites</a></li>
 <li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i><b>0.3</b> What we will cover</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html"><i class="fa fa-check"></i><b>1</b> <code>terra</code>: a bird’s eye view</a></li>
-<li class="chapter" data-level="2" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>2</b> The basics</a>
+<li class="chapter" data-level="1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html"><i class="fa fa-check"></i><b>1</b> <code>terra</code>: a bird’s eye view</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>2.1</b> Reading in data</a></li>
-<li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.2</b> Writing data</a></li>
+<li class="chapter" data-level="1.1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html#setup"><i class="fa fa-check"></i><b>1.1</b> Setup</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>3</b> Transform</a></li>
+<li class="chapter" data-level="2" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>2</b> The Basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="the-basics.html"><a href="the-basics.html#classes"><i class="fa fa-check"></i><b>2.1</b> Classes</a></li>
+<li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>2.2</b> Reading in data</a></li>
+<li class="chapter" data-level="2.3" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.3</b> Writing data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>3</b> Working with Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="working-with-data.html"><a href="working-with-data.html#method-changes"><i class="fa fa-check"></i><b>3.1</b> Method changes</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>3.1.1</b> Speed Improvements</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationshps"><i class="fa fa-check"></i><b>3.2</b> Spatial Relationshps</a></li>
+<li class="chapter" data-level="3.3" data-path="working-with-data.html"><a href="working-with-data.html#transform"><i class="fa fa-check"></i><b>3.3</b> Transform</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>4</b> Calculate</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="calculate.html"><a href="calculate.html#summary"><i class="fa fa-check"></i><b>4.1</b> Summary</a></li>
-<li class="chapter" data-level="4.2" data-path="calculate.html"><a href="calculate.html#conversion-table"><i class="fa fa-check"></i><b>4.2</b> Conversion Table</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="combine.html"><a href="combine.html"><i class="fa fa-check"></i><b>5</b> Combine</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="combine.html"><a href="combine.html#querying"><i class="fa fa-check"></i><b>5.1</b> Querying</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="extents.html"><a href="extents.html"><i class="fa fa-check"></i><b>6</b> Extents</a></li>
+<li class="chapter" data-level="5" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting</a></li>
+<li class="chapter" data-level="6" data-path="wheres-the-data-geodata.html"><a href="wheres-the-data-geodata.html"><i class="fa fa-check"></i><b>6</b> Where’s the data? <code>geodata</code>!</a></li>
 <li class="chapter" data-level="7" data-path="what-about-sf-and-stars.html"><a href="what-about-sf-and-stars.html"><i class="fa fa-check"></i><b>7</b> What about sf (and stars)?</a></li>
+<li class="chapter" data-level="8" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>8</b> Resources</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>8.1</b> Practice!</a></li>
+</ul></li>
 <li class="divider"></li>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
   <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" style="float: right; padding-right: 10px;" />
@@ -196,144 +208,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> Summary<a href="calculate.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One of <code>raster</code>’s claims to fame was the ease at which you could do calculations.
 R automatically treated each cell in a <code>RasterLayer</code> as if it was a number, and
-each cell in a <code>RasterBrick</code> or <code>RasterStack</code> as if it were a vector. There are
+each cell in a <code>RasterBrick</code> or <code>RasterStack</code> as if it were a vector. There were
 additional functions for doing calculations on an entire layer of a raster and
-for applying non-vectorized functions.</p>
-</div>
-<div id="conversion-table" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Conversion Table<a href="calculate.html#conversion-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Operation
-</th>
-<th style="text-align:left;">
-Data Type
-</th>
-<th style="text-align:left;">
-Old Functions
-</th>
-<th style="text-align:left;">
-New Functions
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-raster arithmetic
-</td>
-<td style="text-align:left;">
-raster
-</td>
-<td style="text-align:left;">
-+, -, *, / etc.
-</td>
-<td style="text-align:left;">
-+, -, *, / etc.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-apply pre-vectorized function on each cell of a raster
-</td>
-<td style="text-align:left;">
-raster
-</td>
-<td style="text-align:left;">
-sum, mean, max, etc.
-</td>
-<td style="text-align:left;">
-sum, mean, max etc.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-apply functions on a moving window
-</td>
-<td style="text-align:left;">
-raster
-</td>
-<td style="text-align:left;">
-focal
-</td>
-<td style="text-align:left;">
-focal
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-apply functions to layers in a raster
-</td>
-<td style="text-align:left;">
-raster
-</td>
-<td style="text-align:left;">
-cellStats
-</td>
-<td style="text-align:left;">
-global
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-apply functions to the values of each cell of a raster
-</td>
-<td style="text-align:left;">
-raster
-</td>
-<td style="text-align:left;">
-calc
-</td>
-<td style="text-align:left;">
-app
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-apply functions using layers as arguments
-</td>
-<td style="text-align:left;">
-raster
-</td>
-<td style="text-align:left;">
-calc
-</td>
-<td style="text-align:left;">
-lapp
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-area covered
-</td>
-<td style="text-align:left;">
-all
-</td>
-<td style="text-align:left;">
-area, rgeos::gArea
-</td>
-<td style="text-align:left;">
-expanse
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-area of raster cell
-</td>
-<td style="text-align:left;">
-raster
-</td>
-<td style="text-align:left;">
-area
-</td>
-<td style="text-align:left;">
-cellSize
-</td>
-</tr>
-</tbody>
-</table>
+for applying non-vectorized functions. That all remains true with terra, and</p>
 </div>
 </div>
             </section>
@@ -341,8 +218,8 @@ cellSize
           </div>
         </div>
       </div>
-<a href="transform.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="combine.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="working-with-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plotting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -386,6 +263,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

@@ -14,7 +14,7 @@ editor: visual
 1.  You have to (older packages are going away)
 2.  Other spatial packages are too slow
 3.  Your data is too large to read into memory
-4.  You don't want to have to load 5 packages when doing geospatial work*
+4.  You don't want to have to load 5 packages when doing geospatial work\*
 
 ## Learning Objectives
 
@@ -246,7 +246,6 @@ Method names got shorter...
 ## ...and more similar to base R.
 
 ::: {style="font-size: 120%;"}
-
 -   `stack`, `addLayer` $\rightarrow$ `c`
 
 -   `unstack` $\rightarrow$ `as.list`
@@ -257,8 +256,7 @@ Method names got shorter...
 
 -   `isLonLat` $\rightarrow$ `is.lonlat`
 
--   *`bind` $\rightarrow$ `rbind`*
-
+-   *`bind`* $\rightarrow$ `rbind`
 :::
 
 # Different Class, Same Method
@@ -327,7 +325,6 @@ trans_tab %>%
 -   `relation` = intersects, touches, crosses, overlaps, within, contains, covers, covered by, disjoint, or DE-9IM string
 :::
 
-
 # Calculations
 
 ::: {style="font-size: 150%;"}
@@ -373,8 +370,8 @@ apply_tab %>%
 -   vectors can be added using `points`, `lines` and `polys`
 -   `panel` for multi-plot figures
 -   `geom_spat*` methods from the [tidyterra package](https://dieghernan.github.io/tidyterra/index.html)
-    - use `lyr` to reference raster layers
-    - lack of wide-to-long functions for `spatVectors` means faceting with polygons is easier in `sf`
+    -   use `lyr` to reference raster layers
+    -   lack of wide-to-long functions for `spatVectors` means faceting with polygons is easier in `sf`
 
 ::: {style="font-size: 160%;"}
 And there is `plet` for interactive maps!
@@ -382,15 +379,16 @@ And there is `plet` for interactive maps!
 
 # What's not included
 
-- Full spatial dependency and spatial regression capabilities
+-   Full spatial dependency and spatial regression capabilities
 
-  - `spdep` and `spatialreg` are in the `sf` paradigm
+    -   `spdep` and `spatialreg` are in the `sf` paradigm
 
-  - Use `sf::st_to_sf(v)` to convert objects and proceed as normal
+    -   Use `sf::st_to_sf(v)` to convert objects and proceed as normal
 
-- `getData()` 
-  - New package `geodata`
-  - More data with better documentation
+-   `getData()`
+
+    -   New package `geodata`
+    -   More data with better documentation
 
 ## Where's the data? `geodata`!
 

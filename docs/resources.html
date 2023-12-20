@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Transform | Raster to Terra</title>
-  <meta name="description" content="5 Transform | Raster to Terra" />
+  <title>8 Resources | Raster to Terra</title>
+  <meta name="description" content="8 Resources | Raster to Terra" />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Transform | Raster to Terra" />
+  <meta property="og:title" content="8 Resources | Raster to Terra" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="d-rug/raster_to_terra" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Transform | Raster to Terra" />
+  <meta name="twitter:title" content="8 Resources | Raster to Terra" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="spatial-relationshps.html"/>
-<link rel="next" href="calculate.html"/>
+<link rel="prev" href="what-about-sf-and-stars.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -162,20 +162,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>3</b> Working with Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="working-with-data.html"><a href="working-with-data.html#method-changes"><i class="fa fa-check"></i><b>3.1</b> Method changes</a></li>
-<li class="chapter" data-level="3.2" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>3.2</b> Speed Improvements</a></li>
+<li class="chapter" data-level="3.1" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>3.1</b> Speed Improvements</a></li>
+<li class="chapter" data-level="3.2" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationships"><i class="fa fa-check"></i><b>3.2</b> Spatial Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="spatial-relationshps.html"><a href="spatial-relationshps.html"><i class="fa fa-check"></i><b>4</b> Spatial Relationshps</a></li>
-<li class="chapter" data-level="5" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>5</b> Transform</a></li>
-<li class="chapter" data-level="6" data-path="calculate.html"><a href="calculate.html"><i class="fa fa-check"></i><b>6</b> Calculate</a>
+<li class="chapter" data-level="4" data-path="calculations.html"><a href="calculations.html"><i class="fa fa-check"></i><b>4</b> Calculations</a></li>
+<li class="chapter" data-level="5" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting</a></li>
+<li class="chapter" data-level="6" data-path="wheres-the-data-geodata.html"><a href="wheres-the-data-geodata.html"><i class="fa fa-check"></i><b>6</b> Where’s the data? <code>geodata</code>!</a></li>
+<li class="chapter" data-level="7" data-path="what-about-sf-and-stars.html"><a href="what-about-sf-and-stars.html"><i class="fa fa-check"></i><b>7</b> What about sf (and stars)?</a></li>
+<li class="chapter" data-level="8" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>8</b> Resources</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="calculate.html"><a href="calculate.html#summary"><i class="fa fa-check"></i><b>6.1</b> Summary</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="wheres-the-data-geodata.html"><a href="wheres-the-data-geodata.html"><i class="fa fa-check"></i><b>7</b> Where’s the data? <code>geodata</code>!</a></li>
-<li class="chapter" data-level="8" data-path="what-about-sf-and-stars.html"><a href="what-about-sf-and-stars.html"><i class="fa fa-check"></i><b>8</b> What about sf (and stars)?</a></li>
-<li class="chapter" data-level="9" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>9</b> Resources</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>9.1</b> Practice!</a></li>
+<li class="chapter" data-level="8.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>8.1</b> Practice!</a></li>
 </ul></li>
 <li class="divider"></li>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
@@ -199,54 +195,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="transform" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">5</span> Transform<a href="transform.html#transform" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Operation
-</th>
-<th style="text-align:left;">
-Data Type
-</th>
-<th style="text-align:left;">
-Old Functions
-</th>
-<th style="text-align:left;">
-New Functions
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-</tr>
-</tbody>
-</table>
-<p>Most of the methods for transforming spatial data remain the same from raster.
-The exception to that is <code>raster::projectRaster()</code>, which now becomes
-<code>terra::project()</code> and now works for both rasters and vectors.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="transform.html#cb2-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb2-2"><a href="transform.html#cb2-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">project</span>(elev, <span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb2-3"><a href="transform.html#cb2-3" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">projectRaster</span>(r_elev, <span class="at">crs=</span><span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb2-4"><a href="transform.html#cb2-4" tabindex="-1"></a>  </span>
-<span id="cb2-5"><a href="transform.html#cb2-5" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">10</span></span>
-<span id="cb2-6"><a href="transform.html#cb2-6" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## Unit: milliseconds
-##                                              expr      min       lq     mean
-##                 terra::project(elev, &quot;epsg:3310&quot;) 33.35436 33.47507 36.67730
-##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 53.70832 56.09349 69.32028
-##    median       uq       max neval
-##  34.41107 35.19420  49.43235    10
-##  58.38843 64.35967 124.49519    10</code></pre>
+<div id="resources" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Resources<a href="resources.html#resources" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>For more in depth terra documentation, please see the resources below.</p>
+<ul>
+<li><p><a href="https://rspatial.org/spatial/index.html">Spatial Data with terra on rspatial.org</a> - How to do spatial data
+analysis in the context of R and the terra package.</p></li>
+<li><p><a href="https://rspatial.org/pkg/index.html">terra documentation on rspatial.org</a> - A vignette that
+walks you through the <code>terra</code> package.</p></li>
+<li><p><a href="https://rspatial.github.io/terra/reference/terra-package.html">terra documentation on github</a> - An overview of terra and a
+comprehensive description of its classes and methods. Highlights
+[differences][terra_diff] between raster and terra.</p></li>
+<li><p><a href="https://github.com/rspatial/geodata">geodata documentation on github</a> - A description of available
+data as well as some links to the original source.</p></li>
+</ul>
+<div id="practice" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Practice!<a href="resources.html#practice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you still feel a bit unsure about translating your own code from raster to
+terra syntax, you can test your skills using this
+<a href="https://github.com/d-rug/raster_to_terra/blob/main/practice_script_raster.R">raster practice script</a>. A successfully transitioned
+<a href="https://github.com/d-rug/raster_to_terra/blob/main/practice_script_terra.R">terra script</a> is also available on the github repo.</p>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="spatial-relationshps.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="calculate.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="what-about-sf-and-stars.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

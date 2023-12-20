@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Transform | Raster to Terra</title>
-  <meta name="description" content="5 Transform | Raster to Terra" />
+  <title>4 Spatial Relationshps | Raster to Terra</title>
+  <meta name="description" content="4 Spatial Relationshps | Raster to Terra" />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Transform | Raster to Terra" />
+  <meta property="og:title" content="4 Spatial Relationshps | Raster to Terra" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="d-rug/raster_to_terra" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Transform | Raster to Terra" />
+  <meta name="twitter:title" content="4 Spatial Relationshps | Raster to Terra" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="spatial-relationshps.html"/>
-<link rel="next" href="calculate.html"/>
+<link rel="prev" href="working-with-data.html"/>
+<link rel="next" href="transform.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -199,54 +199,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="transform" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">5</span> Transform<a href="transform.html#transform" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Operation
-</th>
-<th style="text-align:left;">
-Data Type
-</th>
-<th style="text-align:left;">
-Old Functions
-</th>
-<th style="text-align:left;">
-New Functions
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-</tr>
-</tbody>
-</table>
-<p>Most of the methods for transforming spatial data remain the same from raster.
-The exception to that is <code>raster::projectRaster()</code>, which now becomes
-<code>terra::project()</code> and now works for both rasters and vectors.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="transform.html#cb2-1" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb2-2"><a href="transform.html#cb2-2" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">project</span>(elev, <span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb2-3"><a href="transform.html#cb2-3" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">projectRaster</span>(r_elev, <span class="at">crs=</span><span class="st">&quot;epsg:3310&quot;</span>),</span>
-<span id="cb2-4"><a href="transform.html#cb2-4" tabindex="-1"></a>  </span>
-<span id="cb2-5"><a href="transform.html#cb2-5" tabindex="-1"></a>  <span class="at">times=</span><span class="dv">10</span></span>
-<span id="cb2-6"><a href="transform.html#cb2-6" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## Unit: milliseconds
-##                                              expr      min       lq     mean
-##                 terra::project(elev, &quot;epsg:3310&quot;) 33.35436 33.47507 36.67730
-##  raster::projectRaster(r_elev, crs = &quot;epsg:3310&quot;) 53.70832 56.09349 69.32028
-##    median       uq       max neval
-##  34.41107 35.19420  49.43235    10
-##  58.38843 64.35967 124.49519    10</code></pre>
+<div id="spatial-relationshps" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Spatial Relationshps<a href="spatial-relationshps.html#spatial-relationshps" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Instead of having the name of the spatial relation function depend on the type of spatial
+relationship, in terra, the number of objects compared determines the function
+used. For one-to-one and one-to-many comparisons use <code>is.related()</code>, for
+many-to-many comparisons, use <code>relate()</code>. The <code>relation</code> argument specifies
+relationship type. Options include intersects, touches, crosses, overlaps, within,
+contains, covers, covered by, disjoint, or <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM string</a></p>
+<p>Spatial operations like <code>union()</code>, <code>intersect()</code>, <code>buffer()</code> and <code>crop()</code> remain
+unchanged.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="spatial-relationshps.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="calculate.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="working-with-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transform.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
