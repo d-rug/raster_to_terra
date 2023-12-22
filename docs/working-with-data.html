@@ -433,7 +433,7 @@ n_eval
 terra::spatSample
 </td>
 <td style="text-align:right;">
-2.15
+2.04
 </td>
 <td style="text-align:right;">
 100
@@ -444,7 +444,7 @@ terra::spatSample
 raster::sampleRandom
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-6.59
+6.68
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
 100
@@ -455,7 +455,7 @@ raster::sampleRandom
 terra::project
 </td>
 <td style="text-align:right;">
-34.54
+34.51
 </td>
 <td style="text-align:right;">
 100
@@ -466,7 +466,7 @@ terra::project
 raster::projectRaster
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-58.91
+56.64
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
 100
@@ -477,7 +477,7 @@ raster::projectRaster
 terra::resample
 </td>
 <td style="text-align:right;">
-1.86
+1.82
 </td>
 <td style="text-align:right;">
 100
@@ -488,7 +488,7 @@ terra::resample
 raster::resample
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-51.63
+51.12
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
 100
@@ -499,7 +499,7 @@ raster::resample
 terra::rasterize
 </td>
 <td style="text-align:right;">
-1.80
+1.72
 </td>
 <td style="text-align:right;">
 100
@@ -510,7 +510,7 @@ terra::rasterize
 raster::rasterize
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-252.48
+239.81
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
 100
@@ -521,7 +521,7 @@ raster::rasterize
 terra::as.polygons
 </td>
 <td style="text-align:right;">
-27.72
+27.89
 </td>
 <td style="text-align:right;">
 100
@@ -532,7 +532,7 @@ terra::as.polygons
 raster::rasterToPolygons
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-221.18
+218.05
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
 100
@@ -555,7 +555,7 @@ specifies relationship type. Options include intersects, touches,
 crosses, overlaps, within, contains, covers, covered by, disjoint, or
 <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM strings</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="working-with-data.html#cb4-1" tabindex="-1"></a><span class="co">#is our raster big enough to cover all of Luxembourg</span></span>
-<span id="cb4-2"><a href="working-with-data.html#cb4-2" tabindex="-1"></a><span class="fu">is.related</span>(elev, lux, <span class="at">relation=</span><span class="st">&#39;covers&#39;</span>)</span></code></pre></div>
+<span id="cb4-2"><a href="working-with-data.html#cb4-2" tabindex="-1"></a><span class="fu">is.related</span>(temp, lux, <span class="at">relation=</span><span class="st">&#39;covers&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Method names for the spatial operations below remain unchanged:</p>
 <ul>

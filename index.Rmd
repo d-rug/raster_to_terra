@@ -442,7 +442,7 @@ crosses, overlaps, within, contains, covers, covered by, disjoint, or
 ```{r}
 
 #is our raster big enough to cover all of Luxembourg
-is.related(elev, lux, relation='covers')
+is.related(temp, lux, relation='covers')
 
 ```
 
