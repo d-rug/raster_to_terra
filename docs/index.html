@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-12-20" />
+<meta name="date" content="2023-12-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="terra-a-birds-eye-view.html"/>
+<link rel="next" href="the-basics.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,6 +54,14 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.1/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -138,45 +146,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
+</a></li>
 <li><a href="https://d-rug.github.io/">
   <img src="https://github.com/d-rug/d-rug.github.io/raw/main/DRUG_final_cobalt.png" style="height: 100%; width: 100%; object-fit: contain" />
-</a></li>
 <li><a href="./" style="font-size: 18px">Raster to Terra</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a>
 <ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>0.1</b> Learning Goals</a></li>
-<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>0.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i><b>0.3</b> What we will cover</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i>Learning Goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i>What we will cover</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#setup"><i class="fa fa-check"></i>Setup</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html"><i class="fa fa-check"></i><b>1</b> <code>terra</code>: a bird’s eye view</a>
+<li class="chapter" data-level="1" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>1</b> The Basics</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html#setup"><i class="fa fa-check"></i><b>1.1</b> Setup</a></li>
+<li class="chapter" data-level="1.1" data-path="the-basics.html"><a href="the-basics.html#a-birds-eye-view"><i class="fa fa-check"></i><b>1.1</b> A bird’s eye view</a></li>
+<li class="chapter" data-level="1.2" data-path="the-basics.html"><a href="the-basics.html#classes"><i class="fa fa-check"></i><b>1.2</b> Classes</a></li>
+<li class="chapter" data-level="1.3" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>1.3</b> Reading in data</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics.html"><a href="the-basics.html#reading-speed-improvements"><i class="fa fa-check"></i><b>1.3.1</b> Reading Speed Improvements</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>2</b> The Basics</a>
+<li class="chapter" data-level="1.4" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>1.4</b> Writing data</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="the-basics.html"><a href="the-basics.html#classes"><i class="fa fa-check"></i><b>2.1</b> Classes</a></li>
-<li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>2.2</b> Reading in data</a></li>
-<li class="chapter" data-level="2.3" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.3</b> Writing data</a></li>
+<li class="chapter" data-level="1.4.1" data-path="the-basics.html"><a href="the-basics.html#writing-speed-improvements"><i class="fa fa-check"></i><b>1.4.1</b> Writing Speed Improvements</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>3</b> Working with Data</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>3.1</b> Speed Improvements</a></li>
-<li class="chapter" data-level="3.2" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationships"><i class="fa fa-check"></i><b>3.2</b> Spatial Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="calculations.html"><a href="calculations.html"><i class="fa fa-check"></i><b>4</b> Calculations</a></li>
-<li class="chapter" data-level="5" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting</a></li>
-<li class="chapter" data-level="6" data-path="wheres-the-data-geodata.html"><a href="wheres-the-data-geodata.html"><i class="fa fa-check"></i><b>6</b> Where’s the data? <code>geodata</code>!</a></li>
-<li class="chapter" data-level="7" data-path="what-about-sf-and-stars.html"><a href="what-about-sf-and-stars.html"><i class="fa fa-check"></i><b>7</b> What about sf (and stars)?</a></li>
-<li class="chapter" data-level="8" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>8</b> Resources</a>
+<li class="chapter" data-level="2" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>2</b> Working with Data</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>8.1</b> Practice!</a></li>
+<li class="chapter" data-level="2.1" data-path="working-with-data.html"><a href="working-with-data.html#renamed-methods"><i class="fa fa-check"></i><b>2.1</b> Renamed Methods</a></li>
+<li class="chapter" data-level="2.2" data-path="working-with-data.html"><a href="working-with-data.html#combined-methods"><i class="fa fa-check"></i><b>2.2</b> Combined Methods</a></li>
+<li class="chapter" data-level="2.3" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>2.3</b> Speed Improvements</a></li>
+<li class="chapter" data-level="2.4" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationships"><i class="fa fa-check"></i><b>2.4</b> Spatial Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="calculations.html"><a href="calculations.html"><i class="fa fa-check"></i><b>3</b> Calculations</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="calculations.html"><a href="calculations.html#raster-math"><i class="fa fa-check"></i><b>3.1</b> Raster Math</a></li>
+<li class="chapter" data-level="3.2" data-path="calculations.html"><a href="calculations.html#spatial-calculations"><i class="fa fa-check"></i><b>3.2</b> Spatial Calculations</a></li>
+<li class="chapter" data-level="3.3" data-path="calculations.html"><a href="calculations.html#local-app-functions"><i class="fa fa-check"></i><b>3.3</b> Local (*app) Functions</a></li>
+<li class="chapter" data-level="3.4" data-path="calculations.html"><a href="calculations.html#applying-deep-dive"><i class="fa fa-check"></i><b>3.4</b> Applying Deep Dive</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>4</b> Plotting</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="plotting.html"><a href="plotting.html#static-plots"><i class="fa fa-check"></i><b>4.1</b> Static Plots</a></li>
+<li class="chapter" data-level="4.2" data-path="plotting.html"><a href="plotting.html#interactive-plots"><i class="fa fa-check"></i><b>4.2</b> Interactive Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="whats-not-included.html"><a href="whats-not-included.html"><i class="fa fa-check"></i><b>5</b> What’s not included</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="whats-not-included.html"><a href="whats-not-included.html#tidyverse-compatability"><i class="fa fa-check"></i><b>5.1</b> Tidyverse compatability</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="whats-not-included.html"><a href="whats-not-included.html#what-about-rasters"><i class="fa fa-check"></i><b>5.1.1</b> What about rasters?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="whats-not-included.html"><a href="whats-not-included.html#spatial-dependency-and-regression"><i class="fa fa-check"></i><b>5.2</b> Spatial Dependency and Regression</a></li>
+<li class="chapter" data-level="5.3" data-path="whats-not-included.html"><a href="whats-not-included.html#wheres-the-data-geodata"><i class="fa fa-check"></i><b>5.3</b> Where’s the data? geodata!</a></li>
+<li class="chapter" data-level="5.4" data-path="whats-not-included.html"><a href="whats-not-included.html#so-about-c"><i class="fa fa-check"></i><b>5.4</b> So about C++…</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>6</b> Resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice!</a></li>
 </ul></li>
 <li class="divider"></li>
+</a>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
   <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" style="float: right; padding-right: 10px;" />
-</a>
 
 </ul>
 
@@ -198,52 +230,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Raster to Terra</h1>
 <p class="author"><em>Elise Hellwig</em></p>
-<p class="date"><em>2023-12-20</em></p>
+<p class="date"><em>2023-12-22</em></p>
 </div>
 <div id="overview" class="section level1 unnumbered hasAnchor">
 <h1>Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>No one wants to relearn something they already know how to do. But sometimes
-there’s no other choice. The rgdal, rgeos, and maptools packages have been
-<a href="https://CRAN.R-project.org/package=rgdal">officially retired</a>, and sp is only
-available for <a href="https://CRAN.R-project.org/package=sp">legacy reasons</a> as a wrapper around sf.
-The raster package is not long for this world <a href="https://rspatial.org/raster/">either</a>.
-sf is nice, but it doesn’t have the raster functionality necessary for many
-types of analysis. This reader aims to make the transition from raster to
-terra as painless as possible.</p>
-<p>Each section of this reader will have a conversion table. The conversion table
-will tell you which terra function to use, given an operation and data type. It
-will also provide the functions from raster, sp, rgdal, and rgeos that used to
-accomplish that operation.</p>
-<div id="learning-goals" class="section level2 hasAnchor" number="0.1">
-<h2><span class="header-section-number">0.1</span> Learning Goals<a href="index.html#learning-goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>No one wants to relearn something they already know how to do. But
+sometimes there’s no other choice. The rgdal, rgeos, and maptools
+packages have been <a href="https://CRAN.R-project.org/package=rgdal">officially retired</a>, and sp is only
+available for <a href="https://CRAN.R-project.org/package=sp">legacy reasons</a> as
+a wrapper around sf. The raster package is not long for this world
+<a href="https://rspatial.org/raster/">either</a>. sf is nice, but it doesn’t have
+the raster functionality necessary for many types of analysis. This
+reader aims to make the transition from raster to terra as painless as
+possible.</p>
+<p>Additionally, because both raster an terra are so large,
+this reader focuses on things that have changed between raster and terra. If you
+don’t see something mentioned here, that doesn’t mean it doesn’t exist in terra.
+It probably just didn’t change between the two packages.</p>
+<div id="learning-goals" class="section level2 unnumbered hasAnchor">
+<h2>Learning Goals<a href="index.html#learning-goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Get a sense for the functionality of the terra package as a whole</li>
-<li>Be able to translate existing code from deprecated packages to terra syntax</li>
+<li>Be able to translate existing code from deprecated packages to terra
+syntax</li>
 <li>Know where to find more information about terra.</li>
 </ul>
-<p><strong>This reader will NOT give you a comprehensive discussion of terra.</strong></p>
+<p><strong>This reader will NOT give you a comprehensive tour of terra.</strong></p>
 <p>It is too short for that. However, it will provide links to places you can find
 more documentation.</p>
 </div>
-<div id="prerequisites" class="section level2 hasAnchor" number="0.2">
-<h2><span class="header-section-number">0.2</span> Prerequisites<a href="index.html#prerequisites" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="prerequisites" class="section level2 unnumbered hasAnchor">
+<h2>Prerequisites<a href="index.html#prerequisites" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Familiarity with the raster and sp packages</li>
 </ul>
 </div>
-<div id="what-we-will-cover" class="section level2 hasAnchor" number="0.3">
-<h2><span class="header-section-number">0.3</span> What we will cover<a href="index.html#what-we-will-cover" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="what-we-will-cover" class="section level2 unnumbered hasAnchor">
+<h2>What we will cover<a href="index.html#what-we-will-cover" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Package overview</li>
-<li>New classes</li>
-<li>Object creation</li>
+<li>New classes and object creation</li>
 <li>Method name changes</li>
 <li>Spatial relationships</li>
 <li>Calculations</li>
 <li>Plotting</li>
-<li>What’s not in <code>terra</code></li>
-<li>Functionality changes</li>
+<li>What’s not in terra</li>
 </ul>
+</div>
+<div id="setup" class="section level2 unnumbered hasAnchor">
+<h2>Setup<a href="index.html#setup" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(microbenchmark) <span class="co"># for speed testing</span></span>
+<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="co">#new packages</span></span>
+<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(terra) </span>
+<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(geodata)</span>
+<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(tidyterra)</span>
+<span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a><span class="co">#old packages</span></span>
+<span id="cb1-10"><a href="index.html#cb1-10" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb1-11"><a href="index.html#cb1-11" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
+<span id="cb1-12"><a href="index.html#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="index.html#cb1-13" tabindex="-1"></a><span class="co">#formatting</span></span>
+<span id="cb1-14"><a href="index.html#cb1-14" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-15"><a href="index.html#cb1-15" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-16"><a href="index.html#cb1-16" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-17"><a href="index.html#cb1-17" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb1-18"><a href="index.html#cb1-18" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="index.html#cb1-19" tabindex="-1"></a>temp_pal <span class="ot">=</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">&#39;YlOrRd&#39;</span>))(<span class="dv">50</span>)</span>
+<span id="cb1-20"><a href="index.html#cb1-20" tabindex="-1"></a>precip_pal <span class="ot">=</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">&#39;Blues&#39;</span>))(<span class="dv">50</span>)</span>
+<span id="cb1-21"><a href="index.html#cb1-21" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="index.html#cb1-22" tabindex="-1"></a><span class="fu">geodata_path</span>(<span class="st">&#39;data/&#39;</span>)</span>
+<span id="cb1-23"><a href="index.html#cb1-23" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="index.html#cb1-24" tabindex="-1"></a>cv <span class="ot">=</span> <span class="cf">function</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="fu">sd</span>(x, <span class="at">na.rm=</span>na.rm)<span class="sc">/</span><span class="fu">mean</span>(x, <span class="at">na.rm=</span>na.rm)</span>
+<span id="cb1-25"><a href="index.html#cb1-25" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="index.html#cb1-26" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb1-27"><a href="index.html#cb1-27" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="index.html#cb1-28" tabindex="-1"></a>elev_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/elev.tif&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
+<span id="cb1-29"><a href="index.html#cb1-29" tabindex="-1"></a>lux_fn <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/lux.shp&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
+<span id="cb1-30"><a href="index.html#cb1-30" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="index.html#cb1-31" tabindex="-1"></a>elev <span class="ot">=</span> <span class="fu">rast</span>(elev_fn)</span>
+<span id="cb1-32"><a href="index.html#cb1-32" tabindex="-1"></a>r_elev <span class="ot">=</span> <span class="fu">raster</span>(elev)</span>
+<span id="cb1-33"><a href="index.html#cb1-33" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="index.html#cb1-34" tabindex="-1"></a>lux <span class="ot">=</span> <span class="fu">vect</span>(lux_fn)</span>
+<span id="cb1-35"><a href="index.html#cb1-35" tabindex="-1"></a>sp_lux <span class="ot">=</span> <span class="fu">shapefile</span>(lux_fn)</span>
+<span id="cb1-36"><a href="index.html#cb1-36" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="index.html#cb1-37" tabindex="-1"></a>temp <span class="ot">=</span> <span class="fu">worldclim_country</span>(<span class="at">country=</span><span class="st">&#39;LUX&#39;</span>, <span class="at">var=</span><span class="st">&#39;tavg&#39;</span>)</span>
+<span id="cb1-38"><a href="index.html#cb1-38" tabindex="-1"></a>precip <span class="ot">=</span> <span class="fu">worldclim_country</span>(<span class="at">country=</span><span class="st">&#39;LUX&#39;</span>, <span class="at">var=</span><span class="st">&#39;prec&#39;</span>)</span>
+<span id="cb1-39"><a href="index.html#cb1-39" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="index.html#cb1-40" tabindex="-1"></a><span class="fu">names</span>(temp) <span class="ot">=</span> month.name</span>
+<span id="cb1-41"><a href="index.html#cb1-41" tabindex="-1"></a><span class="fu">names</span>(precip) <span class="ot">=</span> month.name</span></code></pre></div>
 </div>
 </div>
             </section>
@@ -252,7 +328,7 @@ more documentation.</p>
         </div>
       </div>
 
-<a href="terra-a-birds-eye-view.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="the-basics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -296,20 +372,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-12-20" />
+<meta name="date" content="2023-12-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,14 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.1/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -138,45 +146,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
+</a></li>
 <li><a href="https://d-rug.github.io/">
   <img src="https://github.com/d-rug/d-rug.github.io/raw/main/DRUG_final_cobalt.png" style="height: 100%; width: 100%; object-fit: contain" />
-</a></li>
 <li><a href="./" style="font-size: 18px">Raster to Terra</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a>
 <ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>0.1</b> Learning Goals</a></li>
-<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>0.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i><b>0.3</b> What we will cover</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i>Learning Goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i>What we will cover</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#setup"><i class="fa fa-check"></i>Setup</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html"><i class="fa fa-check"></i><b>1</b> <code>terra</code>: a bird’s eye view</a>
+<li class="chapter" data-level="1" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>1</b> The Basics</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html#setup"><i class="fa fa-check"></i><b>1.1</b> Setup</a></li>
+<li class="chapter" data-level="1.1" data-path="the-basics.html"><a href="the-basics.html#a-birds-eye-view"><i class="fa fa-check"></i><b>1.1</b> A bird’s eye view</a></li>
+<li class="chapter" data-level="1.2" data-path="the-basics.html"><a href="the-basics.html#classes"><i class="fa fa-check"></i><b>1.2</b> Classes</a></li>
+<li class="chapter" data-level="1.3" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>1.3</b> Reading in data</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics.html"><a href="the-basics.html#reading-speed-improvements"><i class="fa fa-check"></i><b>1.3.1</b> Reading Speed Improvements</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>2</b> The Basics</a>
+<li class="chapter" data-level="1.4" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>1.4</b> Writing data</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="the-basics.html"><a href="the-basics.html#classes"><i class="fa fa-check"></i><b>2.1</b> Classes</a></li>
-<li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>2.2</b> Reading in data</a></li>
-<li class="chapter" data-level="2.3" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.3</b> Writing data</a></li>
+<li class="chapter" data-level="1.4.1" data-path="the-basics.html"><a href="the-basics.html#writing-speed-improvements"><i class="fa fa-check"></i><b>1.4.1</b> Writing Speed Improvements</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>3</b> Working with Data</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>3.1</b> Speed Improvements</a></li>
-<li class="chapter" data-level="3.2" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationships"><i class="fa fa-check"></i><b>3.2</b> Spatial Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="calculations.html"><a href="calculations.html"><i class="fa fa-check"></i><b>4</b> Calculations</a></li>
-<li class="chapter" data-level="5" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting</a></li>
-<li class="chapter" data-level="6" data-path="wheres-the-data-geodata.html"><a href="wheres-the-data-geodata.html"><i class="fa fa-check"></i><b>6</b> Where’s the data? <code>geodata</code>!</a></li>
-<li class="chapter" data-level="7" data-path="what-about-sf-and-stars.html"><a href="what-about-sf-and-stars.html"><i class="fa fa-check"></i><b>7</b> What about sf (and stars)?</a></li>
-<li class="chapter" data-level="8" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>8</b> Resources</a>
+<li class="chapter" data-level="2" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>2</b> Working with Data</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>8.1</b> Practice!</a></li>
+<li class="chapter" data-level="2.1" data-path="working-with-data.html"><a href="working-with-data.html#renamed-methods"><i class="fa fa-check"></i><b>2.1</b> Renamed Methods</a></li>
+<li class="chapter" data-level="2.2" data-path="working-with-data.html"><a href="working-with-data.html#combined-methods"><i class="fa fa-check"></i><b>2.2</b> Combined Methods</a></li>
+<li class="chapter" data-level="2.3" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>2.3</b> Speed Improvements</a></li>
+<li class="chapter" data-level="2.4" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationships"><i class="fa fa-check"></i><b>2.4</b> Spatial Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="calculations.html"><a href="calculations.html"><i class="fa fa-check"></i><b>3</b> Calculations</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="calculations.html"><a href="calculations.html#raster-math"><i class="fa fa-check"></i><b>3.1</b> Raster Math</a></li>
+<li class="chapter" data-level="3.2" data-path="calculations.html"><a href="calculations.html#spatial-calculations"><i class="fa fa-check"></i><b>3.2</b> Spatial Calculations</a></li>
+<li class="chapter" data-level="3.3" data-path="calculations.html"><a href="calculations.html#local-app-functions"><i class="fa fa-check"></i><b>3.3</b> Local (*app) Functions</a></li>
+<li class="chapter" data-level="3.4" data-path="calculations.html"><a href="calculations.html#applying-deep-dive"><i class="fa fa-check"></i><b>3.4</b> Applying Deep Dive</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>4</b> Plotting</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="plotting.html"><a href="plotting.html#static-plots"><i class="fa fa-check"></i><b>4.1</b> Static Plots</a></li>
+<li class="chapter" data-level="4.2" data-path="plotting.html"><a href="plotting.html#interactive-plots"><i class="fa fa-check"></i><b>4.2</b> Interactive Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="whats-not-included.html"><a href="whats-not-included.html"><i class="fa fa-check"></i><b>5</b> What’s not included</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="whats-not-included.html"><a href="whats-not-included.html#tidyverse-compatability"><i class="fa fa-check"></i><b>5.1</b> Tidyverse compatability</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="whats-not-included.html"><a href="whats-not-included.html#what-about-rasters"><i class="fa fa-check"></i><b>5.1.1</b> What about rasters?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="whats-not-included.html"><a href="whats-not-included.html#spatial-dependency-and-regression"><i class="fa fa-check"></i><b>5.2</b> Spatial Dependency and Regression</a></li>
+<li class="chapter" data-level="5.3" data-path="whats-not-included.html"><a href="whats-not-included.html#wheres-the-data-geodata"><i class="fa fa-check"></i><b>5.3</b> Where’s the data? geodata!</a></li>
+<li class="chapter" data-level="5.4" data-path="whats-not-included.html"><a href="whats-not-included.html#so-about-c"><i class="fa fa-check"></i><b>5.4</b> So about C++…</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>6</b> Resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice!</a></li>
 </ul></li>
 <li class="divider"></li>
+</a>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
   <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" style="float: right; padding-right: 10px;" />
-</a>
 
 </ul>
 
@@ -251,20 +283,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

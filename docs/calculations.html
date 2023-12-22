@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Calculations | Raster to Terra</title>
-  <meta name="description" content="4 Calculations | Raster to Terra" />
+  <title>3 Calculations | Raster to Terra</title>
+  <meta name="description" content="3 Calculations | Raster to Terra" />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Calculations | Raster to Terra" />
+  <meta property="og:title" content="3 Calculations | Raster to Terra" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="d-rug/raster_to_terra" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Calculations | Raster to Terra" />
+  <meta name="twitter:title" content="3 Calculations | Raster to Terra" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-12-20" />
+<meta name="date" content="2023-12-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,14 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.1/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -138,45 +146,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
+</a></li>
 <li><a href="https://d-rug.github.io/">
   <img src="https://github.com/d-rug/d-rug.github.io/raw/main/DRUG_final_cobalt.png" style="height: 100%; width: 100%; object-fit: contain" />
-</a></li>
 <li><a href="./" style="font-size: 18px">Raster to Terra</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a>
 <ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>0.1</b> Learning Goals</a></li>
-<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>0.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i><b>0.3</b> What we will cover</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i>Learning Goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i>What we will cover</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#setup"><i class="fa fa-check"></i>Setup</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html"><i class="fa fa-check"></i><b>1</b> <code>terra</code>: a bird’s eye view</a>
+<li class="chapter" data-level="1" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>1</b> The Basics</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html#setup"><i class="fa fa-check"></i><b>1.1</b> Setup</a></li>
+<li class="chapter" data-level="1.1" data-path="the-basics.html"><a href="the-basics.html#a-birds-eye-view"><i class="fa fa-check"></i><b>1.1</b> A bird’s eye view</a></li>
+<li class="chapter" data-level="1.2" data-path="the-basics.html"><a href="the-basics.html#classes"><i class="fa fa-check"></i><b>1.2</b> Classes</a></li>
+<li class="chapter" data-level="1.3" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>1.3</b> Reading in data</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics.html"><a href="the-basics.html#reading-speed-improvements"><i class="fa fa-check"></i><b>1.3.1</b> Reading Speed Improvements</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>2</b> The Basics</a>
+<li class="chapter" data-level="1.4" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>1.4</b> Writing data</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="the-basics.html"><a href="the-basics.html#classes"><i class="fa fa-check"></i><b>2.1</b> Classes</a></li>
-<li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>2.2</b> Reading in data</a></li>
-<li class="chapter" data-level="2.3" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.3</b> Writing data</a></li>
+<li class="chapter" data-level="1.4.1" data-path="the-basics.html"><a href="the-basics.html#writing-speed-improvements"><i class="fa fa-check"></i><b>1.4.1</b> Writing Speed Improvements</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>3</b> Working with Data</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>3.1</b> Speed Improvements</a></li>
-<li class="chapter" data-level="3.2" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationships"><i class="fa fa-check"></i><b>3.2</b> Spatial Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="calculations.html"><a href="calculations.html"><i class="fa fa-check"></i><b>4</b> Calculations</a></li>
-<li class="chapter" data-level="5" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting</a></li>
-<li class="chapter" data-level="6" data-path="wheres-the-data-geodata.html"><a href="wheres-the-data-geodata.html"><i class="fa fa-check"></i><b>6</b> Where’s the data? <code>geodata</code>!</a></li>
-<li class="chapter" data-level="7" data-path="what-about-sf-and-stars.html"><a href="what-about-sf-and-stars.html"><i class="fa fa-check"></i><b>7</b> What about sf (and stars)?</a></li>
-<li class="chapter" data-level="8" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>8</b> Resources</a>
+<li class="chapter" data-level="2" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>2</b> Working with Data</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>8.1</b> Practice!</a></li>
+<li class="chapter" data-level="2.1" data-path="working-with-data.html"><a href="working-with-data.html#renamed-methods"><i class="fa fa-check"></i><b>2.1</b> Renamed Methods</a></li>
+<li class="chapter" data-level="2.2" data-path="working-with-data.html"><a href="working-with-data.html#combined-methods"><i class="fa fa-check"></i><b>2.2</b> Combined Methods</a></li>
+<li class="chapter" data-level="2.3" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>2.3</b> Speed Improvements</a></li>
+<li class="chapter" data-level="2.4" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationships"><i class="fa fa-check"></i><b>2.4</b> Spatial Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="calculations.html"><a href="calculations.html"><i class="fa fa-check"></i><b>3</b> Calculations</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="calculations.html"><a href="calculations.html#raster-math"><i class="fa fa-check"></i><b>3.1</b> Raster Math</a></li>
+<li class="chapter" data-level="3.2" data-path="calculations.html"><a href="calculations.html#spatial-calculations"><i class="fa fa-check"></i><b>3.2</b> Spatial Calculations</a></li>
+<li class="chapter" data-level="3.3" data-path="calculations.html"><a href="calculations.html#local-app-functions"><i class="fa fa-check"></i><b>3.3</b> Local (*app) Functions</a></li>
+<li class="chapter" data-level="3.4" data-path="calculations.html"><a href="calculations.html#applying-deep-dive"><i class="fa fa-check"></i><b>3.4</b> Applying Deep Dive</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>4</b> Plotting</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="plotting.html"><a href="plotting.html#static-plots"><i class="fa fa-check"></i><b>4.1</b> Static Plots</a></li>
+<li class="chapter" data-level="4.2" data-path="plotting.html"><a href="plotting.html#interactive-plots"><i class="fa fa-check"></i><b>4.2</b> Interactive Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="whats-not-included.html"><a href="whats-not-included.html"><i class="fa fa-check"></i><b>5</b> What’s not included</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="whats-not-included.html"><a href="whats-not-included.html#tidyverse-compatability"><i class="fa fa-check"></i><b>5.1</b> Tidyverse compatability</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="whats-not-included.html"><a href="whats-not-included.html#what-about-rasters"><i class="fa fa-check"></i><b>5.1.1</b> What about rasters?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="whats-not-included.html"><a href="whats-not-included.html#spatial-dependency-and-regression"><i class="fa fa-check"></i><b>5.2</b> Spatial Dependency and Regression</a></li>
+<li class="chapter" data-level="5.3" data-path="whats-not-included.html"><a href="whats-not-included.html#wheres-the-data-geodata"><i class="fa fa-check"></i><b>5.3</b> Where’s the data? geodata!</a></li>
+<li class="chapter" data-level="5.4" data-path="whats-not-included.html"><a href="whats-not-included.html#so-about-c"><i class="fa fa-check"></i><b>5.4</b> So about C++…</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>6</b> Resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice!</a></li>
 </ul></li>
 <li class="divider"></li>
+</a>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
   <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" style="float: right; padding-right: 10px;" />
-</a>
 
 </ul>
 
@@ -195,13 +227,284 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="calculations" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">4</span> Calculations<a href="calculations.html#calculations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="calculations" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Calculations<a href="calculations.html#calculations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This section covers various methods for doing calculations with spatRasters.</p>
+<div id="raster-math" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Raster Math<a href="calculations.html#raster-math" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One of raster’s claims to fame was the ease at which you could do calculations.
-R automatically treated each cell in a <code>RasterLayer</code> as if it was a number, and
-each cell in a <code>RasterBrick</code> or <code>RasterStack</code> as if it were a vector. There were
+R automatically treated each cell in a RasterLayer as if it was a number, and
+each cell in a RasterBrick or RasterStack as if it were a vector. There were
 additional functions for doing calculations on an entire layer of a raster and
-for applying non-vectorized functions. That all remains true with terra, and</p>
+for applying non-vectorized functions.</p>
+<p>Raster <a href="https://rspatial.github.io/terra/reference/arith-generic.html">arithmetic</a> and <a href="https://rspatial.github.io/terra/reference/math-generics.html">math</a> are still very easy
+with spatRasters. In fact, many <a href="https://rspatial.github.io/terra/reference/summarize-generics.html">statistical summary functions</a>
+are pre-vectorized for spatRasters, so if you want to apply them by cell, you
+don’t even need to use a vectorizing function like <code>app</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="calculations.html#cb6-1" tabindex="-1"></a><span class="co">#average annual temperature by cell</span></span>
+<span id="cb6-2"><a href="calculations.html#cb6-2" tabindex="-1"></a>(<span class="at">annual_temp =</span> <span class="fu">mean</span>(temp))</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 180, 180, 1  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : 5.5, 7, 49, 50.5  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source(s)   : memory
+## name        :      mean 
+## min value   :  6.541667 
+## max value   : 10.625000</code></pre>
+</div>
+<div id="spatial-calculations" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Spatial Calculations<a href="calculations.html#spatial-calculations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>All previous spatial calculation functionality is present. Many names
+have changed though as some functions have been split up into multiple
+functions and other functions have been collapsed into a single
+function. The motivation behind this is for the function names to be
+more descriptive in terms of what they are actually doing.</p>
+<p>The <code>cellSize</code> function always returns a spatRaster of areas. While projected
+raster cells should all have the same area, unprojected raster cells will vary
+spatially, depending on their distance from the equator.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Old Functions
+</th>
+<th style="text-align:left;">
+New Function
+</th>
+<th style="text-align:left;">
+Operation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+area, rgeos::gArea
+</td>
+<td style="text-align:left;">
+expanse
+</td>
+<td style="text-align:left;">
+area covered
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+area
+</td>
+<td style="text-align:left;">
+cellSize
+</td>
+<td style="text-align:left;">
+area of raster cell
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+distance, pointDistance, distanceFromPoints
+</td>
+<td style="text-align:left;">
+distance
+</td>
+<td style="text-align:left;">
+distance between objects
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+approxNA
+</td>
+<td style="text-align:left;">
+approximate
+</td>
+<td style="text-align:left;">
+Estimate values for NA cells in a raster
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="local-app-functions" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Local (*app) Functions<a href="calculations.html#local-app-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In raster, there were a number of functions that behaved similar to the
+<code>apply</code> family of functions in base R, but had a variety of mostly
+unrelated names: <code>calc</code>, <code>cellStats</code>, <code>overlay</code> etc. In terra, these have been
+renamed, for the most part, with the *<code>app</code> suffix. A few options have
+been added as well.</p>
+<table class="table table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Old Functions
+</th>
+<th style="text-align:left;">
+New Function
+</th>
+<th style="text-align:left;">
+Operation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+calc
+</td>
+<td style="text-align:left;">
+app
+</td>
+<td style="text-align:left;">
+apply functions to the values of each raster cell
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stackApply
+</td>
+<td style="text-align:left;">
+tapp
+</td>
+<td style="text-align:left;">
+apply functions to cells grouped by layer
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+overlay
+</td>
+<td style="text-align:left;">
+lapp
+</td>
+<td style="text-align:left;">
+apply functions to cells using layers as arguments
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+rapp
+</td>
+<td style="text-align:left;">
+apply functions to a subset of layers that varies spatially
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+sapp
+</td>
+<td style="text-align:left;">
+apply functions to layers, similar to sapply or lapply
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cellStats
+</td>
+<td style="text-align:left;">
+global
+</td>
+<td style="text-align:left;">
+apply functions to layers in a raster
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+layerStats
+</td>
+<td style="text-align:left;">
+layerCor
+</td>
+<td style="text-align:left;">
+compute summary stats of layers pairwise
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+movingFun
+</td>
+<td style="text-align:left;">
+roll
+</td>
+<td style="text-align:left;">
+compute function on a window moving through layers
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="applying-deep-dive" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Applying Deep Dive<a href="calculations.html#applying-deep-dive" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are many apply-like functions in terra, but the most commonly used ones
+are <code>app</code>, <code>tapp</code>, <code>lapp</code> and <code>global</code>. The <code>app</code> and <code>tapp</code> functions work
+similarly to their base R pseudo-homophones <code>apply</code> and <code>tapply</code>. However, they
+apply the the function to all the cells in a spatRaster instead of all the rows
+or columns of a matrix/data.frame. For both <code>app</code> and <code>tapp</code>, the applied function
+should take a vector as its input. <code>app</code> outputs a single layer spatRaster,
+while <code>tapp</code> outputs a spatRaster with as many layers as there are unique values
+in the index vector.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="calculations.html#cb8-1" tabindex="-1"></a>seasons <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;Winter&#39;</span>, <span class="st">&#39;Winter&#39;</span>, <span class="fu">rep</span>(<span class="st">&#39;Spring&#39;</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&#39;Summer&#39;</span>, <span class="dv">3</span>), </span>
+<span id="cb8-2"><a href="calculations.html#cb8-2" tabindex="-1"></a>            <span class="fu">rep</span>(<span class="st">&#39;Fall&#39;</span>, <span class="dv">3</span>), <span class="st">&#39;Winter&#39;</span>)</span>
+<span id="cb8-3"><a href="calculations.html#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="calculations.html#cb8-4" tabindex="-1"></a>(<span class="at">seasonal_precip =</span> <span class="fu">tapp</span>(precip, <span class="at">index=</span>seasons, <span class="at">fun=</span><span class="st">&#39;mean&#39;</span>))</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 180, 180, 4  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : 5.5, 7, 49, 50.5  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source(s)   : memory
+## names       : Winter,   Spring,   Summer,      Fall 
+## min values  :     53, 53.66667, 60.33333,  55.66667 
+## max values  :    127, 97.66667, 95.33333, 113.66667</code></pre>
+<p><code>lapp</code> sounds like it should be the equivalent of <code>lapply</code> (“list apply”), but
+instead stands for “layer apply”. <code>lapp</code> applies a function that takes multiple
+values as inputs and applies it to each cell of a multilayer raster where each
+of the layers is used as an input. The output is a single layer spatRaster. One
+example of this is the NDVI (greenness) calculation for multi-spectral data.</p>
+<p>The <code>global</code> function is named as a contrast to <code>zonal</code>, <code>focal</code> and the local
+(*app) functions. <code>global</code> applies a function that outputs a single value to
+entire layers of data instead of to each cell. Its output is a data.frame with
+one column for each statistic passed to the function.</p>
+<p>For functions that take in an entire layer as input and also output an entire
+layer, you can use <code>lapply</code>, <code>sapply</code> or in rare cases <code>sapp</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="calculations.html#cb10-1" tabindex="-1"></a><span class="co">#remove values not inside Luxembourg</span></span>
+<span id="cb10-2"><a href="calculations.html#cb10-2" tabindex="-1"></a>precip_lux <span class="ot">=</span> <span class="fu">mask</span>(precip, lux)</span>
+<span id="cb10-3"><a href="calculations.html#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="calculations.html#cb10-4" tabindex="-1"></a><span class="co"># average and range of monthly precipitation for all of Luxembourg</span></span>
+<span id="cb10-5"><a href="calculations.html#cb10-5" tabindex="-1"></a><span class="fu">global</span>(precip_lux, <span class="at">fun=</span><span class="fu">c</span>(<span class="st">&#39;mean&#39;</span>,<span class="st">&#39;range&#39;</span>), <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##               mean min max
+## January   83.52010  62 107
+## February  65.39828  53  81
+## March     71.25246  57  90
+## April     58.10090  50  74
+## May       71.01005  65  80
+## June      71.84065  64  84
+## July      69.56030  60  84
+## August    58.92555  52  71
+## September 69.15033  61  83
+## October   79.10152  66  94
+## November  81.86710  67 102
+## December  93.68888  75 116</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="calculations.html#cb12-1" tabindex="-1"></a><span class="co"># calculating custom function (coefficient of variation) by month for all of </span></span>
+<span id="cb12-2"><a href="calculations.html#cb12-2" tabindex="-1"></a><span class="co"># Luxembourg</span></span>
+<span id="cb12-3"><a href="calculations.html#cb12-3" tabindex="-1"></a><span class="fu">global</span>(precip_lux, <span class="at">fun=</span>cv, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##               global
+## January   0.14386729
+## February  0.09964252
+## March     0.11190306
+## April     0.08711527
+## May       0.03963299
+## June      0.05422691
+## July      0.06041096
+## August    0.05126035
+## September 0.05569626
+## October   0.07343647
+## November  0.09897658
+## December  0.10483384</code></pre>
+</div>
 </div>
             </section>
 
@@ -253,20 +556,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

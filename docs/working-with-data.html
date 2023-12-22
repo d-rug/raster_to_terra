@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Working with Data | Raster to Terra</title>
-  <meta name="description" content="3 Working with Data | Raster to Terra" />
+  <title>2 Working with Data | Raster to Terra</title>
+  <meta name="description" content="2 Working with Data | Raster to Terra" />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Working with Data | Raster to Terra" />
+  <meta property="og:title" content="2 Working with Data | Raster to Terra" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="d-rug/raster_to_terra" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Working with Data | Raster to Terra" />
+  <meta name="twitter:title" content="2 Working with Data | Raster to Terra" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-12-20" />
+<meta name="date" content="2023-12-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,14 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.1/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -138,45 +146,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
+</a></li>
 <li><a href="https://d-rug.github.io/">
   <img src="https://github.com/d-rug/d-rug.github.io/raw/main/DRUG_final_cobalt.png" style="height: 100%; width: 100%; object-fit: contain" />
-</a></li>
 <li><a href="./" style="font-size: 18px">Raster to Terra</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a>
 <ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>0.1</b> Learning Goals</a></li>
-<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>0.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i><b>0.3</b> What we will cover</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i>Learning Goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i>What we will cover</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#setup"><i class="fa fa-check"></i>Setup</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html"><i class="fa fa-check"></i><b>1</b> <code>terra</code>: a bird’s eye view</a>
+<li class="chapter" data-level="1" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>1</b> The Basics</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="terra-a-birds-eye-view.html"><a href="terra-a-birds-eye-view.html#setup"><i class="fa fa-check"></i><b>1.1</b> Setup</a></li>
+<li class="chapter" data-level="1.1" data-path="the-basics.html"><a href="the-basics.html#a-birds-eye-view"><i class="fa fa-check"></i><b>1.1</b> A bird’s eye view</a></li>
+<li class="chapter" data-level="1.2" data-path="the-basics.html"><a href="the-basics.html#classes"><i class="fa fa-check"></i><b>1.2</b> Classes</a></li>
+<li class="chapter" data-level="1.3" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>1.3</b> Reading in data</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="the-basics.html"><a href="the-basics.html#reading-speed-improvements"><i class="fa fa-check"></i><b>1.3.1</b> Reading Speed Improvements</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="the-basics.html"><a href="the-basics.html"><i class="fa fa-check"></i><b>2</b> The Basics</a>
+<li class="chapter" data-level="1.4" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>1.4</b> Writing data</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="the-basics.html"><a href="the-basics.html#classes"><i class="fa fa-check"></i><b>2.1</b> Classes</a></li>
-<li class="chapter" data-level="2.2" data-path="the-basics.html"><a href="the-basics.html#reading-in-data"><i class="fa fa-check"></i><b>2.2</b> Reading in data</a></li>
-<li class="chapter" data-level="2.3" data-path="the-basics.html"><a href="the-basics.html#writing-data"><i class="fa fa-check"></i><b>2.3</b> Writing data</a></li>
+<li class="chapter" data-level="1.4.1" data-path="the-basics.html"><a href="the-basics.html#writing-speed-improvements"><i class="fa fa-check"></i><b>1.4.1</b> Writing Speed Improvements</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>3</b> Working with Data</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>3.1</b> Speed Improvements</a></li>
-<li class="chapter" data-level="3.2" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationships"><i class="fa fa-check"></i><b>3.2</b> Spatial Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="calculations.html"><a href="calculations.html"><i class="fa fa-check"></i><b>4</b> Calculations</a></li>
-<li class="chapter" data-level="5" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting</a></li>
-<li class="chapter" data-level="6" data-path="wheres-the-data-geodata.html"><a href="wheres-the-data-geodata.html"><i class="fa fa-check"></i><b>6</b> Where’s the data? <code>geodata</code>!</a></li>
-<li class="chapter" data-level="7" data-path="what-about-sf-and-stars.html"><a href="what-about-sf-and-stars.html"><i class="fa fa-check"></i><b>7</b> What about sf (and stars)?</a></li>
-<li class="chapter" data-level="8" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>8</b> Resources</a>
+<li class="chapter" data-level="2" data-path="working-with-data.html"><a href="working-with-data.html"><i class="fa fa-check"></i><b>2</b> Working with Data</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>8.1</b> Practice!</a></li>
+<li class="chapter" data-level="2.1" data-path="working-with-data.html"><a href="working-with-data.html#renamed-methods"><i class="fa fa-check"></i><b>2.1</b> Renamed Methods</a></li>
+<li class="chapter" data-level="2.2" data-path="working-with-data.html"><a href="working-with-data.html#combined-methods"><i class="fa fa-check"></i><b>2.2</b> Combined Methods</a></li>
+<li class="chapter" data-level="2.3" data-path="working-with-data.html"><a href="working-with-data.html#speed-improvements"><i class="fa fa-check"></i><b>2.3</b> Speed Improvements</a></li>
+<li class="chapter" data-level="2.4" data-path="working-with-data.html"><a href="working-with-data.html#spatial-relationships"><i class="fa fa-check"></i><b>2.4</b> Spatial Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="calculations.html"><a href="calculations.html"><i class="fa fa-check"></i><b>3</b> Calculations</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="calculations.html"><a href="calculations.html#raster-math"><i class="fa fa-check"></i><b>3.1</b> Raster Math</a></li>
+<li class="chapter" data-level="3.2" data-path="calculations.html"><a href="calculations.html#spatial-calculations"><i class="fa fa-check"></i><b>3.2</b> Spatial Calculations</a></li>
+<li class="chapter" data-level="3.3" data-path="calculations.html"><a href="calculations.html#local-app-functions"><i class="fa fa-check"></i><b>3.3</b> Local (*app) Functions</a></li>
+<li class="chapter" data-level="3.4" data-path="calculations.html"><a href="calculations.html#applying-deep-dive"><i class="fa fa-check"></i><b>3.4</b> Applying Deep Dive</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>4</b> Plotting</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="plotting.html"><a href="plotting.html#static-plots"><i class="fa fa-check"></i><b>4.1</b> Static Plots</a></li>
+<li class="chapter" data-level="4.2" data-path="plotting.html"><a href="plotting.html#interactive-plots"><i class="fa fa-check"></i><b>4.2</b> Interactive Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="whats-not-included.html"><a href="whats-not-included.html"><i class="fa fa-check"></i><b>5</b> What’s not included</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="whats-not-included.html"><a href="whats-not-included.html#tidyverse-compatability"><i class="fa fa-check"></i><b>5.1</b> Tidyverse compatability</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="whats-not-included.html"><a href="whats-not-included.html#what-about-rasters"><i class="fa fa-check"></i><b>5.1.1</b> What about rasters?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="whats-not-included.html"><a href="whats-not-included.html#spatial-dependency-and-regression"><i class="fa fa-check"></i><b>5.2</b> Spatial Dependency and Regression</a></li>
+<li class="chapter" data-level="5.3" data-path="whats-not-included.html"><a href="whats-not-included.html#wheres-the-data-geodata"><i class="fa fa-check"></i><b>5.3</b> Where’s the data? geodata!</a></li>
+<li class="chapter" data-level="5.4" data-path="whats-not-included.html"><a href="whats-not-included.html#so-about-c"><i class="fa fa-check"></i><b>5.4</b> So about C++…</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>6</b> Resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="resources.html"><a href="resources.html#practice"><i class="fa fa-check"></i><b>6.1</b> Practice!</a></li>
 </ul></li>
 <li class="divider"></li>
+</a>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
   <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" style="float: right; padding-right: 10px;" />
-</a>
 
 </ul>
 
@@ -195,24 +227,115 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="working-with-data" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> Working with Data<a href="working-with-data.html#working-with-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>In general, method names got shorter and more similar to base R. Additionally,
-most capitals were removed.</p>
-<ul>
-<li><p><code>coordinates</code> <span class="math inline">\(\rightarrow\)</span> <code>crds</code></p></li>
-<li><p><code>nlayers</code> <span class="math inline">\(\rightarrow\)</span> <code>nlyr</code></p></li>
-<li><p><code>getValues</code> <span class="math inline">\(\rightarrow\)</span> <code>values</code></p></li>
-<li><p><code>stack</code>, <code>addLayer</code> <span class="math inline">\(\rightarrow\)</span> <code>c</code></p></li>
-<li><p><code>unstack</code> <span class="math inline">\(\rightarrow\)</span> <code>as.list</code></p></li>
-<li><p><code>dropLayer</code> <span class="math inline">\(\rightarrow\)</span> <code>subset</code></p></li>
-<li><p><code>rasterTo*</code> <span class="math inline">\(\rightarrow\)</span> <code>as.*</code></p></li>
-<li><p><code>isLonLat</code> <span class="math inline">\(\rightarrow\)</span> <code>is.lonlat</code></p></li>
-<li><p><code>bind</code> <span class="math inline">\(\rightarrow\)</span> <code>rbind</code></p></li>
-</ul>
-<p>Additionally, many tasks that previously at separate methods for raster and
-vector data, are now combined into one method. Functions in green rows have been
-renamed, while functions in grey rows, maintain their name from raster.</p>
+<div id="working-with-data" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Working with Data<a href="working-with-data.html#working-with-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This section covers changes made to common data manipulation and
+querying methods.</p>
+<div id="renamed-methods" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Renamed Methods<a href="working-with-data.html#renamed-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In general, when method names were changed in terra, they got shorter
+and more similar to base R. Most capital letters were removed as well.</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Old Methods
+</th>
+<th style="text-align:left;">
+New Method
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+coordinates
+</td>
+<td style="text-align:left;">
+crds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+getValues
+</td>
+<td style="text-align:left;">
+values
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nlayers
+</td>
+<td style="text-align:left;">
+nlyr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+reclassify, subs, cut
+</td>
+<td style="text-align:left;">
+classify
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stack, addLayer
+</td>
+<td style="text-align:left;">
+c
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unstack
+</td>
+<td style="text-align:left;">
+as.list
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dropLayer
+</td>
+<td style="text-align:left;">
+subset
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rasterTo*
+</td>
+<td style="text-align:left;">
+as.*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+isLonLat
+</td>
+<td style="text-align:left;">
+is.lonlat
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bind
+</td>
+<td style="text-align:left;">
+rbind
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="combined-methods" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Combined Methods<a href="working-with-data.html#combined-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many tasks that previously at separate methods for raster and vector
+data, due to the classes originating in separate packages, now have
+shared method names. Functions in green rows have been renamed, while
+functions in grey rows, maintain their name from raster.</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -230,7 +353,7 @@ New Method
 <tbody>
 <tr>
 <td style="text-align:left;background-color: #c6eec3 !important;">
-reproject
+reproject geometry
 </td>
 <td style="text-align:left;background-color: #c6eec3 !important;">
 projectRaster, sp::spTransform
@@ -266,7 +389,7 @@ disagg
 spatial query
 </td>
 <td style="text-align:left;">
-sp::over
+extract, sp::over
 </td>
 <td style="text-align:left;">
 extract
@@ -285,8 +408,9 @@ spatSample
 </tr>
 </tbody>
 </table>
-<div id="speed-improvements" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Speed Improvements<a href="working-with-data.html#speed-improvements" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="speed-improvements" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Speed Improvements<a href="working-with-data.html#speed-improvements" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Many of the most time-intensive operations got speed boosts from the C++
 implementation.</p>
 <table class="table" style="margin-left: auto; margin-right: auto;">
@@ -309,10 +433,10 @@ n_eval
 terra::spatSample
 </td>
 <td style="text-align:right;">
-2.20
+2.15
 </td>
 <td style="text-align:right;">
-10
+100
 </td>
 </tr>
 <tr>
@@ -320,10 +444,10 @@ terra::spatSample
 raster::sampleRandom
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-6.83
+6.59
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-10
+100
 </td>
 </tr>
 <tr>
@@ -331,10 +455,10 @@ raster::sampleRandom
 terra::project
 </td>
 <td style="text-align:right;">
-35.05
+34.54
 </td>
 <td style="text-align:right;">
-10
+100
 </td>
 </tr>
 <tr>
@@ -342,10 +466,10 @@ terra::project
 raster::projectRaster
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-60.85
+58.91
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-10
+100
 </td>
 </tr>
 <tr>
@@ -353,10 +477,10 @@ raster::projectRaster
 terra::resample
 </td>
 <td style="text-align:right;">
-1.83
+1.86
 </td>
 <td style="text-align:right;">
-10
+100
 </td>
 </tr>
 <tr>
@@ -364,10 +488,10 @@ terra::resample
 raster::resample
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-49.53
+51.63
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-10
+100
 </td>
 </tr>
 <tr>
@@ -375,10 +499,10 @@ raster::resample
 terra::rasterize
 </td>
 <td style="text-align:right;">
-1.83
+1.80
 </td>
 <td style="text-align:right;">
-10
+100
 </td>
 </tr>
 <tr>
@@ -386,10 +510,10 @@ terra::rasterize
 raster::rasterize
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-233.25
+252.48
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-10
+100
 </td>
 </tr>
 <tr>
@@ -397,10 +521,10 @@ raster::rasterize
 terra::as.polygons
 </td>
 <td style="text-align:right;">
-27.97
+27.72
 </td>
 <td style="text-align:right;">
-10
+100
 </td>
 </tr>
 <tr>
@@ -408,24 +532,32 @@ terra::as.polygons
 raster::rasterToPolygons
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-187.75
+221.18
 </td>
 <td style="text-align:right;background-color: #dcdcdc !important;">
-10
+100
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="spatial-relationships" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Spatial Relationships<a href="working-with-data.html#spatial-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Instead of having the name of the spatial relation function depend on the type of spatial
-relationship, in terra, the number of objects compared determines the function
+<div id="spatial-relationships" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Spatial Relationships<a href="working-with-data.html#spatial-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A key function in any GIS software is the ability to determine the
+relationship between two spatial objects. Previous packages (raster,
+rgeos) used used different method names depending on the geometric query
+in question. Rgeos in particular contained at least twelve functions
+just for determining spatial relationship. In terra, the number of
+objects compared (not the relationship type) determines the function
 used. For one-to-one and one-to-many comparisons use <code>is.related()</code>, for
-many-to-many comparisons, use <code>relate()</code>. The <code>relation</code> argument specifies
-relationship type. Options include intersects, touches, crosses, overlaps, within,
-contains, covers, covered by, disjoint, or <a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM string</a></p>
-<p>The spatial operations below remain unchanged:</p>
+many-to-many comparisons, use <code>relate()</code>. The <code>relation</code> argument
+specifies relationship type. Options include intersects, touches,
+crosses, overlaps, within, contains, covers, covered by, disjoint, or
+<a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM strings</a>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="working-with-data.html#cb4-1" tabindex="-1"></a><span class="co">#is our raster big enough to cover all of Luxembourg</span></span>
+<span id="cb4-2"><a href="working-with-data.html#cb4-2" tabindex="-1"></a><span class="fu">is.related</span>(elev, lux, <span class="at">relation=</span><span class="st">&#39;covers&#39;</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Method names for the spatial operations below remain unchanged:</p>
 <ul>
 <li><code>union()</code></li>
 <li><code>intersect()</code></li>
@@ -433,6 +565,7 @@ contains, covers, covered by, disjoint, or <a href="https://en.wikipedia.org/wik
 <li><code>buffer()</code></li>
 <li><code>crop()</code></li>
 <li><code>cover()</code></li>
+<li><code>mask()</code></li>
 </ul>
 </div>
 </div>
@@ -486,20 +619,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

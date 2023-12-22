@@ -22,16 +22,16 @@ Calculate,all,area covered,"area, rgeos::gArea",expanse
 Calculate,raster,area of raster cell,area,cellSize
 Calculate,all,distance between objects,"distance, pointDistance, distanceFromPoints",distance
 Calculate,raster,Estimate values for NA cells in a raster,approxNA,approximate
-Apply,raster,compute summary stats of layers pairwise,layerStats,layerCor
-Apply,raster,compute function on a window moving through layers,movingFun,roll
-Apply,raster,apply functions to layers in a raster,cellStats,global
 Apply,raster,apply functions to the values of each raster cell,calc,app
 Apply,raster,apply functions to cells grouped by layer,stackApply,tapp
 Apply,raster,apply functions to cells using layers as arguments,overlay,lapp
+Apply,raster,apply functions to a subset of layers that varies spatially,,rapp
+Apply,raster,"apply functions to layers, similar to sapply or lapply",,sapp
+Apply,raster,apply functions to layers in a raster,cellStats,global
+Apply,raster,compute summary stats of layers pairwise,layerStats,layerCor
+Apply,raster,compute function on a window moving through layers,movingFun,roll
 Utility,raster,get coordinates of a raster,coordinates,crds
 Utility,raster,get values of a raster,getValues,values
 Utility,raster,get number of layers in a raster,nlayers,nlyr
 Utility,raster,(re)classify raster values in groups,"reclassify, subs, cut",classify
 Utility,raster,determine if two rasters have the same characteristics,compareRaster,compareGeom
-Apply,raster,apply functions to a subset of layers that varies spatially,,rapp
-Apply,raster,"apply functions to layers, similar to sapply or lapply",,sapp

@@ -2,10 +2,8 @@
 title: Raster to Terra
 author: Elise Hellwig
 date: "`r Sys.Date()`"
-
 github-repo: d-rug/raster_to_terra
 url: "https://d-rug.github.io/raster_to_terra/"
-
 site: "bookdown::bookdown_site"
 knit: "bookdown::render_book"
 output:
@@ -13,85 +11,67 @@ output:
     config:
       toc:
         before: |
+          </a></li>
           <li><a href="https://d-rug.github.io/">
             <img src="https://github.com/d-rug/d-rug.github.io/raw/main/DRUG_final_cobalt.png" style="height: 100%; width: 100%; object-fit: contain" />
-          </a></li>
           <li><a href="./" style="font-size: 18px">Raster to Terra</a></li>
         after: |
+          </a>
           <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
             <img alt="CC BY-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" style="float: right; padding-right: 10px;" />
-          </a>
         collapse: section
       sharing: no
       view: https://github.com/d-rug/raster-to-terra/blob/main/%s
       edit: https://github.com/d-rug/raster-to-terra/edit/main/%s
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
+# Overview {.unnumbered}
 
-# Overview {-}
+No one wants to relearn something they already know how to do. But
+sometimes there's no other choice. The rgdal, rgeos, and maptools
+packages have been [officially retired][rgdal], and sp is only
+available for [legacy reasons][sp] as
+a wrapper around sf. The raster package is not long for this world
+[either][raster_legacy]. sf is nice, but it doesn't have
+the raster functionality necessary for many types of analysis. This
+reader aims to make the transition from raster to terra as painless as
+possible.
 
-No one wants to relearn something they already know how to do. But sometimes 
-there's no other choice. The rgdal, rgeos, and maptools packages have been
-[officially retired][rgdal], and sp is only
-available for [legacy reasons][sp] as a wrapper around sf.
-The raster package is not long for this world [either][raster].
-sf is nice, but it doesn't have the raster functionality necessary for many
-types of analysis. This reader aims to make the transition from raster to
-terra as painless as possible. 
+Additionally, because both raster an terra are so large,
+this reader focuses on things that have changed between raster and terra. If you
+don't see something mentioned here, that doesn't mean it doesn't exist in terra.
+It probably just didn't change between the two packages.
 
-Each section of this reader will have a conversion table. The conversion table
-will tell you which terra function to use, given an operation and data type. It
-will also provide the functions from raster, sp,  rgdal, and rgeos that used to
-accomplish that operation.
+## Learning Goals  {.unnumbered}
 
-## Learning Goals
+-   Get a sense for the functionality of the terra package as a whole
+-   Be able to translate existing code from deprecated packages to terra
+    syntax
+-   Know where to find more information about terra.
 
-- Get a sense for the functionality of the terra package as a whole
-- Be able to translate existing code from deprecated packages to terra syntax
-- Know where to find more information about terra.
+**This reader will NOT give you a comprehensive tour of terra.**
 
-**This reader will NOT give you a comprehensive discussion of terra.**
+It is too short for that. However, it will provide links to places you can find
+more documentation. 
 
-It is too short for that. However, it will provide links to places you can find 
-more documentation.
+## Prerequisites  {.unnumbered}
 
-## Prerequisites
+-   Familiarity with the raster and sp packages
 
-- Familiarity with the raster and sp packages 
-
-## What we will cover
+## What we will cover  {.unnumbered}
 
 -   Package overview
--   New classes
--   Object creation
+-   New classes and object creation
 -   Method name changes
 -   Spatial relationships
 -   Calculations
 -   Plotting
--   What's not in `terra`
--   Functionality changes
+-   What's not in terra
 
-# `terra`: a bird's eye view
-
--   Raster AND vector support
--   Fewer classes, more functionality
--   One task, one function
--   Written in C++ for improved speed
--   Very large: 345 functions; raster has 277, sf has 150
--   Some things changed, many stayed the same
-
-The terra package looks like what would happen if the authors of raster got
-frustrated with maintaining a package whose scope had ballooned massively over
-its 10+ year history, and decided to start from scratch to create a newer,
-better geospatial package.
-
-Because that is in fact what happened. 
- 
-Old Packages: sp, raster, rgdal, rgeos, maptools
-
-New Packages: terra and geodata (for data)
-
-## Setup
+## Setup {.unnumbered}
 
 ```{r setup, message=FALSE, warning=FALSE}
 
@@ -100,16 +80,25 @@ library(microbenchmark) # for speed testing
 #new packages
 library(terra) 
 library(geodata)
+library(tidyterra)
 library(sf)
 
 #old packages
 library(raster)
 library(rgdal)
 
-#table formatting
+#formatting
 library(data.table)
 library(kableExtra)
 library(scales)
+library(RColorBrewer)
+
+temp_pal = colorRampPalette(brewer.pal(9, 'YlOrRd'))(50)
+precip_pal = colorRampPalette(brewer.pal(9, 'Blues'))(50)
+
+geodata_path('data/')
+
+cv = function(x, na.rm=TRUE) sd(x, na.rm=na.rm)/mean(x, na.rm=na.rm)
 
 options(warn=-1)
 
@@ -122,18 +111,51 @@ r_elev = raster(elev)
 lux = vect(lux_fn)
 sp_lux = shapefile(lux_fn)
 
+temp = worldclim_country(country='LUX', var='tavg')
+precip = worldclim_country(country='LUX', var='prec')
+
+names(temp) = month.name
+names(precip) = month.name
+
 ```
+
+# The Basics
+
+This section covers an overview of the terra package, as well as the
+basics for getting geospatial data in and out of R using terra.
+
+## A bird's eye view
+
+The terra package looks like what would happen if the authors of raster
+got frustrated with maintaining a package whose scope had ballooned
+massively over its 10+ year history, and decided to start from scratch
+to create a newer, better geospatial package.
+
+Because that is in fact what happened.
+
+Terra in a nutshell: 
+
+-   Raster AND vector support
+-   Fewer classes, more functionality
+-   One task, one function
+-   Written in C++ for improved speed
+-   Very large: 345 functions; raster has 277, sf has 150
+-   Some things changed, many stayed the same
+
+Old Packages: sp, raster, rgdal, rgeos, maptools
+
+New Packages: terra, geodata, and tidyterra (for plotting)
 
 
 ```{r table_setup, echo=FALSE}
 
-n_reps = 10
+n_reps = 100
 
 funs = fread('raster_to_terra_funs.csv')
 
-vars = c('Operation', 'DataType', 'old', 'terra')
+vars = c('old', 'terra','Operation')
 
-col_names = c('Operation', 'Data Type', 'Old Functions', 'New Functions')
+col_names = c('Old Functions', 'New Function', 'Operation')
 
 time_to_power = function(nano) {
   return(floor(log(nano, 10)))
@@ -180,37 +202,50 @@ microbench_df = function(mb, labs=NA) {
 
 ```
 
-
-# The Basics
-
 ## Classes
 
-The terra package condenses the number of classes necessary for analysis from 10 down to
-3: one for rasters, one for vectors, and one for extents. 
+The terra package condenses the number of classes necessary for analysis
+from 10 down to 3: one for rasters, one for vectors, and one for
+extents.
 
 ![](data/raster_to_terra_classes.png){fig-align="center"}
 
-
 ## Reading in data
 
-The spatRaster constructor method, `rast()`, is significantly changed from
-raster, at least in part because it is a combination of three previous functions
-(`raster()`, `brick()` and `stack()`). Most of the existing arguments are
-renamed, and some new ones added, including the ability to specify a timestamp
-and units for each layer. Both `rast()` and `vect()` provide data filtering
-built in. They both provide layer selection and spatial filtering and `vect()`
-allows SQL queries as well.
+The raster constructor method, `rast`, changed quite a bit
+from raster, at least in part because it is a combination of three
+previous functions: `raster`, `brick` and `stack`. Most of the
+existing arguments are renamed, and some new ones added, including the
+ability to specify a timestamp and units for each layer of an empty raster. 
 
-Terra speeds up reading in both raster an vector data. This is due to C++
-implementation of the classes, which imposes some limitations. Most
-significantly for reading in data, spatRasters and spatVectors cannnot be
-recovered from a saved R session. However, using saved R sessions is not a good
-(reproducible) practice anyway, so consider this a feature not a bug.
+Additionally `rast` and `vect`, the vector constructor method, provide data
+filtering built in. They both allow layer selection and spatial filtering and
+`vect` allows SQL queries from spatial databases as well.
 
-Reading and writing data functionality is still based on GDAL, so you will have all 
-the flexibility in your choice of file type that GDAL provides, but will 
-have to deal with the issues that using GDAL generates.
+```{r read_in}
 
+#import elevation data for Luxembourg
+elev = rast(elev_fn, , lyrs=1)
+
+#import polygons for cantons of the district of Diekirch
+lux = vect(lux_fn)
+
+```
+
+
+Terra speeds up reading in both raster an vector data. This is due to
+C++ implementation of the classes, which imposes some limitations. Most
+significantly for reading in data, spatRasters and spatVectors cannnot
+be recovered from a saved R session. However, using saved R sessions is
+not a good (reproducible) practice anyway, so consider this a feature
+not a bug.
+
+Reading and writing data functionality is still based on GDAL, so you
+will have all the flexibility in your choice of file type that GDAL
+provides, but will have to deal with the issues that using GDAL
+generates.
+
+### Reading Speed Improvements
 
 ```{r read_raster_bench, echo=FALSE}
 
@@ -239,16 +274,26 @@ readtab %>%
 
 ```
 
-
 ## Writing data
 
-The function `writeRaster()` is relatively unchanged, though the argument 
-specifying the type of file written has changed from `format` (in `raster`) to 
-`filetype` (in `terra`). Additionally, while in theory the function can 
-automatically detect the file type, it seems to rarely work, so it is better to 
-just specify `filetype` from the get-go. 
+The function `writeRaster` is relatively unchanged, though the
+argument specifying the type of file written has changed from `format`
+(in raster) to `filetype` (in terra). Additionally, while in theory the
+function can automatically detect the file type, it seems to rarely
+work, so it is better to just specify `filetype` from the get-go.
 
-For `spatVectors` we get `writeVector()`, which largely mirrors `writeRaster()`.
+For spatVectors we get `writeVector`, which largely mirrors
+`writeRaster`.
+
+```{r write_data}
+
+writeRaster(elev, filename='data/elevation.GTiff', filetype='GTiff', overwrite=TRUE)
+
+writeVector(lux, filename='data/lux.GeoJSON', filetype='GeoJSON', overwrite=TRUE)
+
+```
+
+### Writing Speed Improvements
 
 ```{r write_raster, echo=FALSE, message=FALSE}
 
@@ -297,31 +342,31 @@ write_tab %>%
 
 # Working with Data
 
-In general, method names got shorter and more similar to base R. Additionally,
-most capitals were removed.
+This section covers changes made to common data manipulation and
+querying methods.
 
+## Renamed Methods
 
--   `coordinates` $\rightarrow$ `crds`
+In general, when method names were changed in terra, they got shorter
+and more similar to base R. Most capital letters were removed as well.
 
--   `nlayers` $\rightarrow$ `nlyr`
+```{r rename_tab, echo=FALSE}
 
--   `getValues` $\rightarrow$ `values`
+rename_tab = funs[OperationGroup=='rename', c('old', 'terra')]
 
--   `stack`, `addLayer` $\rightarrow$ `c`
+rename_tab %>% 
+  kbl(col.names = c('Old Methods', 'New Method')) %>% 
+  kable_styling(bootstrap_options = c("striped"))# %>% 
+  #row_spec(c(1,3,5), background = '#c6eec3')
 
--   `unstack` $\rightarrow$ `as.list`
+```
 
--   `dropLayer` $\rightarrow$ `subset`
+## Combined Methods
 
--   `rasterTo*` $\rightarrow$ `as.*`
-
--   `isLonLat` $\rightarrow$ `is.lonlat`
-
--   `bind` $\rightarrow$ `rbind`
-
-Additionally, many tasks that previously at separate methods for raster and 
-vector data, are now combined into one method. Functions in green rows have been
-renamed, while functions in grey rows, maintain their name from raster.
+Many tasks that previously at separate methods for raster and vector
+data, due to the classes originating in separate packages, now have
+shared method names. Functions in green rows have been renamed, while
+functions in grey rows, maintain their name from raster.
 
 ```{r same_name_tab, echo=FALSE}
 
@@ -336,10 +381,10 @@ comb_tab %>%
 
 ## Speed Improvements
 
-Many of the most time-intensive operations got speed boosts from the C++ 
+Many of the most time-intensive operations got speed boosts from the C++
 implementation.
 
-```{r transform_bench, cache=TRUE, echo=FALSE}
+```{r transform_bench, echo=FALSE}
 
 r <- rast(nrows=3, ncols=3, xmin=0, xmax=10, ymin=0, ymax=10)
 values(r) <- 1:ncell(r)
@@ -360,7 +405,7 @@ transbench = microbenchmark(
   raster::rasterize(sp_lux, r_elev),
   as.polygons(elev),
   rasterToPolygons(r_elev),
-  times=n_reps
+  times= n_reps
 )
 
 transform_names = c('terra::spatSample', 'raster::sampleRandom',#'sp::spsample',
@@ -380,125 +425,401 @@ trans_tab %>%
 
 ```
 
-
 ## Spatial Relationships
 
-Instead of having the name of the spatial relation function depend on the type of spatial
-relationship, in terra, the number of objects compared determines the function
-used. For one-to-one and one-to-many comparisons use `is.related()`, for 
-many-to-many comparisons, use `relate()`. The `relation` argument specifies 
-relationship type. Options include intersects, touches, crosses, overlaps, within, 
-contains, covers, covered by, disjoint, or [DE-9IM string][de9im]
+A key function in any GIS software is the ability to determine the
+relationship between two spatial objects. Previous packages (raster,
+rgeos) used used different method names depending on the geometric query
+in question. Rgeos in particular contained at least twelve functions
+just for determining spatial relationship. In terra, the number of
+objects compared (not the relationship type) determines the function
+used. For one-to-one and one-to-many comparisons use `is.related()`, for
+many-to-many comparisons, use `relate()`. The `relation` argument
+specifies relationship type. Options include intersects, touches,
+crosses, overlaps, within, contains, covers, covered by, disjoint, or
+[DE-9IM strings][de9im].
 
-The spatial operations below remain unchanged:
+```{r}
+
+#is our raster big enough to cover all of Luxembourg
+is.related(elev, lux, relation='covers')
+
+```
+
+
+Method names for the spatial operations below remain unchanged:
 
 -   `union()`
 -   `intersect()`
 -   `symdif()`
 -   `buffer()`
--   `crop()` 
+-   `crop()`
 -   `cover()`
+-   `mask()`
 
 # Calculations
 
+This section covers various methods for doing calculations with spatRasters. 
+
+## Raster Math
+
 One of raster's claims to fame was the ease at which you could do calculations.
-R automatically treated each cell in a `RasterLayer` as if it was a number, and 
-each cell in a `RasterBrick` or `RasterStack` as if it were a vector. There were
-additional functions for doing calculations on an entire layer of a raster and 
-for applying non-vectorized functions. That all remains true with terra, and
+R automatically treated each cell in a RasterLayer as if it was a number, and
+each cell in a RasterBrick or RasterStack as if it were a vector. There were
+additional functions for doing calculations on an entire layer of a raster and
+for applying non-vectorized functions.
+
+Raster [arithmetic][raster_math] and [math][raster_calc] are still very easy 
+with spatRasters. In fact, many [statistical summary functions][raster_stats]
+are pre-vectorized for spatRasters, so if you want to apply them by cell, you 
+don't even need to use a vectorizing function like `app`. 
+
+```{r avgtemp}
+
+#average annual temperature by cell
+(annual_temp = mean(temp))
+
+```
+
+
+## Spatial Calculations
+
+All previous spatial calculation functionality is present. Many names
+have changed though as some functions have been split up into multiple
+functions and other functions have been collapsed into a single
+function. The motivation behind this is for the function names to be
+more descriptive in terms of what they are actually doing.
+
+The `cellSize` function always returns a spatRaster of areas. While projected
+raster cells should all have the same area, unprojected raster cells will vary
+spatially, depending on their distance from the equator.
+
+```{r calculate_table, echo=FALSE}
+
+calc_tab = funs[OperationGroup=='Calculate', ..vars]
+
+calc_tab %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling()
+
+```
+
+
+
+## Local (\*app) Functions
+
+In raster, there were a number of functions that behaved similar to the
+`apply` family of functions in base R, but had a variety of mostly
+unrelated names: `calc`, `cellStats`, `overlay` etc. In terra, these have been
+renamed, for the most part, with the \*`app` suffix. A few options have
+been added as well.
+
+```{r apply_table, echo=FALSE}
+
+apply_tab = funs[OperationGroup=='Apply', ..vars]
+
+apply_tab %>% 
+  kbl(col.names = col_names) %>% 
+  kable_styling(bootstrap_options = 'responsive')
+
+```
+
+## Applying Deep Dive
+
+There are many apply-like functions in terra, but the most commonly used ones
+are `app`, `tapp`, `lapp` and `global`. The `app` and `tapp` functions work
+similarly to their base R pseudo-homophones `apply` and `tapply`. However, they
+apply the the function to all the cells in a spatRaster instead of all the rows
+or columns of a matrix/data.frame. For both `app` and `tapp`, the applied function
+should take a vector as its input. `app` outputs a single layer spatRaster, 
+while `tapp` outputs a spatRaster with as many layers as there are unique values
+in the index vector.
+
+```{r}
+
+seasons = c('Winter', 'Winter', rep('Spring', 3), rep('Summer', 3), 
+            rep('Fall', 3), 'Winter')
+
+(seasonal_precip = tapp(precip, index=seasons, fun='mean'))
+
+```
+
+
+`lapp` sounds like it should be the equivalent of `lapply` ("list apply"), but
+instead stands for "layer apply". `lapp` applies a function that takes multiple
+values as inputs and applies it to each cell of a multilayer raster where each
+of the layers is used as an input. The output is a single layer spatRaster. One
+example of this is the NDVI (greenness) calculation for multi-spectral data.
+
+The `global` function is named as a contrast to `zonal`, `focal` and the local
+(*app) functions. `global` applies a function that outputs a single value to
+entire layers of data instead of to each cell. Its output is a data.frame with
+one column for each statistic passed to the function.
+
+For functions that take in an entire layer as input and also output an entire
+layer, you can use `lapply`, `sapply` or in rare cases `sapp`.
+
+```{r}
+
+#remove values not inside Luxembourg
+precip_lux = mask(precip, lux)
+
+# average and range of monthly precipitation for all of Luxembourg
+global(precip_lux, fun=c('mean','range'), na.rm=TRUE)
+
+
+
+# calculating custom function (coefficient of variation) by month for all of 
+# Luxembourg
+global(precip_lux, fun=cv, na.rm=TRUE)
+
+
+```
+
+
 
 # Plotting
 
-# Where's the data? `geodata`!
+This section covers static and interactive plotting in terra.
 
-Another one of raster's more useful features was `getData()`, a function that 
-automated data downloading for a variety of online data sources.
-Unfortunately, `getData()` was poorly documented, to the point where
-using it required ___. In particular, because there was only one function for
-all of the data sources, it was always a guessing game as to which arguments
-were required for which data sources. It wasn't even that easy to find a list of 
-data sources available. It was not particularly well publicized either, to the 
-point where people who used raster for years, did not know it existed.
+## Static Plots
 
-These problems have now been solved by migrating the functionality of `getData` 
-to its own package: geodata. Each data source (listed below) has one or more
-functions that are each well documented.
+The look and feel of plotting in terra has not changed much from plotting in
+raster. It is still pretty straightforward, but not very feature rich. There
+are now convenience functions (below) so you don't have to keep typing
+`add=TRUE` over and over again. And the `y` argument of `terra::plot()` allows
+you to specify which layers you want to plot, and in what order.
 
--   Climate and land cover
--   Elevation and soils
--   Crop distribution and yields
--   Political boundaries
--   Population and human footprint
--   Open Street Map
--   Species occurrence
--   Marine data
+```{r}
+#create outline of temp with luxembourg vector
+annual_temp_mask = mask(annual_temp, lux, touches=FALSE)
+
+plot(annual_temp_mask, y=1, col=temp_pal, box=FALSE, axes=FALSE,
+     main='Annual Mean Temperature for Luxembourg (Celsius)')
+polys(lux, lwd=3)
+
+```
+
+If you want to plot multiple layers with vector overlays, you will need to use
+the `fun` argument. This is a function that is applied to each of the layers in
+the plot. The function may have one argument which is the layer that is being
+plotted. In the code below, the [backslash][backslash_fun] (`\`) replaces the
+`function` call for brevity. Unfortunately I have yet to figure out how to 
+include an overarching title on a plot that has multiple layers.
+
+```{r}
+
+#create outline of precip with luxembourg vector
+seasonal_precip_mask = mask(seasonal_precip, lux, touches=FALSE)[[c(2,3,4,1)]]
+
+#Plot Season precipitation (in mm)
+plot(seasonal_precip_mask, fun=\() lines(lux), range=c(60, 100),
+      loc.main="topright", col=precip_pal, axes=FALSE)
+
+```
+
+To avoid duplicated legends, use `panel()` instead of `plot()`. Almost all the
+syntax is the same, but you can specify the number of rows (`nr`)
+and number of columns (`nc`) to use when plotting the raster layers.
 
 
-# What about sf (and stars)?
+```{r}
 
-The [sf package][sf_docs] is the preeminent package for working with vector
-data in R. It plays nicely with the tidyverse packages, and has built-in 
-ggplot2 support. The vector support in terra doesn't change that. What it means
-is that if you work with raster data, you do not need to add an entire package 
-to your workflow, just because you want to create a mask for one of your output
-maps. Furthermore, transitioning data types between the two packages is 
-relatively easy: 
+#Plot Season precipitation (in mm)
+panel(seasonal_precip_mask, fun=\() lines(lux), 
+      loc.main="topright", col=precip_pal, axes=FALSE)
 
--   terra to sf: `st_to_sf()`
+```
+
+## Interactive Plots
+
+Interactive plotting (with leaflet) is available in terra using the function
+`plet`. It requires leaflet version 2.1.1, which is now on [CRAN][plet_cran], so
+installing from github is not necessary. To add vectors to the interactive
+plots you have to pipe (`|>`) the interactive plot into a function that adds
+vector imagery to the plot (see below). To switch between layers of a multilayer
+interactive plot, click on the square in the upper right hand corner of the plot.
+
+```{r}
+
+if (packageVersion("leaflet") <= "2.1.1") {
+  install.packages('leaflet')
+}
+
+plet(seasonal_precip_mask, y=1:4, col=precip_pal, shared=TRUE) |> 
+  lines(lux, lwd=2)
+
+```
+
+
+# What's not included
+
+While terra has a very large amount of functionality, it doesn't have
+everything. This section covers functionality you will have to look elsewhere 
+for.
+
+-   tidyverse integration
+-   spatial dependency and regression
+-   data downloading
+-   Native R classes
+
+## Tidyverse compatability
+
+The [sf package][sf_pack] is the preeminent package for working with vector data
+in R. It plays nicely with the tidyverse packages, and has built-in ggplot2
+support. Sf supports wide to long spatial data transformations, something which
+definitely has more applicability for vector data than raster raster data.
+
+If you are tied to tidyverse syntax and plotting but also need terra speed,
+there is a package called [tidyterra][tidy_terra] which can provide some of that
+functionality. Most notably tidyterra provides ggplot2 `geom` and `autoplot`
+methods for both spatRasters and spatVectors. However, it may make more sense to
+transition any spatVectors to simple features using the functions below if
+you want tidyverse integration.
+
+-   terra to sf: `st_as_sf()`
 -   sf to terra: `vect()`
 
-Terra functions tend to have speed benefits over sf functions, but not to the
-point where you would notice outside of very large data sets. There is also a
-package called [tidyterra][tidy_terra], if you like terra but still want to use
-some of the tidyverse methods or ggplot2 for plotting.
+### What about rasters?
 
-Stars is the tidyverse version of the terra package. In general, it is not as well
-documented and treats ____. This means you lose out on a lot of the vectorization
-from terra. Additionally, stars does not automatically deal with data sets that
-are too large to to be read into memory. You have to know that your data set is 
-too big and then make changes to your code detailedc[here][stars_proxy].
-
-There is a comparison between the two paradigms [here][stars_raster], but 
-unfortunately it uses raster instead of terra so a lot of the method names are 
+The stars package provides tidyverse support for rasters. In general, it is not
+as well documented and does not provide as much user guidance as terra.
+Additionally, stars does not automatically handle data sets that are too large
+to to be read into memory. You have to know that your data set is too big and
+then make changes to your code detailed [here][stars_proxy]. It does have some
+additional flexibility in terms of [data types and grid schema][stars_data], but
+these seem more like edge cases than something to change packages over. Stars
+also may be faster in some cases, but that depends on the task/function.
+There is a comparison between the two paradigms [here][raster_stars], but
+unfortunately it uses raster instead of terra so a lot of the method names are
 wrong or missing.
+
+## Spatial Dependency and Regression
+
+The most commonly used packages for spatial dependency analysis and
+spatial regression (spdep and spatialreg) both use simple features
+objects (from sf). Thankfully the `st_as_sf()` function works very well
+for transitioning from spatVectors to simple features, and if you are
+only working with vector data you can probably forgo the
+spatVectors altogether.
+
+## Where's the data? geodata!
+
+Another one of raster's more useful features was `getData()`, a function
+that automated data downloading for a variety of online data sources.
+Unfortunately, `getData()` was poorly documented, to the point where
+using it required its own tutorial. In particular, because there was
+only one function for all of the data sources, it was always a guessing
+game as to which arguments were required for which data sources. It was
+even difficult to find a list of data sources available. It was not
+particularly well publicized either, to the point where people who used
+raster for years, did not know it existed.
+
+These problems have now been solved by migrating the functionality of `getData`
+to its own package: [geodata][geodata_ref]. Every data source (listed below) has
+one or more functions, each of which is well documented. 
+
+One notable change is that you must specify where the data should be downloaded.
+This can be done either in the function call itself or for a given R session
+using the function `geodata_path`.
+
+-   Marine data from [Bio-ORACLE][bio_oracle]
+-   Current and future climate data from [WorldClim][worldclim]
+-   Political boundaries and adminstrative data from [GADM][gadm]
+-   Elevation data from [SRTM][srtm] and [GTOP30][g30] at high latitudes
+-   Crop distribution and yield data from [Monfreda et al. 2008][monfreda], 
+    [SPAM][spam], [ESA Worldcover][worldcover], [GLAD][glad], and [QED][qed]
+    (for Africa)
+-   Crop calendars from [Sacks et al. 2010][sacks]
+-   Landcover data from [ESA Worldcover][worldcover]
+-   Last of the Wild Human Footprint map from NASA's [Socioeconomic Data and 
+    Applications Center][sedac_wild] (SEDAC)
+-   [Open Street Map][osm]
+-   Human Population density from [SEDAC][sedac_pop]
+-   Soils data from [ISRIC][isric], [iSDA][isda] 
+-   Species occurrence data from the 
+    [Global Biodiversity Information Facility][gbif]
+-   Travel times to cities and ports from [Nelson et al. 2019][travel]
+
+## So about C++...
+
+As mentioned previously, spatRasters, spatVectors, and spatExtents
+(spat\* objects) are all implemented in C++ instead of directly in R.
+This greatly improves processing speeds, as demonstrated above, but it
+does come with some costs. For most people, the only change will be that
+you can no longer recover spat\* objects in from your workspace .RData
+files. This problem is easily solved by writing the data to a disk using
+`writeRaster`, which is considered best practices anyway.
+
+The other issue is only relevant to people who use computing clusters. Because
+of the way terra classes are implemented (using a C++ pointer), they cannot be
+passed directly to a computing cluster. They first need to be packaged up using
+the `wrap` function (documented [here][wrap]) which creates a `Packed*`
+version of the class. This can be transferred to the cluster and then converted
+back using `unwrap`.
 
 # Resources
 
 For more in depth terra documentation, please see the resources below.
 
--   [Spatial Data with terra on rspatial.org][rspatial] - How to do spatial data
-analysis in the context of R and the terra package.
+-   [Spatial Data with terra on rspatial.org][geospatial] - How to do
+    spatial data analysis in the context of R and the terra package.
 
--   [terra documentation on rspatial.org][terra_vignette] - A vignette that 
-walks you through the `terra` package.
+-   [terra documentation on rspatial.org][terra_vig] - A vignette that
+    walks you through the terra package.
 
--   [terra documentation on github][terra_docs] - An overview of terra and a 
-comprehensive description of its classes and methods. Highlights 
-[differences][terra_diff] between raster and terra.
+-   [terra documentation on github][terra_ref] -
+    An overview of terra and a comprehensive description of its classes
+    and methods. Highlights [differences][terra_diff] between raster and
+    terra.
 
--   [geodata documentation on github][geodata_docs] - A description of available
-data as well as some links to the original source.
+-   [geodata documentation on github][geodata_ref] - A description of
+    available data as well as some links to the original source.
 
 ## Practice!
 
-If you still feel a bit unsure about translating your own code from raster to
-terra syntax, you can test your skills using this
+If you still feel a bit unsure about translating your own code from
+raster to terra syntax, you can test your skills using this 
 [raster practice script][raster_script]. A successfully transitioned 
 [terra script][terra_script] is also available on the github repo.
 
-
 [rgdal]: https://CRAN.R-project.org/package=rgdal
 [sp]: https://CRAN.R-project.org/package=sp
-[raster]: https://rspatial.org/raster/
+[raster_legacy]: https://rspatial.org/raster/
 [de9im]: https://en.wikipedia.org/wiki/DE-9IM
-[sf_docs]: https://r-spatial.github.io/sf/articles/sf1.html
+[raster_math]: https://rspatial.github.io/terra/reference/arith-generic.html
+[raster_calc]: https://rspatial.github.io/terra/reference/math-generics.html
+[raster_stats]: https://rspatial.github.io/terra/reference/summarize-generics.html
+[backslash_fun]: https://journal.r-project.org/archive/2021-1/core.pdf
+[plet_cran]: https://cran.r-project.org/web/packages/leaflet/index.html
+[sf_pack]: https://r-spatial.github.io/sf/articles/sf1.html
 [tidy_terra]: https://dieghernan.github.io/tidyterra/
 [stars_proxy]: https://r-spatial.github.io/stars/articles/stars2.html
-[stars_raster]: https://r-spatial.github.io/stars/articles/stars6.html
-[rspatial]: https://rspatial.org/spatial/index.html
-[terra_vignette]: https://rspatial.org/pkg/index.html
-[terra_docs]: https://rspatial.github.io/terra/reference/terra-package.html
+[stars_data]: https://r-spatial.github.io/stars/index.html#raster-and-terra
+[raster_stars]: https://r-spatial.github.io/stars/articles/stars6.html
+[wrap]: https://rspatial.github.io/terra/reference/wrap.html
+[bio_oracle]: https://bio-oracle.org/
+[worldclim]: https://worldclim.org/
+[gadm]: https://gadm.org/
+[srtm]: https://srtm.csi.cgiar.org/
+[g30]: https://serc.carleton.edu/resources/16409.html
+[monfreda]: http://www.earthstat.org/harvested-area-yield-175-crops/
+[spam]:https://www.mapspam.info/data/
+[worldcover]: https://esa-worldcover.org/en
+[glad]: https://glad.umd.edu/dataset/croplands
+[qed]:  https://about.maps.qed.ai/
+[sacks]: https://sage.nelson.wisc.edu/data-and-models/datasets/crop-calendar-dataset/
+[sedac_wild]: https://sedac.ciesin.columbia.edu/data/collection/wildareas-v3
+[sedac_pop]: https://sedac.ciesin.columbia.edu/data/collection/gpw-v4/documentation
+[osm]: https://www.openstreetmap.org
+[isric]: https://www.isric.org/explore/soilgrids
+[isda]: https://envirometrix.nl/isdasoil-open-soil-data-for-africa/
+[gbif]: https://www.gbif.org/
+[travel]: https://www.nature.com/articles/s41597-019-0265-5
+[geospatial]: https://rspatial.org/spatial/index.html
+[terra_vig]: https://rspatial.org/pkg/index.html
+[terra_ref]: https://rspatial.github.io/terra/reference/terra-package.html
 [terra_dif]: https://rspatial.github.io/terra/reference/terra-package.html#comparison-with-the-raster-package
-[geodata_docs]: https://github.com/rspatial/geodata
+[geodata_ref]: https://github.com/rspatial/geodata
 [raster_script]: https://github.com/d-rug/raster_to_terra/blob/main/practice_script_raster.R
 [terra_script]: https://github.com/d-rug/raster_to_terra/blob/main/practice_script_terra.R

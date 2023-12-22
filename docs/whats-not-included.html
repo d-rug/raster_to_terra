@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 The Basics | Raster to Terra</title>
-  <meta name="description" content="1 The Basics | Raster to Terra" />
+  <title>5 What’s not included | Raster to Terra</title>
+  <meta name="description" content="5 What’s not included | Raster to Terra" />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 The Basics | Raster to Terra" />
+  <meta property="og:title" content="5 What’s not included | Raster to Terra" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="d-rug/raster_to_terra" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 The Basics | Raster to Terra" />
+  <meta name="twitter:title" content="5 What’s not included | Raster to Terra" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="working-with-data.html"/>
+<link rel="prev" href="plotting.html"/>
+<link rel="next" href="resources.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -227,246 +227,109 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-basics" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> The Basics<a href="the-basics.html#the-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This section covers an overview of the terra package, as well as the
-basics for getting geospatial data in and out of R using terra.</p>
-<div id="a-birds-eye-view" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> A bird’s eye view<a href="the-basics.html#a-birds-eye-view" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The terra package looks like what would happen if the authors of raster
-got frustrated with maintaining a package whose scope had ballooned
-massively over its 10+ year history, and decided to start from scratch
-to create a newer, better geospatial package.</p>
-<p>Because that is in fact what happened.</p>
-<p>Terra in a nutshell:</p>
+<div id="whats-not-included" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> What’s not included<a href="whats-not-included.html#whats-not-included" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>While terra has a very large amount of functionality, it doesn’t have
+everything. This section covers functionality you will have to look elsewhere
+for.</p>
 <ul>
-<li>Raster AND vector support</li>
-<li>Fewer classes, more functionality</li>
-<li>One task, one function</li>
-<li>Written in C++ for improved speed</li>
-<li>Very large: 345 functions; raster has 277, sf has 150</li>
-<li>Some things changed, many stayed the same</li>
+<li>tidyverse integration</li>
+<li>spatial dependency and regression</li>
+<li>data downloading</li>
+<li>Native R classes</li>
 </ul>
-<p>Old Packages: sp, raster, rgdal, rgeos, maptools</p>
-<p>New Packages: terra, geodata, and tidyterra (for plotting)</p>
-</div>
-<div id="classes" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Classes<a href="the-basics.html#classes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The terra package condenses the number of classes necessary for analysis
-from 10 down to 3: one for rasters, one for vectors, and one for
-extents.</p>
-<p><img src="data/raster_to_terra_classes.png" fig-align="center" /></p>
-</div>
-<div id="reading-in-data" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Reading in data<a href="the-basics.html#reading-in-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The raster constructor method, <code>rast</code>, changed quite a bit
-from raster, at least in part because it is a combination of three
-previous functions: <code>raster</code>, <code>brick</code> and <code>stack</code>. Most of the
-existing arguments are renamed, and some new ones added, including the
-ability to specify a timestamp and units for each layer of an empty raster.</p>
-<p>Additionally <code>rast</code> and <code>vect</code>, the vector constructor method, provide data
-filtering built in. They both allow layer selection and spatial filtering and
-<code>vect</code> allows SQL queries from spatial databases as well.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="the-basics.html#cb2-1" tabindex="-1"></a><span class="co">#import elevation data for Luxembourg</span></span>
-<span id="cb2-2"><a href="the-basics.html#cb2-2" tabindex="-1"></a>elev <span class="ot">=</span> <span class="fu">rast</span>(elev_fn, , <span class="at">lyrs=</span><span class="dv">1</span>)</span>
-<span id="cb2-3"><a href="the-basics.html#cb2-3" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="the-basics.html#cb2-4" tabindex="-1"></a><span class="co">#import polygons for cantons of the district of Diekirch</span></span>
-<span id="cb2-5"><a href="the-basics.html#cb2-5" tabindex="-1"></a>lux <span class="ot">=</span> <span class="fu">vect</span>(lux_fn)</span></code></pre></div>
-<p>Terra speeds up reading in both raster an vector data. This is due to
-C++ implementation of the classes, which imposes some limitations. Most
-significantly for reading in data, spatRasters and spatVectors cannnot
-be recovered from a saved R session. However, using saved R sessions is
-not a good (reproducible) practice anyway, so consider this a feature
-not a bug.</p>
-<p>Reading and writing data functionality is still based on GDAL, so you
-will have all the flexibility in your choice of file type that GDAL
-provides, but will have to deal with the issues that using GDAL
-generates.</p>
-<div id="reading-speed-improvements" class="section level3 hasAnchor" number="1.3.1">
-<h3><span class="header-section-number">1.3.1</span> Reading Speed Improvements<a href="the-basics.html#reading-speed-improvements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-function
-</th>
-<th style="text-align:right;">
-median (millisec)
-</th>
-<th style="text-align:right;">
-n_eval
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-terra::rast()
-</td>
-<td style="text-align:right;">
-1.09
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-raster::raster()
-</td>
-<td style="text-align:right;">
-6.58
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-terra::vect()
-</td>
-<td style="text-align:right;">
-1.18
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-sf::st_read()
-</td>
-<td style="text-align:right;">
-1.31
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-raster::shapefile()
-</td>
-<td style="text-align:right;">
-15.96
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-rgdal::readOGR()
-</td>
-<td style="text-align:right;">
-866.02
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-</tbody>
-</table>
+<div id="tidyverse-compatability" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Tidyverse compatability<a href="whats-not-included.html#tidyverse-compatability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <a href="https://r-spatial.github.io/sf/articles/sf1.html">sf package</a> is the preeminent package for working with vector data
+in R. It plays nicely with the tidyverse packages, and has built-in ggplot2
+support. Sf supports wide to long spatial data transformations, something which
+definitely has more applicability for vector data than raster raster data.</p>
+<p>If you are tied to tidyverse syntax and plotting but also need terra speed,
+there is a package called <a href="https://dieghernan.github.io/tidyterra/">tidyterra</a> which can provide some of that
+functionality. Most notably tidyterra provides ggplot2 <code>geom</code> and <code>autoplot</code>
+methods for both spatRasters and spatVectors. However, it may make more sense to
+transition any spatVectors to simple features using the functions below if
+you want tidyverse integration.</p>
+<ul>
+<li>terra to sf: <code>st_as_sf()</code></li>
+<li>sf to terra: <code>vect()</code></li>
+</ul>
+<div id="what-about-rasters" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> What about rasters?<a href="whats-not-included.html#what-about-rasters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The stars package provides tidyverse support for rasters. In general, it is not
+as well documented and does not provide as much user guidance as terra.
+Additionally, stars does not automatically handle data sets that are too large
+to to be read into memory. You have to know that your data set is too big and
+then make changes to your code detailed <a href="https://r-spatial.github.io/stars/articles/stars2.html">here</a>. It does have some
+additional flexibility in terms of <a href="https://r-spatial.github.io/stars/index.html#raster-and-terra">data types and grid schema</a>, but
+these seem more like edge cases than something to change packages over. Stars
+also may be faster in some cases, but that depends on the task/function.
+There is a comparison between the two paradigms <a href="https://r-spatial.github.io/stars/articles/stars6.html">here</a>, but
+unfortunately it uses raster instead of terra so a lot of the method names are
+wrong or missing.</p>
 </div>
 </div>
-<div id="writing-data" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> Writing data<a href="the-basics.html#writing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The function <code>writeRaster</code> is relatively unchanged, though the
-argument specifying the type of file written has changed from <code>format</code>
-(in raster) to <code>filetype</code> (in terra). Additionally, while in theory the
-function can automatically detect the file type, it seems to rarely
-work, so it is better to just specify <code>filetype</code> from the get-go.</p>
-<p>For spatVectors we get <code>writeVector</code>, which largely mirrors
-<code>writeRaster</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="the-basics.html#cb3-1" tabindex="-1"></a><span class="fu">writeRaster</span>(elev, <span class="at">filename=</span><span class="st">&#39;data/elevation.GTiff&#39;</span>, <span class="at">filetype=</span><span class="st">&#39;GTiff&#39;</span>, <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
-<span id="cb3-2"><a href="the-basics.html#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="the-basics.html#cb3-3" tabindex="-1"></a><span class="fu">writeVector</span>(lux, <span class="at">filename=</span><span class="st">&#39;data/lux.GeoJSON&#39;</span>, <span class="at">filetype=</span><span class="st">&#39;GeoJSON&#39;</span>, <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<div id="writing-speed-improvements" class="section level3 hasAnchor" number="1.4.1">
-<h3><span class="header-section-number">1.4.1</span> Writing Speed Improvements<a href="the-basics.html#writing-speed-improvements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-function
-</th>
-<th style="text-align:right;">
-median (millisec)
-</th>
-<th style="text-align:right;">
-n_eval
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-terra::writeRaster
-</td>
-<td style="text-align:right;">
-3.33
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-raster::writeRaster
-</td>
-<td style="text-align:right;">
-28.55
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-terra::writeVector
-</td>
-<td style="text-align:right;">
-1.45
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-sf::st_write
-</td>
-<td style="text-align:right;">
-8.09
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-raster::shapefile
-</td>
-<td style="text-align:right;">
-4.53
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-rgdal::writeOGR
-</td>
-<td style="text-align:right;">
-3.66
-</td>
-<td style="text-align:right;">
-100
-</td>
-</tr>
-</tbody>
-</table>
+<div id="spatial-dependency-and-regression" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Spatial Dependency and Regression<a href="whats-not-included.html#spatial-dependency-and-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The most commonly used packages for spatial dependency analysis and
+spatial regression (spdep and spatialreg) both use simple features
+objects (from sf). Thankfully the <code>st_as_sf()</code> function works very well
+for transitioning from spatVectors to simple features, and if you are
+only working with vector data you can probably forgo the
+spatVectors altogether.</p>
 </div>
+<div id="wheres-the-data-geodata" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Where’s the data? geodata!<a href="whats-not-included.html#wheres-the-data-geodata" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Another one of raster’s more useful features was <code>getData()</code>, a function
+that automated data downloading for a variety of online data sources.
+Unfortunately, <code>getData()</code> was poorly documented, to the point where
+using it required its own tutorial. In particular, because there was
+only one function for all of the data sources, it was always a guessing
+game as to which arguments were required for which data sources. It was
+even difficult to find a list of data sources available. It was not
+particularly well publicized either, to the point where people who used
+raster for years, did not know it existed.</p>
+<p>These problems have now been solved by migrating the functionality of <code>getData</code>
+to its own package: <a href="https://github.com/rspatial/geodata">geodata</a>. Every data source (listed below) has
+one or more functions, each of which is well documented.</p>
+<p>One notable change is that you must specify where the data should be downloaded.
+This can be done either in the function call itself or for a given R session
+using the function <code>geodata_path</code>.</p>
+<ul>
+<li>Marine data from <a href="https://bio-oracle.org/">Bio-ORACLE</a></li>
+<li>Current and future climate data from <a href="https://worldclim.org/">WorldClim</a></li>
+<li>Political boundaries and adminstrative data from <a href="https://gadm.org/">GADM</a></li>
+<li>Elevation data from <a href="https://srtm.csi.cgiar.org/">SRTM</a> and <a href="https://serc.carleton.edu/resources/16409.html">GTOP30</a> at high latitudes</li>
+<li>Crop distribution and yield data from <a href="http://www.earthstat.org/harvested-area-yield-175-crops/">Monfreda et al. 2008</a>,
+<a href="https://www.mapspam.info/data/">SPAM</a>, <a href="https://esa-worldcover.org/en">ESA Worldcover</a>, <a href="https://glad.umd.edu/dataset/croplands">GLAD</a>, and <a href="https://about.maps.qed.ai/">QED</a>
+(for Africa)</li>
+<li>Crop calendars from <a href="https://sage.nelson.wisc.edu/data-and-models/datasets/crop-calendar-dataset/">Sacks et al. 2010</a></li>
+<li>Landcover data from <a href="https://esa-worldcover.org/en">ESA Worldcover</a></li>
+<li>Last of the Wild Human Footprint map from NASA’s <a href="https://sedac.ciesin.columbia.edu/data/collection/wildareas-v3">Socioeconomic Data and
+Applications Center</a> (SEDAC)</li>
+<li><a href="https://www.openstreetmap.org">Open Street Map</a></li>
+<li>Human Population density from <a href="https://sedac.ciesin.columbia.edu/data/collection/gpw-v4/documentation">SEDAC</a></li>
+<li>Soils data from <a href="https://www.isric.org/explore/soilgrids">ISRIC</a>, <a href="https://envirometrix.nl/isdasoil-open-soil-data-for-africa/">iSDA</a></li>
+<li>Species occurrence data from the
+<a href="https://www.gbif.org/">Global Biodiversity Information Facility</a></li>
+<li>Travel times to cities and ports from <a href="https://www.nature.com/articles/s41597-019-0265-5">Nelson et al. 2019</a></li>
+</ul>
+</div>
+<div id="so-about-c" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> So about C++…<a href="whats-not-included.html#so-about-c" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As mentioned previously, spatRasters, spatVectors, and spatExtents
+(spat* objects) are all implemented in C++ instead of directly in R.
+This greatly improves processing speeds, as demonstrated above, but it
+does come with some costs. For most people, the only change will be that
+you can no longer recover spat* objects in from your workspace .RData
+files. This problem is easily solved by writing the data to a disk using
+<code>writeRaster</code>, which is considered best practices anyway.</p>
+<p>The other issue is only relevant to people who use computing clusters. Because
+of the way terra classes are implemented (using a C++ pointer), they cannot be
+passed directly to a computing cluster. They first need to be packaged up using
+the <code>wrap</code> function (documented <a href="https://rspatial.github.io/terra/reference/wrap.html">here</a>) which creates a <code>Packed*</code>
+version of the class. This can be transferred to the cluster and then converted
+back using <code>unwrap</code>.</p>
 </div>
 </div>
             </section>
@@ -474,8 +337,8 @@ rgdal::writeOGR
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="working-with-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="plotting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
