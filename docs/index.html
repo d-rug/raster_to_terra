@@ -23,7 +23,7 @@
 <meta name="author" content="Elise Hellwig" />
 
 
-<meta name="date" content="2023-12-22" />
+<meta name="date" content="2024-03-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -154,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i>Learning Goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-objectives"><i class="fa fa-check"></i>Learning Objectives</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-we-will-cover"><i class="fa fa-check"></i>What we will cover</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#setup"><i class="fa fa-check"></i>Setup</a></li>
@@ -230,25 +230,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Raster to Terra</h1>
 <p class="author"><em>Elise Hellwig</em></p>
-<p class="date"><em>2023-12-22</em></p>
+<p class="date"><em>2024-03-15</em></p>
 </div>
 <div id="overview" class="section level1 unnumbered hasAnchor">
 <h1>Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>No one wants to relearn something they already know how to do. But
-sometimes there’s no other choice. The rgdal, rgeos, and maptools
-packages have been <a href="https://CRAN.R-project.org/package=rgdal">officially retired</a>, and sp is only
-available for <a href="https://CRAN.R-project.org/package=sp">legacy reasons</a> as
-a wrapper around sf. The raster package is not long for this world
-<a href="https://rspatial.org/raster/">either</a>. sf is nice, but it doesn’t have
-the raster functionality necessary for many types of analysis. This
-reader aims to make the transition from raster to terra as painless as
-possible.</p>
-<p>Additionally, because both raster an terra are so large,
-this reader focuses on things that have changed between raster and terra. If you
-don’t see something mentioned here, that doesn’t mean it doesn’t exist in terra.
-It probably just didn’t change between the two packages.</p>
-<div id="learning-goals" class="section level2 unnumbered hasAnchor">
-<h2>Learning Goals<a href="index.html#learning-goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The first generation of r spatial packages (raster, sp, rgdal, rgeos) have gone
+the way of the dodo, and the second-generation packages (terra, sf, and stars)
+are here to stay. If you haven’t made the transition from raster to terra, now
+is the time. And the good news is, it’s probably easier than you think. This
+compares the two packages, provides direct function and syntax
+translations, and links to many resources to answer any further questions you
+might have.</p>
+<p>Additionally, because both raster an terra are so large, this reader focuses on
+things that have changed between raster and terra. If you don’t see something
+mentioned here, that doesn’t mean it doesn’t exist in terra. It probably just
+didn’t change between the two packages.</p>
+<div id="learning-objectives" class="section level2 unnumbered hasAnchor">
+<h2>Learning Objectives<a href="index.html#learning-objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Get a sense for the functionality of the terra package as a whole</li>
 <li>Be able to translate existing code from deprecated packages to terra
