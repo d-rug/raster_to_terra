@@ -1,5 +1,5 @@
 ---
-title: Raster to Terra
+title: Migrating from Raster to Terra
 author: Elise Hellwig
 date: "`r Sys.Date()`"
 github-repo: d-rug/raster_to_terra
